@@ -1,5 +1,8 @@
 plugins {
     alias(libs.plugins.androidApplication)
+    // Add the Google services Gradle plugin
+    id 'com.google.gms.google-services'
+
 }
 
 android {
@@ -34,6 +37,7 @@ dependencies {
     implementation libs.material
     implementation libs.activity
     implementation libs.constraintlayout
+    implementation libs.legacy.support.v4
 
     //TEST
     testImplementation libs.junit
@@ -42,11 +46,22 @@ dependencies {
 
     //FIREBASE
     implementation platform(libs.firebase.bom)
+    // When using the BoM, don't specify versions in Firebase dependencies
     //noinspection UseTomlInstead
-    implementation 'com.google.firebase:firebase-firestore'
+    implementation 'com.google.firebase:firebase-analytics'
+    implementation libs.firebase.firestore
 
     //FIREBASE UI
     implementation libs.firebase.ui.auth
     implementation libs.firebase.ui.firestore
     implementation libs.firebase.ui.storage
+
+    //GLIDE
+    implementation libs.glide
+    annotationProcessor libs.glide.compiler
+
+    // Lifecycle components
+    implementation libs.lifecycle.viewmodel
+    implementation libs.lifecycle.livedata
+    implementation libs.lifecycle.common.java8
 }

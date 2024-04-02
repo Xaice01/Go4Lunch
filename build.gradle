@@ -4,6 +4,10 @@ buildscript {
     repositories {
         google()
         mavenCentral()
+        maven {
+            url 'https://maven.google.com'
+        }
+        maven { url 'https://maven.fabric.io/public' }
     }
     dependencies {
         classpath libs.gradle
@@ -15,4 +19,7 @@ buildscript {
 }
 plugins {
     alias(libs.plugins.androidApplication) apply false
+
+    // Add the dependency for the Google services Gradle plugin
+    id 'com.google.gms.google-services' version '4.4.1' apply false
 }
