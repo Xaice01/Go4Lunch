@@ -1,6 +1,7 @@
 [versions]
 agp = "8.3.1"
 compiler = "4.16.0"
+facebookAndroidSdk = "17.0.0"
 firebaseBom = "32.8.0"
 firebaseFirestore = "24.11.0"
 firebaseUiAuth = "8.0.2"
@@ -19,6 +20,7 @@ activity = "1.8.2"
 constraintlayout = "2.1.4"
 
 [libraries]
+facebook-android-sdk = { module = "com.facebook.android:facebook-android-sdk", version.ref = "facebookAndroidSdk" }
 firebase-bom = { module = "com.google.firebase:firebase-bom", version.ref = "firebaseBom" }
 firebase-firestore = { module = "com.google.firebase:firebase-firestore", version.ref = "firebaseFirestore" }
 firebase-ui-auth = { module = "com.firebaseui:firebase-ui-auth", version.ref = "firebaseUiAuth" }
