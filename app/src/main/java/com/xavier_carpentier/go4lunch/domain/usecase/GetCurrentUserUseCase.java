@@ -1,6 +1,5 @@
 package com.xavier_carpentier.go4lunch.domain.usecase;
 
-import android.content.Context;
 
 import com.google.firebase.auth.FirebaseUser;
 import com.xavier_carpentier.go4lunch.data.repository.AuthRepositoryFirebase;

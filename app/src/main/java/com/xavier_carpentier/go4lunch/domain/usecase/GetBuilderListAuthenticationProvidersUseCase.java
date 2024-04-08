@@ -13,6 +13,8 @@ public class GetBuilderListAuthenticationProvidersUseCase {
         this.authRepositoryFirebase = authRepositoryFirebase;
     }
 
+    //TODO enum (AuthUI a metre dans le viewmodel)
+
     public List<AuthUI.IdpConfig> getBuilderListAuthenticationProviders(){
         List<AuthUI.IdpConfig> providers = Arrays.asList(
                 new AuthUI.IdpConfig.EmailBuilder().build(),

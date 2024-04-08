@@ -1,13 +1,10 @@
 package com.xavier_carpentier.go4lunch.data.repository;
 
-import android.content.Context;
-
-import com.firebase.ui.auth.AuthUI;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 public class AuthRepositoryFirebase {
-
+    //TODO implement interface
     private static volatile AuthRepositoryFirebase instance;
 
     //AuthRepositoryFirebase is a Singleton
@@ -24,11 +21,13 @@ public class AuthRepositoryFirebase {
         }
     }
 
-    public void logout(Context context) {
-        AuthUI.getInstance().signOut(context);
+    public void logout() {
+        FirebaseAuth.getInstance().signOut();
     }
 
     public FirebaseUser getCurrentUser() {
         return FirebaseAuth.getInstance().getCurrentUser();
     }
+
+
 }
