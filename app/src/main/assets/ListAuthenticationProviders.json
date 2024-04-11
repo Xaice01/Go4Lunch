@@ -1,0 +1,14 @@
+[
+  {
+    "Provider" : "Email"
+  },
+  {
+    "Provider" : "Google"
+  },
+  {
+    "Provider" : "Twitter"
+  },
+  {
+    "Provider" : "Facebook"
+  }
+]

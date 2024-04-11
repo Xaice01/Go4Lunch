@@ -1,5 +1,5 @@
 [versions]
-agp = "8.3.1"
+agp = "8.3.2"
 compiler = "4.16.0"
 facebookAndroidSdk = "17.0.0"
 firebaseBom = "32.8.0"
@@ -18,6 +18,8 @@ lifecycleViewmodel = "2.7.0"
 material = "1.11.0"
 activity = "1.8.2"
 constraintlayout = "2.1.4"
+mockitoAndroid = "3.12.4"
+mockitoCore = "4.6.1"
 
 [libraries]
 facebook-android-sdk = { module = "com.facebook.android:facebook-android-sdk", version.ref = "facebookAndroidSdk" }
@@ -41,6 +43,8 @@ lifecycle-viewmodel = { module = "androidx.lifecycle:lifecycle-viewmodel", versi
 material = { group = "com.google.android.material", name = "material", version.ref = "material" }
 activity = { group = "androidx.activity", name = "activity", version.ref = "activity" }
 constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayout" }
+mockito-android = { module = "org.mockito:mockito-android", version.ref = "mockitoAndroid" }
+mockito-core = { module = "org.mockito:mockito-core", version.ref = "mockitoCore" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
