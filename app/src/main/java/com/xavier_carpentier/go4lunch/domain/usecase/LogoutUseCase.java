@@ -1,16 +1,16 @@
 package com.xavier_carpentier.go4lunch.domain.usecase;
 
-import com.xavier_carpentier.go4lunch.data.repository.AuthRepositoryFirebase;
+import com.xavier_carpentier.go4lunch.domain.repository.UserRepository;
 
 public class LogoutUseCase {
 
-    private final AuthRepositoryFirebase authRepositoryFirebase;
+    private final UserRepository userRepository;
 
-    public LogoutUseCase(AuthRepositoryFirebase authRepositoryFirebase) {
-        this.authRepositoryFirebase = authRepositoryFirebase;
+    public LogoutUseCase(UserRepository userRepository) {
+        this.userRepository = userRepository;
     }
 
     public void logout(){
-        authRepositoryFirebase.logout();
+        userRepository.logout();
     }
 }

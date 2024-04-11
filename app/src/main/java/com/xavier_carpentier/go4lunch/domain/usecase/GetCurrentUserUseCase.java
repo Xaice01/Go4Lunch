@@ -1,18 +1,17 @@
 package com.xavier_carpentier.go4lunch.domain.usecase;
 
+import com.xavier_carpentier.go4lunch.domain.mapper.MapperDomainUi;
+import com.xavier_carpentier.go4lunch.domain.repository.UserRepository;
+import com.xavier_carpentier.go4lunch.presentation.model.User;
 
-import com.google.firebase.auth.FirebaseUser;
-import com.xavier_carpentier.go4lunch.data.repository.AuthRepositoryFirebase;
+public class GetCurrentUserUseCase{
+    private final UserRepository userRepository;
 
-public class GetCurrentUserUseCase {
-
-    private final AuthRepositoryFirebase authRepositoryFirebase;
-
-    public GetCurrentUserUseCase(AuthRepositoryFirebase authRepositoryFirebase) {
-        this.authRepositoryFirebase = authRepositoryFirebase;
+    public GetCurrentUserUseCase(UserRepository userRepository) {
+        this.userRepository = userRepository;
     }
 
-    public FirebaseUser getCurrentUser(){
-        return authRepositoryFirebase.getCurrentUser();
+    public User getCurrentUser(){
+        return MapperDomainUi.userDomainToUserUi(userRepository.getUser());
     }
 }

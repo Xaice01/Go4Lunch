@@ -53,6 +53,9 @@ dependencies {
     // When using the BoM, don't specify versions in Firebase dependencies
     //noinspection UseTomlInstead
     implementation 'com.google.firebase:firebase-analytics'
+    // When using the BoM, you don't specify versions in Firebase library dependencies
+    //noinspection UseTomlInstead
+    implementation("com.google.firebase:firebase-auth")
     implementation libs.firebase.firestore
 
     //FIREBASE UI
@@ -60,8 +63,6 @@ dependencies {
     implementation libs.firebase.ui.firestore
     implementation libs.firebase.ui.storage
     implementation libs.facebook.android.sdk
-    // Required only if Facebook login support is required
-    // Find the latest Facebook SDK releases here: https://goo.gl/Ce5L94
 
 
     //GLIDE

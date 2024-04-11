@@ -18,7 +18,9 @@ public class GetBuilderListAuthenticationProvidersUseCase {
     public List<AuthUI.IdpConfig> getBuilderListAuthenticationProviders(){
         List<AuthUI.IdpConfig> providers = Arrays.asList(
                 new AuthUI.IdpConfig.EmailBuilder().build(),
-                new AuthUI.IdpConfig.GoogleBuilder().build());
+                new AuthUI.IdpConfig.GoogleBuilder().build(),
+                new AuthUI.IdpConfig.TwitterBuilder().build(),
+                new AuthUI.IdpConfig.FacebookBuilder().build());
         return providers;
     }
 }

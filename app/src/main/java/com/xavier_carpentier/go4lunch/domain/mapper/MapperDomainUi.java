@@ -4,7 +4,7 @@ import com.xavier_carpentier.go4lunch.domain.model.UserDomain;
 import com.xavier_carpentier.go4lunch.presentation.model.User;
 
 public class MapperDomainUi {
-    public User userDomainToUserUi(UserDomain userDomain){
+    public static User userDomainToUserUi(UserDomain userDomain){
         return new User(userDomain.getUid(),userDomain.getUsername(),userDomain.getEmail(),userDomain.getUrlPicture());
     }
 }

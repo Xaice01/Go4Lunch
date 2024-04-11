@@ -1,9 +1,13 @@
 package com.xavier_carpentier.go4lunch.data.repository;
 
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
+import com.xavier_carpentier.go4lunch.data.mappers.MapperDataToDomain;
+import com.xavier_carpentier.go4lunch.domain.model.UserDomain;
+import com.xavier_carpentier.go4lunch.domain.repository.UserRepository;
 
-public class AuthRepositoryFirebase {
+import java.util.Objects;
+
+public class AuthRepositoryFirebase implements UserRepository {
     //TODO implement interface
     private static volatile AuthRepositoryFirebase instance;
 
@@ -25,9 +29,12 @@ public class AuthRepositoryFirebase {
         FirebaseAuth.getInstance().signOut();
     }
 
-    public FirebaseUser getCurrentUser() {
-        return FirebaseAuth.getInstance().getCurrentUser();
+    @Override
+    public UserDomain getUser() {
+        return MapperDataToDomain.firebaseUserToUserDomain(Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()));
     }
+
+
 
 
 }
