@@ -1,8 +1,8 @@
 package com.xavier_carpentier.go4lunch.domain.usecase;
 
-import android.content.Context;
-
 import com.xavier_carpentier.go4lunch.domain.repository.UserRepository;
+import com.xavier_carpentier.go4lunch.presentation.mapper.MapperDomainUi;
+import com.xavier_carpentier.go4lunch.presentation.model.AuthProviderTypeUi;
 
 import java.util.List;
 
@@ -13,7 +13,7 @@ public class GetBuilderListAuthenticationProvidersUseCase {
         this.userRepository = userRepository;
     }
 
-    public List<String>getBuilderListAuthenticationProviders(Context context){
-        return userRepository.getBuilderListAuthenticationProvider(context);
+    public List<AuthProviderTypeUi>getBuilderListAuthenticationProviders(){
+        return MapperDomainUi.ListAuthProviderTypeDomainToListAuthProviderTypeUi(userRepository.getBuilderListAuthenticationProvider());
     }
 }

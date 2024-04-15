@@ -1,6 +1,6 @@
 package com.xavier_carpentier.go4lunch.domain.usecase;
 
-import com.xavier_carpentier.go4lunch.domain.mapper.MapperDomainUi;
+import com.xavier_carpentier.go4lunch.presentation.mapper.MapperDomainUi;
 import com.xavier_carpentier.go4lunch.domain.repository.UserRepository;
 import com.xavier_carpentier.go4lunch.presentation.model.User;
 

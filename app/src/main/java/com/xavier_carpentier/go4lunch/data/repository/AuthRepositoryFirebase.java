@@ -1,10 +1,9 @@
 package com.xavier_carpentier.go4lunch.data.repository;
 
-import android.content.Context;
-
 import com.google.firebase.auth.FirebaseAuth;
 import com.xavier_carpentier.go4lunch.data.mappers.MapperDataToDomain;
-import com.xavier_carpentier.go4lunch.datasource.utils.BuilderListAuthenticationProvider;
+import com.xavier_carpentier.go4lunch.datasource.utils.AuthenticationProvider;
+import com.xavier_carpentier.go4lunch.domain.model.AuthProviderTypeDomain;
 import com.xavier_carpentier.go4lunch.domain.model.UserDomain;
 import com.xavier_carpentier.go4lunch.domain.repository.UserRepository;
 
@@ -34,9 +33,8 @@ public class AuthRepositoryFirebase implements UserRepository {
     }
 
     @Override
-    public List<String> getBuilderListAuthenticationProvider(Context context) {
-        BuilderListAuthenticationProvider builderListAuthenticationProvider = new BuilderListAuthenticationProvider();
-        return builderListAuthenticationProvider.getList(context);
+    public List<AuthProviderTypeDomain> getBuilderListAuthenticationProvider() {
+        return MapperDataToDomain.ListAuthProviderTypeToListAuthProviderTypeDomain(AuthenticationProvider.getAuthProviderType());
     }
 
     @Override

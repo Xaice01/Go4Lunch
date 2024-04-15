@@ -1,13 +1,12 @@
 package com.xavier_carpentier.go4lunch.domain.repository;
 
-import android.content.Context;
-
+import com.xavier_carpentier.go4lunch.domain.model.AuthProviderTypeDomain;
 import com.xavier_carpentier.go4lunch.domain.model.UserDomain;
 
 import java.util.List;
 
 public interface UserRepository {
-    List<String> getBuilderListAuthenticationProvider(Context context);
+    List<AuthProviderTypeDomain> getBuilderListAuthenticationProvider();
     UserDomain getUser();
     void logout();
 }
