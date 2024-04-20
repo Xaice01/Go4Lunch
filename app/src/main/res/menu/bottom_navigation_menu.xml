@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/map"
+        android:enabled="true"
+        android:icon="@drawable/baseline_map_24"
+        android:title="@string/map_view"/>
+    <item
+        android:id="@+id/page_list_view"
+        android:enabled="true"
+        android:icon="@drawable/baseline_list_24"
+        android:title="@string/list_View"/>
+    <item
+        android:id="@+id/page_workmates"
+        android:enabled="true"
+        android:icon="@drawable/baseline_people_24"
+        android:title="@string/workmates"/>
+
+</menu>
