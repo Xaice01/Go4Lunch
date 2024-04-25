@@ -10,7 +10,7 @@ public class LogoutUseCase {
         this.userRepository = userRepository;
     }
 
-    public void logout(){
+    public void invoke(){
         userRepository.logout();
     }
 }

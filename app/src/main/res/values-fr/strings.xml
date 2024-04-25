@@ -1,4 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- TODO: translet in french -->
     <string name="app_name">Go4Lunch</string>
 
     <!-- Facebook application ID and custom URL scheme (app ID prefixed by 'fb'). -->
@@ -21,5 +23,4 @@
     <!-- listWorkmatesViewHolder -->
     <string name="eating">%1$s is eating %2$s (%3$s)</string>
     <string name="notDecided"> hasn\'t decided yet</string>
-
 </resources>

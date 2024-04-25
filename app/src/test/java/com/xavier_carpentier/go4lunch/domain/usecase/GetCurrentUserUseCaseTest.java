@@ -37,7 +37,7 @@ public class GetCurrentUserUseCaseTest {
     @Test
     public void getCurrentUserUseCaseTest(){
         //When
-        User userToTest = getCurrentUserUseCase.getCurrentUser();
+        User userToTest = getCurrentUserUseCase.invoke();
 
         //Then
         verify(mockauthRepositoryFirebase,times(1)).getUser();

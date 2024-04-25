@@ -11,7 +11,7 @@ public class GetCurrentUserUseCase{
         this.userRepository = userRepository;
     }
 
-    public User getCurrentUser(){
+    public User invoke(){
         return MapperDomainUi.userDomainToUserUi(userRepository.getUser());
     }
 }

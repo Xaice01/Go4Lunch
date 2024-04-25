@@ -13,7 +13,7 @@ public class GetBuilderListAuthenticationProvidersUseCase {
         this.userRepository = userRepository;
     }
 
-    public List<AuthProviderTypeUi>getBuilderListAuthenticationProviders(){
+    public List<AuthProviderTypeUi> invoke(){
         return MapperDomainUi.ListAuthProviderTypeDomainToListAuthProviderTypeUi(userRepository.getBuilderListAuthenticationProvider());
     }
 }

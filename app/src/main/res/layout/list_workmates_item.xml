@@ -25,11 +25,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
-        android:text="Name + eat TYPE RESTAURANT + (restaurant)"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/item_list_user_avatar"
         app:layout_constraintStart_toEndOf="@+id/item_list_user_avatar"
-        app:layout_constraintTop_toTopOf="@+id/item_list_user_avatar" />
+        app:layout_constraintTop_toTopOf="@+id/item_list_user_avatar"
+        tools:text="Name + eat TYPE RESTAURANT + (restaurant)"/>
 
 
 

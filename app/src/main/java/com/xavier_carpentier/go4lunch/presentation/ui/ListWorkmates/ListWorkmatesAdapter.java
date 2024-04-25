@@ -1,4 +1,4 @@
-package com.xavier_carpentier.go4lunch.presentation.ui;
+package com.xavier_carpentier.go4lunch.presentation.ui.ListWorkmates;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -10,14 +10,14 @@ import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.xavier_carpentier.go4lunch.R;
-import com.xavier_carpentier.go4lunch.presentation.model.UserWithRestaurant;
+import com.xavier_carpentier.go4lunch.presentation.model.Workmate;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 public class ListWorkmatesAdapter extends RecyclerView.Adapter<ListWorkmatesViewHolder> {
-    private List<UserWithRestaurant> users = new ArrayList<>();
+    private List<Workmate> users = new ArrayList<>();
     private OnItemClickListener mListener;
 
     public void setOnItemClickListener(OnItemClickListener listener) {
@@ -46,7 +46,7 @@ public class ListWorkmatesAdapter extends RecyclerView.Adapter<ListWorkmatesView
     }
 
 
-    public void updateList(List<UserWithRestaurant> newList) {
+    public void updateList(List<Workmate> newList) {
         DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(new UserDiffCallback(newList, this.users));
         this.users = new ArrayList<>(newList);
         diffResult.dispatchUpdatesTo(this);
@@ -54,10 +54,10 @@ public class ListWorkmatesAdapter extends RecyclerView.Adapter<ListWorkmatesView
 
     private static class UserDiffCallback extends DiffUtil.Callback {
 
-        private final List<UserWithRestaurant> oldUsers;
-        private final List<UserWithRestaurant> newUsers;
+        private final List<Workmate> oldUsers;
+        private final List<Workmate> newUsers;
 
-        public UserDiffCallback(List<UserWithRestaurant> newUsers, List<UserWithRestaurant> oldUsers) {
+        public UserDiffCallback(List<Workmate> newUsers, List<Workmate> oldUsers) {
             this.newUsers = newUsers;
             this.oldUsers = oldUsers;
         }

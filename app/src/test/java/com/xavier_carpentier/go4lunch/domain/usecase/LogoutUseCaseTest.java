@@ -28,7 +28,7 @@ public class LogoutUseCaseTest {
     @Test
     public void logoutUseCaseTest(){
         //When
-        logoutUseCase.logout();
+        logoutUseCase.invoke();
 
         //Then
         verify(mockauthRepositoryFirebase,times(1)).logout();

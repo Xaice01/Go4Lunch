@@ -25,7 +25,7 @@ public class GetBuilderListAuthenticationProvidersUseCaseTest {
     @Test
     public void getBuilderListAuthenticationProvidersUseCaseTest(){
         //When
-        List<AuthProviderTypeUi> listProviders=getBuilderListAuthenticationProvidersUseCase.getBuilderListAuthenticationProviders();
+        List<AuthProviderTypeUi> listProviders=getBuilderListAuthenticationProvidersUseCase.invoke();
 
         //Then
         assertNotNull(listProviders);

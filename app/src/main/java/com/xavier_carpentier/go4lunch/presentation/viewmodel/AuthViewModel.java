@@ -23,23 +23,29 @@ import java.util.List;
 
 
 public class AuthViewModel extends ViewModel {
-
+    //------------------------------------
+    // DATA
+    //------------------------------------
     //Dependency injection
     private final AuthRepositoryFirebase authRepositoryFirebase = AuthRepositoryFirebase.getInstance();
 
-    //USECASE
+    //----------------------------------------------------
+    //UseCase
+    //----------------------------------------------------
     //TODO DI a faire (authRepositoryFirebase a mettre dans le DI)
     private final LogoutUseCase logoutUseCase = new LogoutUseCase(authRepositoryFirebase);
     private final GetBuilderListAuthenticationProvidersUseCase getBuilderListAuthenticationProvidersUseCase = new GetBuilderListAuthenticationProvidersUseCase(authRepositoryFirebase);
     private final GetCurrentUserUseCase getCurrentUserUseCase = new GetCurrentUserUseCase(authRepositoryFirebase);
 
+
     public User getCurrentUser(){
-        return getCurrentUserUseCase.getCurrentUser();
+        return getCurrentUserUseCase.invoke();
     }
 
     public void Logout(){
-        logoutUseCase.logout();
+        logoutUseCase.invoke();
     }
+
 
     public void startSignInActivity(ActivityResultLauncher<Intent> signInLauncher){
         // Create and launch sign-in intent
@@ -53,7 +59,7 @@ public class AuthViewModel extends ViewModel {
 
     private List<AuthUI.IdpConfig> getBuilderListAuthenticationProviders(){
         List<AuthUI.IdpConfig> providers =new ArrayList<>();
-        List<AuthProviderTypeUi> listProvider = getBuilderListAuthenticationProvidersUseCase.getBuilderListAuthenticationProviders();
+        List<AuthProviderTypeUi> listProvider = getBuilderListAuthenticationProvidersUseCase.invoke();
 
         for(AuthProviderTypeUi provider:listProvider){
             switch (provider) {
