@@ -2,4 +2,10 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="background_red">#FC401D</color>
+
+    <!-- Activity detail restaurant -->
+    <color name="check_button_green">#5DF19F</color>
+    <color name="button_Call_Like_Website">#FC401D</color>
+
 </resources>

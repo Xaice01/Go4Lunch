@@ -21,15 +21,14 @@ public class ListWorkmatesViewModel extends ViewModel {
 
     private final GetListWorkmatesUseCase getListWorkmatesUseCase = new GetListWorkmatesUseCase(authRepositoryFirebase);
 
-    private LiveData<List<Workmate>> getListWorkmates(){
+    private void initLiveDataWorkmates(){
         listWorkmates=getListWorkmatesUseCase.invoke();
-        return listWorkmates;
     }
 
 
     public LiveData<List<Workmate>> getAllWorkmates(){
-
-        return getListWorkmates();
+        initLiveDataWorkmates();
+        return listWorkmates;
     }
 
 }

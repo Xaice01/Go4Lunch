@@ -20,13 +20,12 @@ public class ListRestaurantsViewModel extends ViewModel {
     //----------------------------------------------------
     private final GetListRestaurantsUseCase getListRestaurantsUseCase = new GetListRestaurantsUseCase(authRepositoryFirebase);
 
-    private LiveData<List<RestaurantList>> getListRestaurants(){
+    private void initLiveDataRestaurants(){
         listRestaurants=getListRestaurantsUseCase.invoke();
-        return listRestaurants;
     }
 
     public LiveData<List<RestaurantList>> getAllRestaurant(){
-
-        return getListRestaurants();
+        initLiveDataRestaurants();
+        return listRestaurants;
     }
 }

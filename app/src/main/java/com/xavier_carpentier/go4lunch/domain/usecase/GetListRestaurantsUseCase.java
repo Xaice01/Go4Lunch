@@ -1,5 +1,7 @@
 package com.xavier_carpentier.go4lunch.domain.usecase;
 
+import android.net.Uri;
+
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
@@ -19,9 +21,11 @@ public class GetListRestaurantsUseCase {
     public LiveData<List<RestaurantList>> invoke(){
         //TODO create a list with restaurant based on text auto complete and localisation
 
+        Uri urifake = Uri.parse("android.resource://com.xavier_carpentier.go4lunch/drawable/detail_restaurant_picture.jpg");
+
         RestaurantList fakeRestaurant1 = new RestaurantList("1","fakeRestaurant1","French","18 rue du fake",300,3,6,"open until 2 pm",null);
         RestaurantList fakeRestaurant2 = new RestaurantList("2","fakeRestaurant2","Spainish","31 rue du fake2",180,1,0,"open until 7 pm",null);
-        RestaurantList fakeRestaurant3 = new RestaurantList("3","fakeRestaurant3","French","5 rue du fake3",20,0,2,"closing soon",null);
+        RestaurantList fakeRestaurant3 = new RestaurantList("3","fakeRestaurant3","French","5 rue du fake3",20,0,2,"closing soon", urifake);
         MutableLiveData<List<RestaurantList>> restaurantLivedata = new MutableLiveData<>();
 
         List<RestaurantList> fakeData =new ArrayList<>();

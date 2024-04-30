@@ -1,4 +1,4 @@
-package com.xavier_carpentier.go4lunch.presentation.ui;
+package com.xavier_carpentier.go4lunch.presentation.ui.map_restaurant;
 
 import android.os.Bundle;
 

@@ -1,4 +1,4 @@
-package com.xavier_carpentier.go4lunch.presentation.ui.ListWorkmates;
+package com.xavier_carpentier.go4lunch.presentation.ui.list_workmates;
 
 import android.content.Context;
 import android.view.LayoutInflater;

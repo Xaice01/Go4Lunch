@@ -6,4 +6,28 @@
     </style>
 
     <style name="Theme.Go4Lunch" parent="Base.Theme.Go4Lunch" />
+
+
+    <!-- detail restaurant -->
+    <style name="Theme.Go4Lunch.ButtonDetailRestaurant" parent="Widget.Material3.Button.TextButton">
+        <item name="android:textAllCaps">true</item>
+        <item name="android:textColor">@color/button_Call_Like_Website</item>
+        <item name="iconTint">@color/button_Call_Like_Website</item>
+        <item name="iconGravity">top</item>
+        <item name="iconSize">26dp</item>
+    </style>
+
+    <!-- flottingButton détail restaurant -->
+    <style name="ShapeFloatingActionButton" parent="Widget.Design.FloatingActionButton">
+        <item name="shapeAppearanceOverlay">@style/FabButton_detailRestaurant</item>
+    </style>
+
+    <style name="FabButton_detailRestaurant" parent="ShapeAppearance.Material3.SmallComponent">
+        <item name="cornerSize">50%</item>
+        <item name="cornerFamilyTopLeft">cut</item>
+        <item name="cornerFamilyTopRight">cut</item>
+        <item name="cornerFamilyBottomLeft">rounded</item>
+        <item name="cornerFamilyBottomRight">rounded</item>
+    </style>
+
 </resources>

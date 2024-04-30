@@ -1,6 +1,9 @@
-package com.xavier_carpentier.go4lunch.presentation.ui.ListWorkmates;
+package com.xavier_carpentier.go4lunch.presentation.ui.list_workmates;
+
+import static com.xavier_carpentier.go4lunch.presentation.ui.detail_restaurant.DetailRestaurantActivity.KEY_RESTAURANT;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -16,6 +19,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.xavier_carpentier.go4lunch.R;
+import com.xavier_carpentier.go4lunch.presentation.ui.detail_restaurant.DetailRestaurantActivity;
 import com.xavier_carpentier.go4lunch.presentation.viewmodel.ListWorkmatesViewModel;
 
 public class ListWorkmatesFragment extends Fragment{
@@ -36,7 +40,7 @@ public class ListWorkmatesFragment extends Fragment{
         Context context = view.getContext();
         mRecyclerView = view.findViewById(R.id.recycler_view_workmates);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(context));
-        mRecyclerView.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
+        mRecyclerView.addItemDecoration(new DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL));
         return view;
     }
 
@@ -44,26 +48,18 @@ public class ListWorkmatesFragment extends Fragment{
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState){
         super.onViewCreated(view, savedInstanceState);
         listWorkmatesViewModel = new ViewModelProvider(this).get(ListWorkmatesViewModel.class);
-        //TODO ViewmodelProvider ici
         initList();
     }
     private void initList() {
         ListWorkmatesAdapter adapter = new ListWorkmatesAdapter();
 
         adapter.setOnItemClickListener((position, restaurantUid) -> {
+                Intent intent = new Intent(getActivity(), DetailRestaurantActivity.class);
+                intent.putExtra(KEY_RESTAURANT, restaurantUid);
+                startActivity(intent);
 
-            if(restaurantUid!=null){}
-            //TODO created restaurantView and start this activity
-
-            //    Intent intent = new Intent(getActivity(), NeighbourViewActivity.class);
-            //    intent.putExtra(KEY_NEIGHBOUR, id);
-            //    startActivity(intent);
         });
-
         mRecyclerView.setAdapter(adapter);
-
-        //TODO Viewmodel
-        // viewmodel.getUsersWithRestaurant().observe(getViewLifecycleOwner(), users -> adapter.submitList(users);}
         listWorkmatesViewModel.getAllWorkmates().observe(getViewLifecycleOwner(), adapter::updateList);
     }
 }

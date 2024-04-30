@@ -14,9 +14,9 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.firebase.ui.auth.FirebaseAuthUIActivityResultContract;
 import com.xavier_carpentier.go4lunch.databinding.ActivityMainBinding;
-import com.xavier_carpentier.go4lunch.presentation.ui.ListRestaurants.ListRestaurantFragment;
-import com.xavier_carpentier.go4lunch.presentation.ui.ListWorkmates.ListWorkmatesFragment;
-import com.xavier_carpentier.go4lunch.presentation.ui.MapFragment;
+import com.xavier_carpentier.go4lunch.presentation.ui.list_restaurants.ListRestaurantFragment;
+import com.xavier_carpentier.go4lunch.presentation.ui.list_workmates.ListWorkmatesFragment;
+import com.xavier_carpentier.go4lunch.presentation.ui.map_restaurant.MapFragment;
 import com.xavier_carpentier.go4lunch.presentation.viewmodel.AuthViewModel;
 
 
@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
                     replaceFragment(new MapFragment());
                     return true;
                 case R.id.page_list_view :
-                    replaceFragment(new ListRestaurantFragment().newInstance());
+                    replaceFragment(ListRestaurantFragment.newInstance());
                     return true;
                 case R.id.page_workmates :
                     replaceFragment(ListWorkmatesFragment.newInstance());

@@ -1,4 +1,4 @@
-package com.xavier_carpentier.go4lunch.presentation.ui.ListRestaurants;
+package com.xavier_carpentier.go4lunch.presentation.ui.list_restaurants;
 
 import android.view.View;
 import android.widget.ImageView;
@@ -31,20 +31,25 @@ public class ListRestaurantsViewHolder extends RecyclerView.ViewHolder {
     }
 
     public void bind(RestaurantList restaurant, ListRestaurantsAdapter.OnItemClickListener mListener) {
+        //InputStream stream = getContentResolver().openInputStream(restaurant.getPicture());
         pictureRestaurant.setImageURI(restaurant.getPicture());
         name.setText(restaurant.getName());
         typeAndAddress.setText(String.format("%s - %s", restaurant.getTypeRestaurant(), restaurant.getAddress()));
         schedule.setText(restaurant.getSchedule());
         distance.setText(String.format("%sm",restaurant.getDistance()));
-        workmatesToEat.setText(String.format("(%s)",restaurant.getWorkmatesToEat()));
 
-        //TODo if dans le viewmodel
+        //todo if a mettre dans le viewmodel
+        if(restaurant.getWorkmatesToEat()==0){
+            workmatesToEat.setVisibility(View.INVISIBLE);
+        }else {
+            workmatesToEat.setText(String.format("(%s)", restaurant.getWorkmatesToEat()));
+        }
+
+        //TODo for dans le viewmodel
         StringBuilder noteToWrite= new StringBuilder();
         for(int i=0;i<restaurant.getNote()&&i<3;i++){
             noteToWrite.append("⭐");
-
         }
-
         rating.setText(noteToWrite);
 
 

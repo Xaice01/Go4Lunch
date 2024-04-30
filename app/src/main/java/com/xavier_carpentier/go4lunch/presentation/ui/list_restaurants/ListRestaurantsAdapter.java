@@ -1,4 +1,4 @@
-package com.xavier_carpentier.go4lunch.presentation.ui.ListRestaurants;
+package com.xavier_carpentier.go4lunch.presentation.ui.list_restaurants;
 
 import android.content.Context;
 import android.view.LayoutInflater;
