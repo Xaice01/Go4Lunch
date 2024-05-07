@@ -5,7 +5,7 @@ import com.xavier_carpentier.go4lunch.domain.model.UserDomain;
 
 import java.util.List;
 
-public interface UserRepository {
+public interface AuthUserRepository {
     List<AuthProviderTypeDomain> getBuilderListAuthenticationProvider();
     UserDomain getUser();
     void logout();

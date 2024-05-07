@@ -24,17 +24,16 @@ import java.util.List;
 @RunWith(MockitoJUnitRunner.class)
 public class MapperDomainUiTest extends TestCase {
     @Mock
-    private Uri uriTest;
+    private String urlTest;
 
     @Test
     public void userDomainToUserUiTest(){
         //Given
         String uidTest = "123456789";
         String userNameTest = "testusername";
-        String emailTest = "test@mail.com";
 
 
-        UserDomain userDomain = new UserDomain(uidTest,userNameTest,emailTest,uriTest);
+        UserDomain userDomain = new UserDomain(uidTest,userNameTest,urlTest);
 
         //When
         User user = userDomainToUserUi(userDomain);
@@ -42,8 +41,7 @@ public class MapperDomainUiTest extends TestCase {
         //Then
         assertEquals(user.getUid(), uidTest);
         assertEquals(user.getUsername(), userNameTest);
-        assertEquals(user.getEmail(), emailTest);
-        assertEquals(user.getUrlPicture(), uriTest);
+        assertEquals(user.getUrlPicture(), urlTest);
     }
 
     @Test

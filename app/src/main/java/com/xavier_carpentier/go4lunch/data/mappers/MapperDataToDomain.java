@@ -7,11 +7,16 @@ import com.xavier_carpentier.go4lunch.domain.model.UserDomain;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class MapperDataToDomain {
 
     public static UserDomain firebaseUserToUserDomain(FirebaseUser firebaseUser){
-        return new UserDomain(firebaseUser.getUid(),firebaseUser.getDisplayName(),firebaseUser.getEmail(),firebaseUser.getPhotoUrl());
+        if(firebaseUser.getPhotoUrl()==null)
+        {
+            return new UserDomain(firebaseUser.getUid(),firebaseUser.getDisplayName(),null);
+        }
+        return new UserDomain(firebaseUser.getUid(),firebaseUser.getDisplayName(), firebaseUser.getPhotoUrl().toString());
     }
 
     public static List<AuthProviderTypeDomain> ListAuthProviderTypeToListAuthProviderTypeDomain(List<AuthProviderType> listAuthProviderType){

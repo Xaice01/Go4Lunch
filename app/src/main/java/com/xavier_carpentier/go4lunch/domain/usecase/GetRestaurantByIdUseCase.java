@@ -2,13 +2,13 @@ package com.xavier_carpentier.go4lunch.domain.usecase;
 
 import android.net.Uri;
 
-import com.xavier_carpentier.go4lunch.domain.repository.UserRepository;
+import com.xavier_carpentier.go4lunch.domain.repository.AuthUserRepository;
 import com.xavier_carpentier.go4lunch.presentation.model.RestaurantDetail;
 
 public class GetRestaurantByIdUseCase {
-    private final UserRepository userRepository;
+    private final AuthUserRepository userRepository;
 
-    public GetRestaurantByIdUseCase(UserRepository userRepository) {
+    public GetRestaurantByIdUseCase(AuthUserRepository userRepository) {
         this.userRepository = userRepository;
     }
 

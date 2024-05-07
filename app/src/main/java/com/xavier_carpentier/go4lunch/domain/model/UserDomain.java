@@ -4,30 +4,34 @@ import android.net.Uri;
 
 import androidx.annotation.Nullable;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class UserDomain {
     private String uid;
     private String username;
-    private String email;
-    private Uri urlPicture;
-    public UserDomain(String uid,String username, String email,Uri urlPicture){
+    private String urlPicture;
+    private List<String> uidRestaurantFavoris;
+    public UserDomain(String uid,String username,@Nullable String urlPicture){
         this.uid=uid;
         this.username=username;
-        this.email=email;
         this.urlPicture=urlPicture;
+        this.uidRestaurantFavoris = new ArrayList<>();
     }
 
     // --- GETTERS ---
     public String getUid() { return uid; }
     public String getUsername() { return username; }
-    public String getEmail() { return email; }
     @Nullable
-    public Uri getUrlPicture() { return urlPicture; }
+    public String getUrlPicture() { return urlPicture; }
+    public List<String> getUidRestaurantFavoris(){return uidRestaurantFavoris;}
 
 
     // --- SETTERS ---
     public void setUsername(String username) { this.username = username; }
     public void setUid(String uid) { this.uid = uid; }
-    public void setEmail(String email) { this.email = email; }
-    public void setUrlPicture(@Nullable Uri urlPicture) { this.urlPicture = urlPicture; }
-
+    public void setUrlPicture(@Nullable String urlPicture) { this.urlPicture = urlPicture; }
+    public void setUidRestaurantFavoris(List<String> uidRestaurantFavoris) {
+        this.uidRestaurantFavoris = uidRestaurantFavoris;
+    }
 }

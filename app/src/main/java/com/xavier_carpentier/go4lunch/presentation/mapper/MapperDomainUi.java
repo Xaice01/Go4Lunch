@@ -10,7 +10,11 @@ import java.util.List;
 
 public class MapperDomainUi {
     public static User userDomainToUserUi(UserDomain userDomain){
-        return new User(userDomain.getUid(),userDomain.getUsername(),userDomain.getEmail(),userDomain.getUrlPicture());
+        return new User(userDomain.getUid(),userDomain.getUsername(),userDomain.getUrlPicture());
+    }
+
+    public static UserDomain UserUiToUserDomain(User user){
+        return new UserDomain(user.getUid(),user.getUsername(),user.getUrlPicture());
     }
 
     public static List<AuthProviderTypeUi> ListAuthProviderTypeDomainToListAuthProviderTypeUi(List<AuthProviderTypeDomain> authProviderTypeDomains){

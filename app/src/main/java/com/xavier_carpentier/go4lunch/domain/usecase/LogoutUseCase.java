@@ -1,12 +1,12 @@
 package com.xavier_carpentier.go4lunch.domain.usecase;
 
-import com.xavier_carpentier.go4lunch.domain.repository.UserRepository;
+import com.xavier_carpentier.go4lunch.domain.repository.AuthUserRepository;
 
 public class LogoutUseCase {
 
-    private final UserRepository userRepository;
+    private final AuthUserRepository userRepository;
 
-    public LogoutUseCase(UserRepository userRepository) {
+    public LogoutUseCase(AuthUserRepository userRepository) {
         this.userRepository = userRepository;
     }
 

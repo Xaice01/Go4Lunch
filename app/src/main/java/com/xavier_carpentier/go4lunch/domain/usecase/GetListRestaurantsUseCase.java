@@ -5,16 +5,16 @@ import android.net.Uri;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
-import com.xavier_carpentier.go4lunch.domain.repository.UserRepository;
+import com.xavier_carpentier.go4lunch.domain.repository.AuthUserRepository;
 import com.xavier_carpentier.go4lunch.presentation.model.RestaurantList;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class GetListRestaurantsUseCase {
-    private final UserRepository userRepository;
+    private final AuthUserRepository userRepository;
 
-    public GetListRestaurantsUseCase(UserRepository userRepository) {
+    public GetListRestaurantsUseCase(AuthUserRepository userRepository) {
         this.userRepository = userRepository;
     }
 

@@ -21,13 +21,13 @@ public class GetCurrentUserUseCaseTest {
     @Mock
     private AuthRepositoryFirebase mockauthRepositoryFirebase;
     @Mock
-    private Uri uriTest;
+    private String urlTest;
     private UserDomain userDomainReturnByRepository;
     private GetCurrentUserUseCase getCurrentUserUseCase;
 
     @Before
     public void setUp(){
-        userDomainReturnByRepository = new UserDomain("123456789","nameTest","emailTest",uriTest);
+        userDomainReturnByRepository = new UserDomain("123456789","nameTest", urlTest);
         mockauthRepositoryFirebase = mock(AuthRepositoryFirebase.class);
         when(mockauthRepositoryFirebase.getUser()).thenReturn(userDomainReturnByRepository);
         getCurrentUserUseCase = new GetCurrentUserUseCase(mockauthRepositoryFirebase);
@@ -43,7 +43,6 @@ public class GetCurrentUserUseCaseTest {
         verify(mockauthRepositoryFirebase,times(1)).getUser();
         assertEquals(userToTest.getUid(), userDomainReturnByRepository.getUid());
         assertEquals(userToTest.getUsername(), userDomainReturnByRepository.getUsername());
-        assertEquals(userToTest.getEmail(), userDomainReturnByRepository.getEmail());
         assertEquals(userToTest.getUrlPicture(), userDomainReturnByRepository.getUrlPicture());
 
     }

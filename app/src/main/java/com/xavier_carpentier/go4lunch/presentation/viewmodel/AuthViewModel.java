@@ -12,6 +12,8 @@ import com.firebase.ui.auth.AuthUI;
 import com.firebase.ui.auth.IdpResponse;
 import com.firebase.ui.auth.data.model.FirebaseAuthUIAuthenticationResult;
 import com.xavier_carpentier.go4lunch.data.repository.AuthRepositoryFirebase;
+import com.xavier_carpentier.go4lunch.data.repository.UserRepositoryFirestore;
+import com.xavier_carpentier.go4lunch.domain.usecase.CreateUserInDataBaseUseCase;
 import com.xavier_carpentier.go4lunch.domain.usecase.GetBuilderListAuthenticationProvidersUseCase;
 import com.xavier_carpentier.go4lunch.domain.usecase.GetCurrentUserUseCase;
 import com.xavier_carpentier.go4lunch.domain.usecase.LogoutUseCase;
@@ -28,6 +30,7 @@ public class AuthViewModel extends ViewModel {
     //------------------------------------
     //Dependency injection
     private final AuthRepositoryFirebase authRepositoryFirebase = AuthRepositoryFirebase.getInstance();
+    private final UserRepositoryFirestore userRepositoryFirestore = UserRepositoryFirestore.getInstance();
 
     //----------------------------------------------------
     //UseCase
@@ -36,6 +39,7 @@ public class AuthViewModel extends ViewModel {
     private final LogoutUseCase logoutUseCase = new LogoutUseCase(authRepositoryFirebase);
     private final GetBuilderListAuthenticationProvidersUseCase getBuilderListAuthenticationProvidersUseCase = new GetBuilderListAuthenticationProvidersUseCase(authRepositoryFirebase);
     private final GetCurrentUserUseCase getCurrentUserUseCase = new GetCurrentUserUseCase(authRepositoryFirebase);
+    private final CreateUserInDataBaseUseCase createUserInDataBaseUseCase = new CreateUserInDataBaseUseCase(userRepositoryFirestore);
 
 
     public User getCurrentUser(){
@@ -86,7 +90,9 @@ public class AuthViewModel extends ViewModel {
         IdpResponse response = result.getIdpResponse();
         if (result.getResultCode() == RESULT_OK) {
             // Successfully signed in
-            Log.d("Xaice",authRepositoryFirebase.getUser().getUid());
+            Log.d("Xaice",getCurrentUserUseCase.invoke().getUid());
+
+            createUserInDataBaseUseCase.invoke(getCurrentUserUseCase.invoke());
 
             //TODO add livedata
 

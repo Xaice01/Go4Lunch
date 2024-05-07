@@ -55,8 +55,9 @@ public class MainActivity extends AppCompatActivity {
 
         //Configure the authViewModel
         authViewModel = new ViewModelProvider(this).get(AuthViewModel.class);
+        authViewModel.Logout();
 
-        //authViewModel.startSignInActivity(signInLauncher);
+        authViewModel.startSignInActivity(signInLauncher);
 //
        // binding.buttonLogin.setOnClickListener(v->{
        //     authViewModel.startSignInActivity(signInLauncher);
@@ -74,9 +75,9 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        if(authViewModel.getCurrentUser()==null) {
-            authViewModel.startSignInActivity(signInLauncher);
-        }
+        //if(authViewModel.getCurrentUser()==null) {
+        //    authViewModel.startSignInActivity(signInLauncher);
+        //}
     }
 
     private final ActivityResultLauncher<Intent> signInLauncher = registerForActivityResult(
