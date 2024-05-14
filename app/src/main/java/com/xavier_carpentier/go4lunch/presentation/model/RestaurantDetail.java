@@ -1,20 +1,18 @@
 package com.xavier_carpentier.go4lunch.presentation.model;
 
-import android.net.Uri;
-
 public class RestaurantDetail {
     private final String uid;
-    private final Uri picture;
+    private final String picture;
     private final String name;
     private final String typeRestaurant;
     private final String address;
-    private final int note;
+    private final Double note;
     private final String phone_number;
     private final boolean isLike;
     private final String webSite;
 
 
-    public RestaurantDetail(String uid, Uri picture, String name, String typeRestaurant, String address, int note, String phone_number, boolean isLike, String webSite) {
+    public RestaurantDetail(String uid, String picture, String name, String typeRestaurant, String address, Double note, String phone_number, boolean isLike, String webSite) {
         this.uid = uid;
         this.picture = picture;
         this.name = name;
@@ -30,7 +28,7 @@ public class RestaurantDetail {
         return uid;
     }
 
-    public Uri getPicture() {
+    public String getPicture() {
         return picture;
     }
 
@@ -46,7 +44,7 @@ public class RestaurantDetail {
         return address;
     }
 
-    public int getNote() {
+    public Double getNote() {
         return note;
     }
 

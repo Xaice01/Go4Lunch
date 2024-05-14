@@ -1,8 +1,11 @@
 package com.xavier_carpentier.go4lunch.presentation.mapper;
 
+import com.xavier_carpentier.go4lunch.data.entity.detail_restaurant_response.RestaurantDetailResponse;
 import com.xavier_carpentier.go4lunch.domain.model.AuthProviderTypeDomain;
+import com.xavier_carpentier.go4lunch.domain.model.RestaurantDomain;
 import com.xavier_carpentier.go4lunch.domain.model.UserDomain;
 import com.xavier_carpentier.go4lunch.presentation.model.AuthProviderTypeUi;
+import com.xavier_carpentier.go4lunch.presentation.model.RestaurantDetail;
 import com.xavier_carpentier.go4lunch.presentation.model.User;
 
 import java.util.ArrayList;
@@ -41,5 +44,29 @@ public class MapperDomainUi {
         }
 
         return providers;
+    }
+
+    public static RestaurantDetail restaurantDomainToRestaurantDetail(RestaurantDomain restaurantDomain){
+        String uidRestaurant;
+        String restaurantName;
+        String vicinity;
+        String photoReferenceUrl;
+        Double rating;
+        String phoneNumber;
+        String websiteUrl;
+
+
+        uidRestaurant = restaurantDomain.getUidRestaurant();
+        restaurantName = restaurantDomain.getRestaurantName();
+        vicinity = restaurantDomain.getVicinity();
+        photoReferenceUrl = restaurantDomain.getPhotoReferenceUrl();
+        rating = restaurantDomain.getRating();
+        phoneNumber = restaurantDomain.getPhoneNumber();
+        websiteUrl = restaurantDomain.getWebsiteUrl();
+        //TODO type or address to change
+        return new RestaurantDetail(uidRestaurant,photoReferenceUrl,restaurantName,vicinity,vicinity,rating,phoneNumber,false,websiteUrl);
+
+
+
     }
 }

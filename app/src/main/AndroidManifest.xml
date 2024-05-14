@@ -25,6 +25,11 @@
             android:name="com.facebook.sdk.AutoLogAppEventsEnabled"
             android:value="false" />
 
+        <!-- API Google -->
+        <meta-data
+            android:name="API_KEY_MAPS"
+            android:value="AIzaSyCOzNcWXI6gAbxKOr8aA2mA55hTARNHiiM" />
+
         <activity
             android:name=".MainActivity"
             android:exported="true">

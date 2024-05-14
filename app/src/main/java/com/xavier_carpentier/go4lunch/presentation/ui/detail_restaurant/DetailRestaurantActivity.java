@@ -38,33 +38,49 @@ public class DetailRestaurantActivity extends AppCompatActivity {
         //recupere le neighbour de la liste de mNeighbours de l'Apiservice
         String restaurantID = getIntent().getStringExtra(KEY_RESTAURANT);
         detailRestaurantViewModel = new ViewModelProvider(this).get(DetailRestaurantViewModel.class);
+
+        //TODO TEST UIDRESTAURANT
+        restaurantID = "ChIJY5NpzITVwkcRSkdvo3wsU1Y";
         detailRestaurantViewModel.initRestaurant(restaurantID);
 
 
         bind();
         initListWorkmate();
 
-        //todo created listner for floatingActionButton_favoris, button_call_detailRestaurant, button_like_detailRestaurant, button_website_detailRestaurant
+        //todo created listener for floatingActionButton_favoris, button_call_detailRestaurant, button_like_detailRestaurant, button_website_detailRestaurant
     }
 
     private void bind() {
 
+
         //show the picture restaurant
-        Uri uriPicture = detailRestaurantViewModel.getRestaurantDetail().getPicture();
-
-        //Glide.with(this).load(uriPicture).into(binding.imageViewPictureRestaurant);
-
-        Glide.with(this)
-                .load(uriPicture)
+        //String uriPicture = detailRestaurantViewModel.getRestaurantDetail().getPicture();
+        detailRestaurantViewModel.getRestaurantDetail().observe(this, restaurantDetail ->{ Glide.with(this)
+                .load(restaurantDetail.getPicture())
                 .centerCrop()
                 .error(R.drawable.background_picture)
                 .fallback(R.drawable.background_picture)
                 .into(binding.imageViewPictureRestaurant);
+
+            binding.TextViewNameRestaurantDetailRestaurant.setText(restaurantDetail.getName());
+            binding.TextViewNote.setText(detailRestaurantViewModel.getRatingRestaurantInStingBuilder());
+            binding.TextViewTypeRestaurantAndAddress.setText(detailRestaurantViewModel.getTypeAndAddress());
+        });
+
+
+        //Glide.with(this).load(uriPicture).into(binding.imageViewPictureRestaurant);
+
+        //Glide.with(this)
+        //        .load(uriPicture)
+        //        .centerCrop()
+        //        .error(R.drawable.background_picture)
+        //        .fallback(R.drawable.background_picture)
+        //        .into(binding.imageViewPictureRestaurant);
         //binding.imageViewPictureRestaurant.setImageResource(detailRestaurantViewModel.getRestaurantDetail().getPicture());
 
-        binding.TextViewNameRestaurantDetailRestaurant.setText(detailRestaurantViewModel.getRestaurantDetail().getName());
-        binding.TextViewNote.setText(detailRestaurantViewModel.getRatingRestaurantInStingBuilder());
-        binding.TextViewTypeRestaurantAndAddress.setText(detailRestaurantViewModel.getTypeAndAddress());
+        //binding.TextViewNameRestaurantDetailRestaurant.setText(detailRestaurantViewModel.getRestaurantDetail().getName());
+        //binding.TextViewNote.setText(detailRestaurantViewModel.getRatingRestaurantInStingBuilder());
+        //binding.TextViewTypeRestaurantAndAddress.setText(detailRestaurantViewModel.getTypeAndAddress());
 
     }
     private void initListWorkmate() {

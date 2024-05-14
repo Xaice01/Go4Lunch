@@ -1,27 +1,35 @@
 package com.xavier_carpentier.go4lunch.data.repository;
 
+import static com.xavier_carpentier.go4lunch.BuildConfig.GOOGLE_API_KEY;
+
 import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
-import com.xavier_carpentier.go4lunch.R;
 import com.xavier_carpentier.go4lunch.data.GooglePlaceApi;
 import com.xavier_carpentier.go4lunch.data.entity.detail_restaurant_response.RestaurantDetailResponse;
 import com.xavier_carpentier.go4lunch.data.mappers.MapperDataToDomain;
+import com.xavier_carpentier.go4lunch.domain.model.AutocompletePredictionDomain;
 import com.xavier_carpentier.go4lunch.domain.model.RestaurantDomain;
+import com.xavier_carpentier.go4lunch.domain.repository.PlaceRepository;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import retrofit2.http.Query;
 
-public class PlaceRepository {
+public class PlaceRepositoryRetrofit implements PlaceRepository {
 
     private final GooglePlaceApi googlePlaceApi;
 
-    public PlaceRepository(GooglePlaceApi googlePlaceApi) {
+    //TODO check with the mentor
+    private final String apiKey = GOOGLE_API_KEY;
+
+    public PlaceRepositoryRetrofit(GooglePlaceApi googlePlaceApi) {
         this.googlePlaceApi = googlePlaceApi;
     }
     // In this Map we will store the responses we get from the server (corresponding to the Uid restaurant),
@@ -34,9 +42,9 @@ public class PlaceRepository {
 
     }
 
-    public void getAutocomplete(){
-
-    }
+    //public LiveData<List<AutocompletePredictionDomain>> getAutocomplete(String input, String location, String radius, String types){
+//
+    //}
 
     //TODO
     //public void getListRestaurant(positionExact){
@@ -53,7 +61,7 @@ public class PlaceRepository {
         if(response!=null){
             restaurantDetailResponseMutableLiveData.setValue(MapperDataToDomain.restaurantDetailResponseToRestaurantDomain(response));
         }else{
-            googlePlaceApi.getDetailsRestaurant(uidRestaurant, String.valueOf(R.string.api_Key)).enqueue(new Callback<RestaurantDetailResponse>() {
+            googlePlaceApi.getDetailsRestaurant(uidRestaurant, apiKey).enqueue(new Callback<RestaurantDetailResponse>() {
                 @Override
                 public void onResponse(@NonNull Call<RestaurantDetailResponse> call, @NonNull Response<RestaurantDetailResponse> response) {
                     if (response.body() != null) {

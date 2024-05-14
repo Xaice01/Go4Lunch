@@ -82,8 +82,8 @@ dependencies {
     implementation libs.lifecycle.common.java8
 
     //Google Place
-    //implementation(platform(libs.kotlin.bom))
-    //implementation libs.places
+    implementation(platform(libs.kotlin.bom))
+    implementation libs.places
 
     //Retrofit
     implementation libs.retrofit

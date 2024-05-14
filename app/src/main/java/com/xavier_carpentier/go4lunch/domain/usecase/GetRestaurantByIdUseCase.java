@@ -1,24 +1,22 @@
 package com.xavier_carpentier.go4lunch.domain.usecase;
 
-import android.net.Uri;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.Transformations;
 
-import com.xavier_carpentier.go4lunch.domain.repository.AuthUserRepository;
+import com.xavier_carpentier.go4lunch.domain.repository.PlaceRepository;
+import com.xavier_carpentier.go4lunch.presentation.mapper.MapperDomainUi;
 import com.xavier_carpentier.go4lunch.presentation.model.RestaurantDetail;
 
 public class GetRestaurantByIdUseCase {
-    private final AuthUserRepository userRepository;
+    private final PlaceRepository placeRepository;
 
-    public GetRestaurantByIdUseCase(AuthUserRepository userRepository) {
-        this.userRepository = userRepository;
+    public GetRestaurantByIdUseCase(PlaceRepository placeRepository) {
+        this.placeRepository = placeRepository;
     }
 
-    public RestaurantDetail invoke(String restaurantUid){
-        //TODO get restaurant by api place google
+    public LiveData<RestaurantDetail> invoke(String restaurantUid){
 
-        Uri urifake = Uri.parse("android.resource://com.xavier_carpentier.go4lunch/drawable/detail_restaurant_picture.jpg");
 
-        RestaurantDetail fakeRestaurant = new RestaurantDetail(restaurantUid,urifake,"fakeRestaurant1","French","18 rue du fake",2,"0645918962",true,"http://lama.com");
-
-        return fakeRestaurant;
+        return Transformations.map(placeRepository.getRestaurant(restaurantUid), MapperDomainUi::restaurantDomainToRestaurantDetail);
     }
 }
