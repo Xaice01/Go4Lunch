@@ -16,7 +16,6 @@ public class AutocompleteResponse implements Serializable
     @SerializedName("status")
     @Expose
     private String status;
-    private final static long serialVersionUID = -3733240205052972201L;
 
     /**
      * No args constructor for use in serialization

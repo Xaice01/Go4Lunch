@@ -1,15 +1,15 @@
-package com.xavier_carpentier.go4lunch.domain.model;
+package com.xavier_carpentier.go4lunch.presentation.model;
 
 import androidx.annotation.NonNull;
 
 import java.util.Objects;
 
-public class AutocompletePredictionDomain {
+public class AutocompletePrediction {
 
     private final String restaurantId;
     private final String restaurantName;
 
-    public AutocompletePredictionDomain(String restaurantId, String restaurantName) {
+    public AutocompletePrediction(String restaurantId, String restaurantName) {
         this.restaurantId = restaurantId;
         this.restaurantName = restaurantName;
 
@@ -27,7 +27,7 @@ public class AutocompletePredictionDomain {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        AutocompletePredictionDomain that = (AutocompletePredictionDomain) o;
+        com.xavier_carpentier.go4lunch.presentation.model.AutocompletePrediction that = (com.xavier_carpentier.go4lunch.presentation.model.AutocompletePrediction) o;
         return Objects.equals(restaurantId, that.restaurantId) && Objects.equals(restaurantName, that.restaurantName);
     }
 
@@ -39,7 +39,7 @@ public class AutocompletePredictionDomain {
     @NonNull
     @Override
     public String toString() {
-        return "AutocompletePredictionDomain{" +
+        return "AutocompletePrediction{" +
                 "restaurantId='" + restaurantId + '\'' +
                 ", restaurantName='" + restaurantName + '\'' +
                 '}';

@@ -8,4 +8,8 @@
     <color name="check_button_green">#5DF19F</color>
     <color name="button_Call_Like_Website">#FC401D</color>
 
+    <!-- item autocomplete prediction -->
+    <color name="licorice_gray">#221A18</color>
+    <color name="white_background_item">#E6EBE4</color>
+
 </resources>

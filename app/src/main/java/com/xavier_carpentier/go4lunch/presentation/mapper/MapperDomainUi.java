@@ -1,10 +1,11 @@
 package com.xavier_carpentier.go4lunch.presentation.mapper;
 
-import com.xavier_carpentier.go4lunch.data.entity.detail_restaurant_response.RestaurantDetailResponse;
 import com.xavier_carpentier.go4lunch.domain.model.AuthProviderTypeDomain;
+import com.xavier_carpentier.go4lunch.domain.model.AutocompletePredictionDomain;
 import com.xavier_carpentier.go4lunch.domain.model.RestaurantDomain;
 import com.xavier_carpentier.go4lunch.domain.model.UserDomain;
 import com.xavier_carpentier.go4lunch.presentation.model.AuthProviderTypeUi;
+import com.xavier_carpentier.go4lunch.presentation.model.AutocompletePrediction;
 import com.xavier_carpentier.go4lunch.presentation.model.RestaurantDetail;
 import com.xavier_carpentier.go4lunch.presentation.model.User;
 
@@ -46,7 +47,7 @@ public class MapperDomainUi {
         return providers;
     }
 
-    public static RestaurantDetail restaurantDomainToRestaurantDetail(RestaurantDomain restaurantDomain){
+    public static RestaurantDetail RestaurantDomainToRestaurantDetail(RestaurantDomain restaurantDomain){
         String uidRestaurant;
         String restaurantName;
         String vicinity;
@@ -65,8 +66,22 @@ public class MapperDomainUi {
         websiteUrl = restaurantDomain.getWebsiteUrl();
         //TODO type or address to change
         return new RestaurantDetail(uidRestaurant,photoReferenceUrl,restaurantName,vicinity,vicinity,rating,phoneNumber,false,websiteUrl);
+    }
 
+    public static List<AutocompletePrediction> ListAutocompletePredictionDomainToListAutocompletePrediction (List<AutocompletePredictionDomain> predictionDomainList){
+        List<AutocompletePrediction> predictionList = new ArrayList<>();
 
+        for(AutocompletePredictionDomain predictionDomain : predictionDomainList){
+            if (predictionDomain.getRestaurantId() != null && predictionDomain.getRestaurantId() != null) {
+
+                predictionList.add(new AutocompletePrediction(predictionDomain.getRestaurantId(), predictionDomain.getRestaurantName()));
+
+            } else {
+                return null;
+            }
+        }
+        return predictionList;
 
     }
+
 }

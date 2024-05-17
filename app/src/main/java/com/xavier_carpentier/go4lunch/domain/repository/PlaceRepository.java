@@ -4,7 +4,6 @@ import androidx.lifecycle.LiveData;
 
 import com.xavier_carpentier.go4lunch.domain.model.RestaurantDomain;
 import com.xavier_carpentier.go4lunch.domain.model.AutocompletePredictionDomain;
-import androidx.lifecycle.LiveData;
 
 import java.util.List;
 
@@ -12,7 +11,7 @@ public interface PlaceRepository {
     void getCurrentLocation();
 
 
-    //LiveData<List<AutocompletePredictionDomain>> getAutocomplete(String input, String location, String radius, String types);
+    LiveData<List<AutocompletePredictionDomain>> getAutocomplete(String input, String latitude,String longitude, String radius, String types);
 
 
     //TODO

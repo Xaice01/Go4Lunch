@@ -7,6 +7,8 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.xavier_carpentier.go4lunch.data.GooglePlaceApi;
+import com.xavier_carpentier.go4lunch.data.entity.autocomplete_response.AutocompleteResponse;
+import com.xavier_carpentier.go4lunch.data.entity.autocomplete_response.Prediction;
 import com.xavier_carpentier.go4lunch.data.entity.detail_restaurant_response.RestaurantDetailResponse;
 import com.xavier_carpentier.go4lunch.data.mappers.MapperDataToDomain;
 import com.xavier_carpentier.go4lunch.domain.model.AutocompletePredictionDomain;
@@ -20,14 +22,10 @@ import java.util.Map;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.http.Query;
 
 public class PlaceRepositoryRetrofit implements PlaceRepository {
 
     private final GooglePlaceApi googlePlaceApi;
-
-    //TODO check with the mentor
-    private final String apiKey = GOOGLE_API_KEY;
 
     public PlaceRepositoryRetrofit(GooglePlaceApi googlePlaceApi) {
         this.googlePlaceApi = googlePlaceApi;
@@ -36,15 +34,44 @@ public class PlaceRepositoryRetrofit implements PlaceRepository {
     // so if needed we can "get back in time", this will act like a cache !
     private final Map<String, RestaurantDetailResponse> alreadyFetchedResponsesRestaurantDetail = new HashMap<>();
 
+    private final Map<String, List<Prediction>> alreadyFetchedResponsesListPrediction = new HashMap<>();
 
+    //TODO
     public void getCurrentLocation(){
 
 
     }
 
-    //public LiveData<List<AutocompletePredictionDomain>> getAutocomplete(String input, String location, String radius, String types){
-//
-    //}
+    public LiveData<List<AutocompletePredictionDomain>> getAutocomplete(String input, String latitude,String longitude, String radius, String types){
+        MutableLiveData<List<AutocompletePredictionDomain>> autocompletePredictionDomainMutableLiveData = new MutableLiveData<>();
+
+        String keyCache = input + latitude + longitude + radius + types;
+
+        List<Prediction> responseList = alreadyFetchedResponsesListPrediction.get(keyCache);
+        if(responseList!=null){
+            autocompletePredictionDomainMutableLiveData.setValue(MapperDataToDomain.listPredictionToAutocompletePredictionDomain(responseList));
+        }else {
+            googlePlaceApi.getAutocomplete(input, (latitude +","+ longitude),radius,types,GOOGLE_API_KEY).enqueue(new Callback<AutocompleteResponse>() {
+                @Override
+                public void onResponse(Call<AutocompleteResponse> call, Response<AutocompleteResponse> response) {
+                    if(response.isSuccessful() && response.body()!=null && response.body().getPredictions() != null){
+                        List<Prediction> predictionList =response.body().getPredictions();
+                        alreadyFetchedResponsesListPrediction.put(keyCache,predictionList);
+                        autocompletePredictionDomainMutableLiveData.setValue(MapperDataToDomain.listPredictionToAutocompletePredictionDomain(predictionList));
+
+                    }else{
+                        autocompletePredictionDomainMutableLiveData.setValue(null);
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<AutocompleteResponse> call, Throwable t) {
+                    autocompletePredictionDomainMutableLiveData.setValue(null);
+                }
+            });
+        }
+        return autocompletePredictionDomainMutableLiveData;
+    }
 
     //TODO
     //public void getListRestaurant(positionExact){
@@ -61,7 +88,7 @@ public class PlaceRepositoryRetrofit implements PlaceRepository {
         if(response!=null){
             restaurantDetailResponseMutableLiveData.setValue(MapperDataToDomain.restaurantDetailResponseToRestaurantDomain(response));
         }else{
-            googlePlaceApi.getDetailsRestaurant(uidRestaurant, apiKey).enqueue(new Callback<RestaurantDetailResponse>() {
+            googlePlaceApi.getDetailsRestaurant(uidRestaurant, GOOGLE_API_KEY).enqueue(new Callback<RestaurantDetailResponse>() {
                 @Override
                 public void onResponse(@NonNull Call<RestaurantDetailResponse> call, @NonNull Response<RestaurantDetailResponse> response) {
                     if (response.body() != null) {

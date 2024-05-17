@@ -1,6 +1,5 @@
 package com.xavier_carpentier.go4lunch.presentation.ui.detail_restaurant;
 
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 
@@ -35,12 +34,13 @@ public class DetailRestaurantActivity extends AppCompatActivity {
         mRecyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
 
 
-        //recupere le neighbour de la liste de mNeighbours de l'Apiservice
+        //recupere le restaurant de la liste
         String restaurantID = getIntent().getStringExtra(KEY_RESTAURANT);
         detailRestaurantViewModel = new ViewModelProvider(this).get(DetailRestaurantViewModel.class);
 
         //TODO TEST UIDRESTAURANT
-        restaurantID = "ChIJY5NpzITVwkcRSkdvo3wsU1Y";
+        if(restaurantID=="1" || restaurantID=="2" || restaurantID=="3"  ){
+        restaurantID = "ChIJY5NpzITVwkcRSkdvo3wsU1Y";}
         detailRestaurantViewModel.initRestaurant(restaurantID);
 
 
