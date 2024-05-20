@@ -7,18 +7,23 @@ import static com.xavier_carpentier.go4lunch.presentation.ui.detail_restaurant.D
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.widget.SearchView;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -41,6 +46,11 @@ public class MainActivity extends AppCompatActivity {
     private MainViewModel viewModel;
     private AuthViewModel authViewModel;
 
+    private static final int PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 1;
+
+    private boolean mLocationPermissionGranted;
+
+
     @SuppressLint("NonConstantResourceId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,7 +60,21 @@ public class MainActivity extends AppCompatActivity {
         setContentView(view);
         replaceFragment(new MapFragment());
 
-        viewModel = new ViewModelProvider(this).get(MainViewModel.class);
+        viewModel = new MainViewModel(getApplicationContext());
+
+
+        viewModel.checkPermissionLocation().observe(this, new Observer<Boolean>() {
+            @Override
+            public void onChanged(Boolean shouldRequest) {
+                if (shouldRequest) {
+                    ActivityCompat.requestPermissions(MainActivity.this,
+                            new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION},
+                            PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION);
+
+                    viewModel.permissionHandled();
+                }
+            }
+        });
 
         binding.bottomNavigationView.setOnItemSelectedListener(item ->{
             switch (item.getItemId()){
@@ -80,6 +104,9 @@ public class MainActivity extends AppCompatActivity {
 
         initAutocompleteSearchView();
         getSearchViewQuery();
+
+
+
 //
        // binding.buttonLogin.setOnClickListener(v->{
        //     authViewModel.startSignInActivity(signInLauncher);
@@ -93,6 +120,19 @@ public class MainActivity extends AppCompatActivity {
        //     authViewModel.startSignInActivity(signInLauncher);
        // });
     }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                viewModel.setLocation();
+            } else {
+                viewModel.onSomeActionThatRequiresPermission();
+            }
+        }
+    }
+
 
     @Override
     protected void onResume() {
@@ -181,4 +221,5 @@ public class MainActivity extends AppCompatActivity {
             imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
         }
     }
+
 }

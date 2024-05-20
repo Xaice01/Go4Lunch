@@ -1,5 +1,8 @@
 package com.xavier_carpentier.go4lunch.presentation.ui.autocompleteSearchView;
 
+import static android.content.ContentValues.TAG;
+
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -23,7 +26,9 @@ public class AutocompleteListViewHolder extends RecyclerView.ViewHolder {
 
         itemView.setOnClickListener(v -> {
             if (listener != null) {
+                Log.d(TAG,"AUTOCOMPLETE avant recycler " + getAdapterPosition() +" "+ autocompletePrediction.getRestaurantName());
                 if (getAdapterPosition() != RecyclerView.NO_POSITION) { // to make sure the position is valid
+                    Log.d(TAG,"AUTOCOMPLETE " + getAdapterPosition() +" "+ autocompletePrediction.getRestaurantName());
                     listener.onItemClick(getAdapterPosition(), autocompletePrediction.getRestaurantId());
                 }
             }

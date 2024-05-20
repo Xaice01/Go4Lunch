@@ -1,6 +1,9 @@
 package com.xavier_carpentier.go4lunch.presentation.ui.detail_restaurant;
 
+import static android.content.ContentValues.TAG;
+
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -55,12 +58,18 @@ public class DetailRestaurantActivity extends AppCompatActivity {
 
         //show the picture restaurant
         //String uriPicture = detailRestaurantViewModel.getRestaurantDetail().getPicture();
+
+
+
+
         detailRestaurantViewModel.getRestaurantDetail().observe(this, restaurantDetail ->{ Glide.with(this)
                 .load(restaurantDetail.getPicture())
                 .centerCrop()
                 .error(R.drawable.background_picture)
                 .fallback(R.drawable.background_picture)
                 .into(binding.imageViewPictureRestaurant);
+
+            Log.d(TAG, "glide"+ restaurantDetail.getPicture());
 
             binding.TextViewNameRestaurantDetailRestaurant.setText(restaurantDetail.getName());
             binding.TextViewNote.setText(detailRestaurantViewModel.getRatingRestaurantInStingBuilder());

@@ -24,6 +24,7 @@ mockitoAndroid = "3.12.4"
 mockitoCore = "4.6.1"
 googleAndroidLibrariesMapsplatformSecretsGradlePlugin = "2.0.1"
 places = "3.4.0"
+playServicesLocation = "21.2.0"
 playServicesMaps = "18.1.0"
 navigationFragment = "2.7.7"
 navigationUi = "2.7.7"
@@ -56,6 +57,7 @@ constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayo
 mockito-android = { module = "org.mockito:mockito-android", version.ref = "mockitoAndroid" }
 mockito-core = { module = "org.mockito:mockito-core", version.ref = "mockitoCore" }
 places = { module = "com.google.android.libraries.places:places", version.ref = "places" }
+play-services-location = { module = "com.google.android.gms:play-services-location", version.ref = "playServicesLocation" }
 play-services-maps = { group = "com.google.android.gms", name = "play-services-maps", version.ref = "playServicesMaps" }
 navigation-fragment = { group = "androidx.navigation", name = "navigation-fragment", version.ref = "navigationFragment" }
 navigation-ui = { group = "androidx.navigation", name = "navigation-ui", version.ref = "navigationUi" }
