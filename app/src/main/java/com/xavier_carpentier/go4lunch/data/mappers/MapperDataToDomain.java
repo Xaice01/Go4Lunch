@@ -1,12 +1,17 @@
 package com.xavier_carpentier.go4lunch.data.mappers;
 
+import android.location.Location;
+
 import com.google.firebase.auth.FirebaseUser;
 import com.xavier_carpentier.go4lunch.data.entity.autocomplete_response.Prediction;
 import com.xavier_carpentier.go4lunch.data.entity.detail_restaurant_response.RestaurantDetailResponse;
+import com.xavier_carpentier.go4lunch.data.entity.list_restaurant_response.ListRestaurantResponse;
+import com.xavier_carpentier.go4lunch.data.entity.list_restaurant_response.Result;
 import com.xavier_carpentier.go4lunch.datasource.utils.AuthProviderType;
 import com.xavier_carpentier.go4lunch.domain.model.AuthProviderTypeDomain;
 import com.xavier_carpentier.go4lunch.domain.model.AutocompletePredictionDomain;
 import com.xavier_carpentier.go4lunch.domain.model.RestaurantDomain;
+import com.xavier_carpentier.go4lunch.domain.model.RestaurantSearchDomain;
 import com.xavier_carpentier.go4lunch.domain.model.UserDomain;
 
 import java.util.ArrayList;
@@ -61,7 +66,7 @@ public class MapperDataToDomain {
             uidRestaurant = restaurantDetailResponse.getResult().getPlaceId();
             restaurantName = restaurantDetailResponse.getResult().getName();
             vicinity = restaurantDetailResponse.getResult().getVicinity();
-            photoReferenceUrl = restaurantDetailResponse.getResult().getPhotos().get(0).getPhotoReference();
+            photoReferenceUrl = restaurantDetailResponse.getResult().getPhotos().get(0).getPhotoURL();
             rating = restaurantDetailResponse.getResult().getRating();
             phoneNumber = restaurantDetailResponse.getResult().getFormattedPhoneNumber();
             websiteUrl = restaurantDetailResponse.getResult().getWebsite();
@@ -90,5 +95,40 @@ public class MapperDataToDomain {
             }
         }
         return predictionDomainList;
+    }
+
+    public static List<RestaurantSearchDomain> listResultRestaurantResponseToListRestaurantSearchDomain (List<Result> RestaurantResponseList,String latitudeUser,String longitudeUser){
+        List<RestaurantSearchDomain> restaurantSearchDomainList = new ArrayList<>();
+
+        for(Result restaurantResponse : RestaurantResponseList){
+            if (restaurantResponse.getPlaceId() != null && restaurantResponse.getPhotos().get(0).getPhotoReference() != null) {
+
+                //get distance between user and restaurant
+                Location userLocation=new Location("userLocation");
+                userLocation.setLatitude(Double.parseDouble(latitudeUser));
+                userLocation.setLongitude(Double.parseDouble(longitudeUser));
+
+                Double latitudeRestaurant = restaurantResponse.getGeometry().getLocation().getLat();
+                Double longitudeRestaurant = restaurantResponse.getGeometry().getLocation().getLng();
+                Location restaurantLocation= new Location("restaurantLocation");
+                restaurantLocation.setLatitude(latitudeRestaurant);
+                restaurantLocation.setLongitude(longitudeRestaurant);
+
+                Integer distance = (int) userLocation.distanceTo(restaurantLocation);
+
+                Boolean isOpen;
+                if(restaurantResponse.getOpeningHours()!=null && restaurantResponse.getOpeningHours().getOpenNow()!=null) {
+                    isOpen=restaurantResponse.getOpeningHours().getOpenNow();
+                }else {
+                    isOpen=null;
+                }
+
+                restaurantSearchDomainList.add(new RestaurantSearchDomain(restaurantResponse.getPlaceId(), restaurantResponse.getName(), restaurantResponse.getVicinity(), restaurantResponse.getPhotos().get(0).getPhotoURL(), restaurantResponse.getRating(), latitudeRestaurant.toString(), longitudeRestaurant.toString(), distance, isOpen));
+
+            } else {
+                return null;
+            }
+        }
+        return restaurantSearchDomainList;
     }
 }

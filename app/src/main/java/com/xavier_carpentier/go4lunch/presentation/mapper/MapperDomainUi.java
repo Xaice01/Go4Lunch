@@ -3,12 +3,15 @@ package com.xavier_carpentier.go4lunch.presentation.mapper;
 import com.xavier_carpentier.go4lunch.domain.model.AuthProviderTypeDomain;
 import com.xavier_carpentier.go4lunch.domain.model.AutocompletePredictionDomain;
 import com.xavier_carpentier.go4lunch.domain.model.RestaurantDomain;
+import com.xavier_carpentier.go4lunch.domain.model.RestaurantSearchDomain;
 import com.xavier_carpentier.go4lunch.domain.model.UserDomain;
 import com.xavier_carpentier.go4lunch.presentation.model.AuthProviderTypeUi;
 import com.xavier_carpentier.go4lunch.presentation.model.AutocompletePrediction;
 import com.xavier_carpentier.go4lunch.presentation.model.RestaurantDetail;
+import com.xavier_carpentier.go4lunch.presentation.model.RestaurantItem;
 import com.xavier_carpentier.go4lunch.presentation.model.User;
 
+import android.net.Uri;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -72,7 +75,7 @@ public class MapperDomainUi {
         List<AutocompletePrediction> predictionList = new ArrayList<>();
 
         for(AutocompletePredictionDomain predictionDomain : predictionDomainList){
-            if (predictionDomain.getRestaurantId() != null && predictionDomain.getRestaurantId() != null) {
+            if (predictionDomain.getRestaurantId() != null) {
 
                 predictionList.add(new AutocompletePrediction(predictionDomain.getRestaurantId(), predictionDomain.getRestaurantName()));
 
@@ -82,6 +85,21 @@ public class MapperDomainUi {
         }
         return predictionList;
 
+    }
+
+    public static List<RestaurantItem> listRestaurantSearchDomainTolistRestaurantItem (List<RestaurantSearchDomain> RestaurantSearchDomainList){
+        List<RestaurantItem> restaurantItemList = new ArrayList<>();
+
+        for(RestaurantSearchDomain restaurantSearchDomain : RestaurantSearchDomainList){
+            if(restaurantSearchDomain.getPlaceId() != null){
+                Uri uriPhoto = Uri.parse(restaurantSearchDomain.getPhotoReferenceUrl());
+                restaurantItemList.add(new RestaurantItem(restaurantSearchDomain.getPlaceId(),restaurantSearchDomain.getRestaurantName(),restaurantSearchDomain.getVicinity(),restaurantSearchDomain.getDistance(),restaurantSearchDomain.getRating().intValue(),0,restaurantSearchDomain.getOpen(),uriPhoto));
+            }else{
+                return null;
+            }
+
+        }
+        return restaurantItemList;
     }
 
 }

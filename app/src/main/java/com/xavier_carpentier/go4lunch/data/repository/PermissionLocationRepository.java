@@ -28,21 +28,3 @@ public class PermissionLocationRepository implements com.xavier_carpentier.go4lu
         isPermissionLiveData.setValue(setLocationPermission);
     }
 }
-        //todo to remove
-    //private void getLocationPermission() {
-    //    /*
-    //     * Request location permission, so that we can get the location of the
-    //     * device. The result of the permission request is handled by a callback,
-    //     * onRequestPermissionsResult.
-    //     */
-    //    mLocationPermissionGranted = false;
-    //    if (ContextCompat.checkSelfPermission(this.getApplicationContext(),
-    //            android.Manifest.permission.ACCESS_FINE_LOCATION)
-    //            == PackageManager.PERMISSION_GRANTED) {
-    //        mLocationPermissionGranted = true;
-    //    } else {
-    //        ActivityCompat.requestPermissions(this,
-    //                new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION},
-    //                PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION);
-    //    }
-    //}

@@ -1,15 +1,17 @@
-package com.xavier_carpentier.go4lunch.data.entity.detail_restaurant_response;
+package com.xavier_carpentier.go4lunch.data.entity.list_restaurant_response;
 
 import static com.xavier_carpentier.go4lunch.BuildConfig.GOOGLE_API_KEY;
 
 import androidx.annotation.NonNull;
 
+import java.io.Serializable;
 import java.util.List;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 // This class has been generated with https://www.jsonschema2pojo.org/
-public class Photo {
+public class Photo implements Serializable
+{
 
     @SerializedName("height")
     @Expose
@@ -23,6 +25,22 @@ public class Photo {
     @SerializedName("width")
     @Expose
     private Integer width;
+    private final static long serialVersionUID = 6558863292095864540L;
+
+    /**
+     * No args constructor for use in serialization
+     *
+     */
+    public Photo() {
+    }
+
+    public Photo(Integer height, List<String> htmlAttributions, String photoReference, Integer width) {
+        super();
+        this.height = height;
+        this.htmlAttributions = htmlAttributions;
+        this.photoReference = photoReference;
+        this.width = width;
+    }
 
     public Integer getHeight() {
         return height;
@@ -44,8 +62,6 @@ public class Photo {
         return photoReference;
     }
 
-    public String getPhotoURL(){return "https://maps.googleapis.com/maps/api/place/photo?maxwidth=1080&photo_reference="+photoReference+"&key="+GOOGLE_API_KEY;}
-
     public void setPhotoReference(String photoReference) {
         this.photoReference = photoReference;
     }
@@ -57,6 +73,10 @@ public class Photo {
     public void setWidth(Integer width) {
         this.width = width;
     }
+
+    public String getPhotoURL(){
+        return "https://maps.googleapis.com/maps/api/place/photo?maxwidth=1080&photo_reference="+photoReference+"&key="+GOOGLE_API_KEY;}
+
 
     @NonNull
     @Override

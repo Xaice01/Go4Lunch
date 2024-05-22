@@ -77,7 +77,7 @@ public class RestaurantDomain {
     @NonNull
     @Override
     public String toString() {
-        return "DetailsRestaurantEntity{" +
+        return "RestaurantDomain{" +
                 "placeId='" + uidRestaurant + '\'' +
                 ", restaurantName='" + restaurantName + '\'' +
                 ", vicinity='" + vicinity + '\'' +

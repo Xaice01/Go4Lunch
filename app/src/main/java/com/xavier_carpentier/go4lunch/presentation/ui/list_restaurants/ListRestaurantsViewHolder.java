@@ -7,8 +7,9 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.xavier_carpentier.go4lunch.R;
-import com.xavier_carpentier.go4lunch.presentation.model.RestaurantList;
+import com.xavier_carpentier.go4lunch.presentation.model.RestaurantItem;
 
 public class ListRestaurantsViewHolder extends RecyclerView.ViewHolder {
     // FOR DESIGN ---
@@ -30,12 +31,33 @@ public class ListRestaurantsViewHolder extends RecyclerView.ViewHolder {
         rating = itemView.findViewById(R.id.item_text_rating);
     }
 
-    public void bind(RestaurantList restaurant, ListRestaurantsAdapter.OnItemClickListener mListener) {
+    public void bind(RestaurantItem restaurant, ListRestaurantsAdapter.OnItemClickListener mListener) {
         //InputStream stream = getContentResolver().openInputStream(restaurant.getPicture());
-        pictureRestaurant.setImageURI(restaurant.getPicture());
+
+        Glide.with(itemView.getRootView())
+                .load(restaurant.getPicture())
+                .centerCrop()
+                .error(R.drawable.detail_restaurant_picture)
+                .fallback(R.drawable.detail_restaurant_picture)
+                .into(pictureRestaurant);
+
         name.setText(restaurant.getName());
-        typeAndAddress.setText(String.format("%s - %s", restaurant.getTypeRestaurant(), restaurant.getAddress()));
-        schedule.setText(restaurant.getSchedule());
+        typeAndAddress.setText(restaurant.getAddress());
+
+        //todo to change
+        if(restaurant.getIsOpen()!=null) {
+            schedule.setVisibility(View.VISIBLE);
+            if (restaurant.getIsOpen()) {
+                schedule.setText("Open");
+                //schedule.setTextColor(green);
+            } else {
+                schedule.setText("close");
+                //schedule.setTextColor(R.color.white); red
+            }
+        }else{
+            schedule.setVisibility(View.INVISIBLE);
+        }
+
         distance.setText(String.format("%sm",restaurant.getDistance()));
 
         //todo if a mettre dans le viewmodel
@@ -47,8 +69,10 @@ public class ListRestaurantsViewHolder extends RecyclerView.ViewHolder {
 
         //TODo for dans le viewmodel
         StringBuilder noteToWrite= new StringBuilder();
-        for(int i=0;i<restaurant.getNote()&&i<3;i++){
-            noteToWrite.append("⭐");
+        for(int i=0;i<restaurant.getNote()&&i<4;i++){
+            if(i!=1 && i!=3) {
+                noteToWrite.append("⭐");
+            }
         }
         rating.setText(noteToWrite);
 

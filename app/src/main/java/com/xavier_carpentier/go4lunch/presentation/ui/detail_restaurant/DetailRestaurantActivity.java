@@ -55,18 +55,11 @@ public class DetailRestaurantActivity extends AppCompatActivity {
 
     private void bind() {
 
-
-        //show the picture restaurant
-        //String uriPicture = detailRestaurantViewModel.getRestaurantDetail().getPicture();
-
-
-
-
         detailRestaurantViewModel.getRestaurantDetail().observe(this, restaurantDetail ->{ Glide.with(this)
                 .load(restaurantDetail.getPicture())
                 .centerCrop()
-                .error(R.drawable.background_picture)
-                .fallback(R.drawable.background_picture)
+                .error(R.drawable.detail_restaurant_picture)
+                .fallback(R.drawable.detail_restaurant_picture)
                 .into(binding.imageViewPictureRestaurant);
 
             Log.d(TAG, "glide"+ restaurantDetail.getPicture());
@@ -75,21 +68,6 @@ public class DetailRestaurantActivity extends AppCompatActivity {
             binding.TextViewNote.setText(detailRestaurantViewModel.getRatingRestaurantInStingBuilder());
             binding.TextViewTypeRestaurantAndAddress.setText(detailRestaurantViewModel.getTypeAndAddress());
         });
-
-
-        //Glide.with(this).load(uriPicture).into(binding.imageViewPictureRestaurant);
-
-        //Glide.with(this)
-        //        .load(uriPicture)
-        //        .centerCrop()
-        //        .error(R.drawable.background_picture)
-        //        .fallback(R.drawable.background_picture)
-        //        .into(binding.imageViewPictureRestaurant);
-        //binding.imageViewPictureRestaurant.setImageResource(detailRestaurantViewModel.getRestaurantDetail().getPicture());
-
-        //binding.TextViewNameRestaurantDetailRestaurant.setText(detailRestaurantViewModel.getRestaurantDetail().getName());
-        //binding.TextViewNote.setText(detailRestaurantViewModel.getRatingRestaurantInStingBuilder());
-        //binding.TextViewTypeRestaurantAndAddress.setText(detailRestaurantViewModel.getTypeAndAddress());
 
     }
     private void initListWorkmate() {

@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.xavier_carpentier.go4lunch.R;
-import com.xavier_carpentier.go4lunch.presentation.model.RestaurantList;
+import com.xavier_carpentier.go4lunch.presentation.model.RestaurantItem;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,7 +18,7 @@ import java.util.Objects;
 
 public class ListRestaurantsAdapter extends RecyclerView.Adapter<ListRestaurantsViewHolder> {
 
-    private List<RestaurantList> restaurants = new ArrayList<>();
+    private List<RestaurantItem> restaurants = new ArrayList<>();
     private ListRestaurantsAdapter.OnItemClickListener mListener;
 
     public void setOnItemClickListener(ListRestaurantsAdapter.OnItemClickListener listener) {
@@ -47,7 +47,7 @@ public class ListRestaurantsAdapter extends RecyclerView.Adapter<ListRestaurants
     }
 
 
-    public void updateList(List<RestaurantList> newList) {
+    public void updateList(List<RestaurantItem> newList) {
         DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(new ListRestaurantsAdapter.UserDiffCallback(newList, this.restaurants));
         this.restaurants = new ArrayList<>(newList);
         diffResult.dispatchUpdatesTo(this);
@@ -55,10 +55,10 @@ public class ListRestaurantsAdapter extends RecyclerView.Adapter<ListRestaurants
 
     private static class UserDiffCallback extends DiffUtil.Callback {
 
-        private final List<RestaurantList> oldRestaurants;
-        private final List<RestaurantList> newRestaurants;
+        private final List<RestaurantItem> oldRestaurants;
+        private final List<RestaurantItem> newRestaurants;
 
-        public UserDiffCallback(List<RestaurantList> newRestaurants, List<RestaurantList> oldRestaurants) {
+        public UserDiffCallback(List<RestaurantItem> newRestaurants, List<RestaurantItem> oldRestaurants) {
             this.newRestaurants = newRestaurants;
             this.oldRestaurants = oldRestaurants;
         }

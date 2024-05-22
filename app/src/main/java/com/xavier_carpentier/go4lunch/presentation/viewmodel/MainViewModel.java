@@ -1,9 +1,7 @@
 package com.xavier_carpentier.go4lunch.presentation.viewmodel;
 
-import android.app.Application;
 import android.content.Context;
 
-import androidx.core.app.ActivityCompat;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Transformations;
@@ -50,7 +48,6 @@ public class MainViewModel extends ViewModel {
 
         permissionLocationRepository = new PermissionLocationRepository(context);
         checkLocationPermissionUseCase = new CheckLocationPermissionUseCase(permissionLocationRepository);
-
         setLocation();
 
         predictionsLiveData = Transformations.switchMap(
@@ -64,7 +61,6 @@ public class MainViewModel extends ViewModel {
         );
     }
 
-
     public void setLocation(){
         isPermissionLocation = checkLocationPermissionUseCase.invoke();
         if(Boolean.TRUE.equals(isPermissionLocation.getValue())) {
@@ -72,10 +68,7 @@ public class MainViewModel extends ViewModel {
         }else{
             onSomeActionThatRequiresPermission();
         }
-        //permi
-
     }
-    //public getlocation
 
     public LiveData<Boolean> checkPermissionLocation(){
         return requestLocationPermission;
