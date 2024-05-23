@@ -22,6 +22,6 @@ public class GetAutocompleteLiveDataUseCase {
 
     public LiveData<List<AutocompletePrediction>> invoke(String input,String latitude,String longitude){
 
-        return Transformations.map(placeRepository.getAutocomplete(input,latitude,longitude,RADIUS,TYPES), MapperDomainUi::ListAutocompletePredictionDomainToListAutocompletePrediction);
+        return Transformations.map(placeRepository.getAutocomplete(input,latitude,longitude,RADIUS,TYPES), MapperDomainUi::listAutocompletePredictionDomainToListAutocompletePrediction);
     }
 }

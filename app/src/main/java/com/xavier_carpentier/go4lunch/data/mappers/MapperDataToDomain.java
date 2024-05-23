@@ -5,11 +5,11 @@ import android.location.Location;
 import com.google.firebase.auth.FirebaseUser;
 import com.xavier_carpentier.go4lunch.data.entity.autocomplete_response.Prediction;
 import com.xavier_carpentier.go4lunch.data.entity.detail_restaurant_response.RestaurantDetailResponse;
-import com.xavier_carpentier.go4lunch.data.entity.list_restaurant_response.ListRestaurantResponse;
 import com.xavier_carpentier.go4lunch.data.entity.list_restaurant_response.Result;
 import com.xavier_carpentier.go4lunch.datasource.utils.AuthProviderType;
 import com.xavier_carpentier.go4lunch.domain.model.AuthProviderTypeDomain;
 import com.xavier_carpentier.go4lunch.domain.model.AutocompletePredictionDomain;
+import com.xavier_carpentier.go4lunch.domain.model.LocationDomain;
 import com.xavier_carpentier.go4lunch.domain.model.RestaurantDomain;
 import com.xavier_carpentier.go4lunch.domain.model.RestaurantSearchDomain;
 import com.xavier_carpentier.go4lunch.domain.model.UserDomain;
@@ -101,7 +101,7 @@ public class MapperDataToDomain {
         List<RestaurantSearchDomain> restaurantSearchDomainList = new ArrayList<>();
 
         for(Result restaurantResponse : RestaurantResponseList){
-            if (restaurantResponse.getPlaceId() != null && restaurantResponse.getPhotos().get(0).getPhotoReference() != null) {
+            if (restaurantResponse.getPlaceId() != null && restaurantResponse.getPhotos()!=null && restaurantResponse.getPhotos().get(0).getPhotoReference() != null) {
 
                 //get distance between user and restaurant
                 Location userLocation=new Location("userLocation");
@@ -125,10 +125,12 @@ public class MapperDataToDomain {
 
                 restaurantSearchDomainList.add(new RestaurantSearchDomain(restaurantResponse.getPlaceId(), restaurantResponse.getName(), restaurantResponse.getVicinity(), restaurantResponse.getPhotos().get(0).getPhotoURL(), restaurantResponse.getRating(), latitudeRestaurant.toString(), longitudeRestaurant.toString(), distance, isOpen));
 
-            } else {
-                return null;
             }
         }
         return restaurantSearchDomainList;
+    }
+
+    public static LocationDomain locationToLocationDomain(Location Location) {
+        return new LocationDomain(String.valueOf(Location.getLatitude()), String.valueOf(Location.getLongitude()));
     }
 }

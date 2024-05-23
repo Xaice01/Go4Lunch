@@ -59,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(view);
         replaceFragment(new MapFragment());
 
-        viewModel = new MainViewModel(getApplicationContext());
+        viewModel = new MainViewModel(getApplication());
 
 
         viewModel.checkPermissionLocation().observe(this, new Observer<Boolean>() {

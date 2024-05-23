@@ -14,6 +14,6 @@ public class GetBuilderListAuthenticationProvidersUseCase {
     }
 
     public List<AuthProviderTypeUi> invoke(){
-        return MapperDomainUi.ListAuthProviderTypeDomainToListAuthProviderTypeUi(userRepository.getBuilderListAuthenticationProvider());
+        return MapperDomainUi.listAuthProviderTypeDomainToListAuthProviderTypeUi(userRepository.getBuilderListAuthenticationProvider());
     }
 }

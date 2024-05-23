@@ -1,9 +1,7 @@
 package com.xavier_carpentier.go4lunch.mapper;
 
-import static com.xavier_carpentier.go4lunch.presentation.mapper.MapperDomainUi.ListAuthProviderTypeDomainToListAuthProviderTypeUi;
+import static com.xavier_carpentier.go4lunch.presentation.mapper.MapperDomainUi.listAuthProviderTypeDomainToListAuthProviderTypeUi;
 import static com.xavier_carpentier.go4lunch.presentation.mapper.MapperDomainUi.userDomainToUserUi;
-
-import android.net.Uri;
 
 import com.xavier_carpentier.go4lunch.domain.model.AuthProviderTypeDomain;
 import com.xavier_carpentier.go4lunch.domain.model.UserDomain;
@@ -52,7 +50,7 @@ public class MapperDomainUiTest extends TestCase {
         providersToTest.add(AuthProviderTypeDomain.GOOGLE);
 
         //When
-        List<AuthProviderTypeUi> listProviderUi = new ArrayList<>(ListAuthProviderTypeDomainToListAuthProviderTypeUi(providersToTest));
+        List<AuthProviderTypeUi> listProviderUi = new ArrayList<>(listAuthProviderTypeDomainToListAuthProviderTypeUi(providersToTest));
 
         //Then
         assertEquals(listProviderUi.get(0).name(),providersToTest.get(0).name());

@@ -17,6 +17,6 @@ public class GetRestaurantByIdUseCase {
     public LiveData<RestaurantDetail> invoke(String restaurantUid){
 
 
-        return Transformations.map(placeRepository.getRestaurant(restaurantUid), MapperDomainUi::RestaurantDomainToRestaurantDetail);
+        return Transformations.map(placeRepository.getRestaurant(restaurantUid), MapperDomainUi::restaurantDomainToRestaurantDetail);
     }
 }

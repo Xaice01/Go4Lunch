@@ -9,8 +9,6 @@ import com.xavier_carpentier.go4lunch.domain.model.RestaurantSearchDomain;
 import java.util.List;
 
 public interface PlaceRepository {
-    void getCurrentLocation();
-
 
     LiveData<List<AutocompletePredictionDomain>> getAutocomplete(String input, String latitude,String longitude, String radius, String types);
 

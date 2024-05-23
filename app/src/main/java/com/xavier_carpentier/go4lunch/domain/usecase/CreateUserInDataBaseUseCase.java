@@ -13,6 +13,6 @@ public class CreateUserInDataBaseUseCase {
     }
 
     public void invoke(User user){
-        userRepository.createUserInDataBase(MapperDomainUi.UserUiToUserDomain(user));
+        userRepository.createUserInDataBase(MapperDomainUi.userUiToUserDomain(user));
     }
 }

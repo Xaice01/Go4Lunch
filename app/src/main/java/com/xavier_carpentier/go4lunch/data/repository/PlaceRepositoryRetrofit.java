@@ -44,16 +44,9 @@ public class PlaceRepositoryRetrofit implements PlaceRepository {
 
     private final Map<String, List<Result>> alreadyFetchedResponsesListRestaurantResponse = new HashMap<>();
 
-    //TODO
-    public void getCurrentLocation(){
-        //Task<Location> locationResult = mFusedLocationProviderClient.getLastLocation();
-
-    }
-
-    //todo check to remove or not longitude and latitude
     public LiveData<List<AutocompletePredictionDomain>> getAutocomplete(String input, String latitude,String longitude, String radius, String types){
         MutableLiveData<List<AutocompletePredictionDomain>> autocompletePredictionDomainMutableLiveData = new MutableLiveData<>();
-        //todo change latitude and longitude
+
         String keyCache = input + latitude + longitude + radius + types;
 
         List<Prediction> responseList = alreadyFetchedResponsesListPrediction.get(keyCache);

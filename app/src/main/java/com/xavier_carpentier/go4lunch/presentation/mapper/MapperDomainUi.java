@@ -2,11 +2,13 @@ package com.xavier_carpentier.go4lunch.presentation.mapper;
 
 import com.xavier_carpentier.go4lunch.domain.model.AuthProviderTypeDomain;
 import com.xavier_carpentier.go4lunch.domain.model.AutocompletePredictionDomain;
+import com.xavier_carpentier.go4lunch.domain.model.LocationDomain;
 import com.xavier_carpentier.go4lunch.domain.model.RestaurantDomain;
 import com.xavier_carpentier.go4lunch.domain.model.RestaurantSearchDomain;
 import com.xavier_carpentier.go4lunch.domain.model.UserDomain;
 import com.xavier_carpentier.go4lunch.presentation.model.AuthProviderTypeUi;
 import com.xavier_carpentier.go4lunch.presentation.model.AutocompletePrediction;
+import com.xavier_carpentier.go4lunch.presentation.model.LocationUi;
 import com.xavier_carpentier.go4lunch.presentation.model.RestaurantDetail;
 import com.xavier_carpentier.go4lunch.presentation.model.RestaurantItem;
 import com.xavier_carpentier.go4lunch.presentation.model.User;
@@ -20,11 +22,11 @@ public class MapperDomainUi {
         return new User(userDomain.getUid(),userDomain.getUsername(),userDomain.getUrlPicture());
     }
 
-    public static UserDomain UserUiToUserDomain(User user){
+    public static UserDomain userUiToUserDomain(User user){
         return new UserDomain(user.getUid(),user.getUsername(),user.getUrlPicture());
     }
 
-    public static List<AuthProviderTypeUi> ListAuthProviderTypeDomainToListAuthProviderTypeUi(List<AuthProviderTypeDomain> authProviderTypeDomains){
+    public static List<AuthProviderTypeUi> listAuthProviderTypeDomainToListAuthProviderTypeUi(List<AuthProviderTypeDomain> authProviderTypeDomains){
 
         List<AuthProviderTypeUi> providers =new ArrayList<>();
 
@@ -50,7 +52,7 @@ public class MapperDomainUi {
         return providers;
     }
 
-    public static RestaurantDetail RestaurantDomainToRestaurantDetail(RestaurantDomain restaurantDomain){
+    public static RestaurantDetail restaurantDomainToRestaurantDetail(RestaurantDomain restaurantDomain){
         String uidRestaurant;
         String restaurantName;
         String vicinity;
@@ -71,7 +73,7 @@ public class MapperDomainUi {
         return new RestaurantDetail(uidRestaurant,photoReferenceUrl,restaurantName,vicinity,vicinity,rating,phoneNumber,false,websiteUrl);
     }
 
-    public static List<AutocompletePrediction> ListAutocompletePredictionDomainToListAutocompletePrediction (List<AutocompletePredictionDomain> predictionDomainList){
+    public static List<AutocompletePrediction> listAutocompletePredictionDomainToListAutocompletePrediction(List<AutocompletePredictionDomain> predictionDomainList){
         List<AutocompletePrediction> predictionList = new ArrayList<>();
 
         for(AutocompletePredictionDomain predictionDomain : predictionDomainList){
@@ -94,12 +96,12 @@ public class MapperDomainUi {
             if(restaurantSearchDomain.getPlaceId() != null){
                 Uri uriPhoto = Uri.parse(restaurantSearchDomain.getPhotoReferenceUrl());
                 restaurantItemList.add(new RestaurantItem(restaurantSearchDomain.getPlaceId(),restaurantSearchDomain.getRestaurantName(),restaurantSearchDomain.getVicinity(),restaurantSearchDomain.getDistance(),restaurantSearchDomain.getRating().intValue(),0,restaurantSearchDomain.getOpen(),uriPhoto));
-            }else{
-                return null;
             }
-
         }
         return restaurantItemList;
     }
 
+    public static LocationUi locationDomainToLocationUi(LocationDomain location) {
+        return new LocationUi(location.getLatitude(), location.getLongitude());
+    }
 }

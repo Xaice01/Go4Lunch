@@ -17,7 +17,7 @@ import java.util.List;
 public class GetListRestaurantsUseCase {
     private final AuthUserRepository userRepository;
     private final PlaceRepository placeRepository;
-    private static final String RADIUS = "5000";
+    private static final String RADIUS = "2000";
     private static final String TYPES = "restaurant";
 
     public GetListRestaurantsUseCase(AuthUserRepository userRepository,PlaceRepository placeRepository) {

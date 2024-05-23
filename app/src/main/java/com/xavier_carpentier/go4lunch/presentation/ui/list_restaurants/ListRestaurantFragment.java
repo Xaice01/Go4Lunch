@@ -46,8 +46,15 @@ public class ListRestaurantFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState){
         super.onViewCreated(view, savedInstanceState);
-        listRestaurantsViewModel = new ViewModelProvider(this).get(ListRestaurantsViewModel.class);
+        listRestaurantsViewModel=new ListRestaurantsViewModel(getActivity().getApplication());
+        // listRestaurantsViewModel = new ViewModelProvider(this).get(ListRestaurantsViewModel.class);
         initList();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        listRestaurantsViewModel.stopLocationUpdates();
     }
     private void initList() {
         ListRestaurantsAdapter adapter = new ListRestaurantsAdapter();
