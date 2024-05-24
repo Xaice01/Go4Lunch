@@ -57,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
         setContentView(view);
-        replaceFragment(new MapFragment());
+        replaceFragment(MapFragment.newInstance());
 
         viewModel = new MainViewModel(getApplication());
 
@@ -78,7 +78,7 @@ public class MainActivity extends AppCompatActivity {
         binding.bottomNavigationView.setOnItemSelectedListener(item ->{
             switch (item.getItemId()){
                 case R.id.map :
-                    replaceFragment(new MapFragment());
+                    replaceFragment(MapFragment.newInstance());
                     return true;
                 case R.id.page_list_view :
                     replaceFragment(ListRestaurantFragment.newInstance());

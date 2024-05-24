@@ -2,28 +2,27 @@ package com.xavier_carpentier.go4lunch.data.repository;
 
 import static com.xavier_carpentier.go4lunch.BuildConfig.GOOGLE_API_KEY;
 
-import android.location.Location;
-
 import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
-import com.google.android.gms.tasks.Task;
 import com.xavier_carpentier.go4lunch.data.GooglePlaceApi;
-import com.xavier_carpentier.go4lunch.data.entity.autocomplete_response.AutocompleteResponse;
-import com.xavier_carpentier.go4lunch.data.entity.autocomplete_response.Prediction;
-import com.xavier_carpentier.go4lunch.data.entity.detail_restaurant_response.RestaurantDetailResponse;
-import com.xavier_carpentier.go4lunch.data.entity.list_restaurant_response.ListRestaurantResponse;
-import com.xavier_carpentier.go4lunch.data.entity.list_restaurant_response.Result;
+import com.xavier_carpentier.go4lunch.data.response.autocomplete_response.AutocompleteResponse;
+import com.xavier_carpentier.go4lunch.data.response.autocomplete_response.Prediction;
+import com.xavier_carpentier.go4lunch.data.response.detail_restaurant_response.RestaurantDetailResponse;
+import com.xavier_carpentier.go4lunch.data.response.list_restaurant_response.ListRestaurantResponse;
+import com.xavier_carpentier.go4lunch.data.response.list_restaurant_response.Result;
 import com.xavier_carpentier.go4lunch.data.mappers.MapperDataToDomain;
 import com.xavier_carpentier.go4lunch.domain.model.AutocompletePredictionDomain;
 import com.xavier_carpentier.go4lunch.domain.model.RestaurantDomain;
 import com.xavier_carpentier.go4lunch.domain.model.RestaurantSearchDomain;
 import com.xavier_carpentier.go4lunch.domain.repository.PlaceRepository;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -55,7 +54,7 @@ public class PlaceRepositoryRetrofit implements PlaceRepository {
         }else {
             googlePlaceApi.getAutocomplete(input, (latitude +","+ longitude),radius,types,GOOGLE_API_KEY).enqueue(new Callback<AutocompleteResponse>() {
                 @Override
-                public void onResponse(Call<AutocompleteResponse> call, Response<AutocompleteResponse> response) {
+                public void onResponse(@NonNull Call<AutocompleteResponse> call, @NonNull Response<AutocompleteResponse> response) {
                     if(response.isSuccessful() && response.body()!=null && response.body().getPredictions() != null){
                         List<Prediction> predictionList =response.body().getPredictions();
                         alreadyFetchedResponsesListPrediction.put(keyCache,predictionList);
@@ -67,7 +66,7 @@ public class PlaceRepositoryRetrofit implements PlaceRepository {
                 }
 
                 @Override
-                public void onFailure(Call<AutocompleteResponse> call, Throwable t) {
+                public void onFailure(@NonNull Call<AutocompleteResponse> call, @NonNull Throwable t) {
                     autocompletePredictionDomainMutableLiveData.setValue(null);
                 }
             });
@@ -75,10 +74,8 @@ public class PlaceRepositoryRetrofit implements PlaceRepository {
         return autocompletePredictionDomainMutableLiveData;
     }
 
-        //todo check to remove or not longitude and latitude
     public LiveData<List<RestaurantSearchDomain>> getListRestaurant(String latitude, String longitude, String radius, String types){
         MutableLiveData<List<RestaurantSearchDomain>> listRestaurantSearchDomainMutableLiveData = new MutableLiveData<>();
-        //todo change latitude and longitude
 
         String keyCache = latitude + longitude + radius + types;
 
@@ -88,7 +85,7 @@ public class PlaceRepositoryRetrofit implements PlaceRepository {
         }else {
             googlePlaceApi.getNearby((latitude + "," + longitude), types, radius, GOOGLE_API_KEY).enqueue(new Callback<ListRestaurantResponse>() {
                 @Override
-                public void onResponse(Call<ListRestaurantResponse> call, Response<ListRestaurantResponse> response) {
+                public void onResponse(@NonNull Call<ListRestaurantResponse> call, @NonNull Response<ListRestaurantResponse> response) {
                     if (response.isSuccessful() && response.body() != null && response.body().getResults() != null) {
                         List<Result> resultList = response.body().getResults();
                         alreadyFetchedResponsesListRestaurantResponse.put(keyCache, resultList);
@@ -96,15 +93,42 @@ public class PlaceRepositoryRetrofit implements PlaceRepository {
                     } else {
                         listRestaurantSearchDomainMutableLiveData.setValue(null);
                     }
+                    if(response.isSuccessful() && response.body() != null && response.body().getResults() != null && response.body().getNextPageToken()!=null ){
+                        List<RestaurantSearchDomain> listRestaurantSearchDomain = listRestaurantSearchDomainMutableLiveData.getValue();
+                        List<RestaurantSearchDomain> listRestauranttoadd = getNextRestaurant(response.body().getNextPageToken(),keyCache,latitude,longitude);
+                        Objects.requireNonNull(listRestaurantSearchDomain).addAll(listRestauranttoadd);
+                        listRestaurantSearchDomainMutableLiveData.setValue(listRestaurantSearchDomain);
+                    }
                 }
 
                 @Override
-                public void onFailure(Call<ListRestaurantResponse> call, Throwable t) {
+                public void onFailure(@NonNull Call<ListRestaurantResponse> call, @NonNull Throwable t) {
                     listRestaurantSearchDomainMutableLiveData.setValue(null);
                 }
             });
         }
         return listRestaurantSearchDomainMutableLiveData;
+    }
+
+    private List<RestaurantSearchDomain> getNextRestaurant(String token ,String keyCache, String latitude, String longitude){
+        List<RestaurantSearchDomain> listRestaurantSearchDomain = new ArrayList<>();
+
+        googlePlaceApi.getNearby(token, GOOGLE_API_KEY).enqueue(new Callback<ListRestaurantResponse>() {
+            @Override
+            public void onResponse(@NonNull Call<ListRestaurantResponse> call, @NonNull Response<ListRestaurantResponse> response) {
+                if (response.isSuccessful() && response.body() != null && response.body().getResults() != null) {
+                    List<Result> resultList = response.body().getResults();
+                    alreadyFetchedResponsesListRestaurantResponse.put(keyCache, resultList);
+                    listRestaurantSearchDomain.addAll(MapperDataToDomain.listResultRestaurantResponseToListRestaurantSearchDomain(resultList, latitude, longitude));
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<ListRestaurantResponse> call, @NonNull Throwable t) {
+
+            }
+        });
+        return listRestaurantSearchDomain;
     }
 
     public LiveData<RestaurantDomain> getRestaurant(String uidRestaurant){

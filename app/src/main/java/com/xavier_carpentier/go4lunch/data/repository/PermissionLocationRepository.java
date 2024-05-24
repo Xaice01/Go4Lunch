@@ -11,7 +11,7 @@ import androidx.lifecycle.MutableLiveData;
 
 public class PermissionLocationRepository implements com.xavier_carpentier.go4lunch.domain.repository.PermissionLocationRepository {
 
-    private MutableLiveData<Boolean> isPermissionLiveData = new MutableLiveData<>();
+    private final MutableLiveData<Boolean> isPermissionLiveData = new MutableLiveData<>();
     private final Context context;
 
     public PermissionLocationRepository(Context context){

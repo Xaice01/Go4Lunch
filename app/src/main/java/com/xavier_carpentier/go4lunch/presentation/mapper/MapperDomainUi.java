@@ -95,7 +95,7 @@ public class MapperDomainUi {
         for(RestaurantSearchDomain restaurantSearchDomain : RestaurantSearchDomainList){
             if(restaurantSearchDomain.getPlaceId() != null){
                 Uri uriPhoto = Uri.parse(restaurantSearchDomain.getPhotoReferenceUrl());
-                restaurantItemList.add(new RestaurantItem(restaurantSearchDomain.getPlaceId(),restaurantSearchDomain.getRestaurantName(),restaurantSearchDomain.getVicinity(),restaurantSearchDomain.getDistance(),restaurantSearchDomain.getRating().intValue(),0,restaurantSearchDomain.getOpen(),uriPhoto));
+                restaurantItemList.add(new RestaurantItem(restaurantSearchDomain.getPlaceId(),restaurantSearchDomain.getRestaurantName(),restaurantSearchDomain.getVicinity(),restaurantSearchDomain.getDistance(),restaurantSearchDomain.getRating().intValue(),restaurantSearchDomain.getLatitude(),restaurantSearchDomain.getLongitude(),0,restaurantSearchDomain.getOpen(),uriPhoto));
             }
         }
         return restaurantItemList;

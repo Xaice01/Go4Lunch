@@ -11,6 +11,12 @@ android {
     compileSdk 34
 
     defaultConfig {
+
+        // Lire la clé API à partir de gradle.properties
+        def googleApiKey = project.hasProperty("GOOGLE_API_KEY") ? project.GOOGLE_API_KEY : ""
+        buildConfigField "String", "GOOGLE_API_KEY", "\"${googleApiKey}\""
+        manifestPlaceholders = [GOOGLE_API_KEY: googleApiKey]
+
         applicationId "com.xavier_carpentier.go4lunch"
         minSdk 21
         targetSdk 34

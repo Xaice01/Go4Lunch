@@ -10,16 +10,20 @@ public class RestaurantItem {
     private final String address;
     private final int distance;
     private final int note;
+    private final String latitude;
+    private final String longitude;
     private final Integer workmatesToEat;
     private final Boolean isOpen;
     private final Uri picture;
 
-    public RestaurantItem(String uid, String name, String address, int distance, int note, Integer workmatesToEat, Boolean isOpen, Uri picture) {
+    public RestaurantItem(String uid, String name, String address, int distance, int note, String latitude, String longitude, Integer workmatesToEat, Boolean isOpen, Uri picture) {
         this.uid = uid;
         this.name = name;
         this.address = address;
         this.distance = distance;
         this.note = note;
+        this.latitude = latitude;
+        this.longitude = longitude;
         this.workmatesToEat = workmatesToEat;
         this.isOpen = isOpen;
         this.picture=picture;
@@ -51,4 +55,11 @@ public class RestaurantItem {
         return picture;
     }
 
+    public String getLatitude() {
+        return latitude;
+    }
+
+    public String getLongitude() {
+        return longitude;
+    }
 }

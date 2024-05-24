@@ -3,9 +3,9 @@ package com.xavier_carpentier.go4lunch.data.mappers;
 import android.location.Location;
 
 import com.google.firebase.auth.FirebaseUser;
-import com.xavier_carpentier.go4lunch.data.entity.autocomplete_response.Prediction;
-import com.xavier_carpentier.go4lunch.data.entity.detail_restaurant_response.RestaurantDetailResponse;
-import com.xavier_carpentier.go4lunch.data.entity.list_restaurant_response.Result;
+import com.xavier_carpentier.go4lunch.data.response.autocomplete_response.Prediction;
+import com.xavier_carpentier.go4lunch.data.response.detail_restaurant_response.RestaurantDetailResponse;
+import com.xavier_carpentier.go4lunch.data.response.list_restaurant_response.Result;
 import com.xavier_carpentier.go4lunch.datasource.utils.AuthProviderType;
 import com.xavier_carpentier.go4lunch.domain.model.AuthProviderTypeDomain;
 import com.xavier_carpentier.go4lunch.domain.model.AutocompletePredictionDomain;
