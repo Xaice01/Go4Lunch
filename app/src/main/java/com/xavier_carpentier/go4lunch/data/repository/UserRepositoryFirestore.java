@@ -1,20 +1,32 @@
 package com.xavier_carpentier.go4lunch.data.repository;
 
-import androidx.lifecycle.LiveData;
+import android.util.Log;
 
+import androidx.annotation.NonNull;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
+
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
+import com.xavier_carpentier.go4lunch.domain.model.RestaurantChoiceDomain;
 import com.xavier_carpentier.go4lunch.domain.model.UserDomain;
 import com.xavier_carpentier.go4lunch.domain.repository.UsersRepository;
 
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 public class UserRepositoryFirestore implements UsersRepository {
 
-    private static final String COLLECTION_NAME = "users";
+    private static final String COLLECTION_USER = "users";
+    private static final String COLLECTION_RESTAURANT_CHOICE = "restaurantChoice";
     private static final String UID_RESTAURANT_FAVORIS_FIELD = "uidRestaurantFavoris";
 
     private static volatile UserRepositoryFirestore instance;
@@ -56,11 +68,154 @@ public class UserRepositoryFirestore implements UsersRepository {
 
     // Get the Collection Reference
     private CollectionReference getUsersCollection(){
-        return FirebaseFirestore.getInstance().collection(COLLECTION_NAME);
+        return FirebaseFirestore.getInstance().collection(COLLECTION_USER);
     }
 
-    //TODO
-   // public LiveData<List<UserDomain>> getAllUsers(){
-   //     return FirebaseFirestore.getInstance().collection("users").get();
-   // }
+    private CollectionReference getRestaurantChoiceCollection(){
+        return FirebaseFirestore.getInstance().collection(COLLECTION_RESTAURANT_CHOICE);
+    }
+
+
+    public LiveData<List<UserDomain>> getAllUsers(){
+        MutableLiveData<List<UserDomain>> mutableLiveDataUserDomain = new MutableLiveData<>();
+
+        List<UserDomain> userDomainList = new ArrayList<>();
+
+        getUsersCollection().get().addOnCompleteListener(task -> {
+            if(task.isSuccessful()){
+                for (QueryDocumentSnapshot document : task.getResult()) {
+                    userDomainList.add(document.toObject(UserDomain.class));
+                }
+                mutableLiveDataUserDomain.setValue(userDomainList);
+            }else {
+                Log.d("Error", "Error getting documents (allUsers) : ", task.getException());
+            }
+        }).addOnFailureListener(e -> mutableLiveDataUserDomain.setValue(null));
+
+        return mutableLiveDataUserDomain;
+    }
+
+
+
+    /*
+     * choice between 14h yesterday and now if current time is before 14h today between 14h today and now
+     */
+    public LiveData<List<RestaurantChoiceDomain>> getAllRestaurantChoiceToDay(){
+        MutableLiveData<List<RestaurantChoiceDomain>> liveData = new MutableLiveData<>();
+
+        // Get current time
+        Timestamp currentTimestamp = Timestamp.now();
+        Date currentDate = currentTimestamp.toDate();
+
+        // Calculate start and end time
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(currentDate);
+
+        // Set end time to now
+        Timestamp endTime = currentTimestamp;
+
+        // Set start time to 14h yesterday if current time is before 14h today
+        calendar.set(Calendar.HOUR_OF_DAY, 14);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
+        if (currentDate.before(calendar.getTime())) {
+            calendar.add(Calendar.DAY_OF_YEAR, -1);
+        }
+
+
+        Date startTimeDate = calendar.getTime();
+        Timestamp startTime = new Timestamp(startTimeDate);
+
+        getRestaurantChoiceCollection()
+                .whereGreaterThanOrEqualTo("timestamp", startTime)
+                .whereLessThanOrEqualTo("timestamp", endTime)
+                .get()
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        List<RestaurantChoiceDomain> choices = new ArrayList<>();
+                        QuerySnapshot querySnapshot = task.getResult();
+                        if (querySnapshot != null) {
+                            for (QueryDocumentSnapshot document : querySnapshot) {
+                                RestaurantChoiceDomain choice = document.toObject(RestaurantChoiceDomain.class);
+                                choices.add(choice);
+                            }
+                        }
+                        liveData.setValue(choices);
+                    } else {
+                        liveData.setValue(new ArrayList<>()); // or handle the error as needed
+                    }
+                });
+
+        return liveData;
+    }
+
+
+    public void addRestaurantChoiceToDay(String idUser, String nameUser, String idRestaurant, String nameRestaurant){
+        if(idUser!= null && idRestaurant!=null){
+            Timestamp timestamp = Timestamp.now();
+
+            RestaurantChoiceDomain restaurantChoiceToCreate = new RestaurantChoiceDomain(timestamp,idUser,nameUser,idRestaurant,nameRestaurant);
+
+            //replaces restaurantChoice existing to restaurantChoiceToCreate
+            getRestaurantChoiceCollection().document(idUser).set(restaurantChoiceToCreate);
+        }
+    }
+
+    public LiveData<Boolean> deleteRestaurantChoiceToDay(String idUser){
+        MutableLiveData<Boolean> isSuccess= new MutableLiveData<>();
+        if(idUser!= null){
+            //delete user
+            getRestaurantChoiceCollection().document(idUser).delete().addOnCompleteListener(task->{
+                if(task.isSuccessful()){
+                    isSuccess.setValue(true);
+                }else{
+                    isSuccess.setValue(false);
+                }
+            });
+        }
+        return isSuccess;
+    }
+
+    public LiveData<List<RestaurantChoiceDomain>> getListWorkmateToChoiceARestaurant(String idRestaurant){
+        MutableLiveData<List<RestaurantChoiceDomain>> liveData = new MutableLiveData<>();
+
+        // Get the current time
+        Timestamp now = Timestamp.now();
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(now.toDate());
+
+        // Set start time to 14h today
+        calendar.set(Calendar.HOUR_OF_DAY, 14);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
+
+        // Determine the start time based on the current time
+        Date startTimeDate;
+        if (now.toDate().before(calendar.getTime())) {
+            // If now is before 14h today, set start time to 14h yesterday
+            calendar.add(Calendar.DAY_OF_YEAR, -1);
+        }
+
+        startTimeDate = calendar.getTime();
+        Timestamp startTime = new Timestamp(startTimeDate);
+
+        // Query Firestore for RestaurantChoiceDomain within the time range for the specific restaurant
+        getRestaurantChoiceCollection()
+                .whereEqualTo("idRestaurant", idRestaurant)
+                .whereGreaterThanOrEqualTo("timestamp", startTime)
+                .whereLessThanOrEqualTo("timestamp", now)
+                .get()
+                .addOnSuccessListener(queryDocumentSnapshots -> {
+                    List<RestaurantChoiceDomain> restaurantChoices = queryDocumentSnapshots.toObjects(RestaurantChoiceDomain.class);
+                    liveData.setValue(restaurantChoices);
+                })
+                .addOnFailureListener(e -> {
+                    // Handle the error
+                    liveData.setValue(null);
+                });
+
+        return liveData;
+
+    }
+
 }
