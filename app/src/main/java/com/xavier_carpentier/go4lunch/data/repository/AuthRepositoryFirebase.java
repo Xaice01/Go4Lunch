@@ -51,5 +51,7 @@ public class AuthRepositoryFirebase implements AuthUserRepository {
         return FirebaseAuth.getInstance().getCurrentUser();
     }
 
-
+    public String getEmail(){
+        return Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getEmail();
+    }
 }

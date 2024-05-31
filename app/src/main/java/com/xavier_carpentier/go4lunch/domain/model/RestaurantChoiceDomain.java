@@ -1,6 +1,7 @@
 package com.xavier_carpentier.go4lunch.domain.model;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import com.google.firebase.Timestamp;
 
@@ -14,16 +15,28 @@ public class RestaurantChoiceDomain {
     private final String idUser;
     @NonNull
     private final String userName;
+    @Nullable
+    private final String urlUserPicture;
     @NonNull
     private final String idRestaurant;
     @NonNull
     private final String restaurantName;
 
+    public RestaurantChoiceDomain() {
+        // Needed for Firestore
+        this.timestamp = null;
+        this.idUser = "";
+        this.userName = "";
+        this.urlUserPicture = null;
+        this.idRestaurant = "";
+        this.restaurantName = "";
+    }
 
-    public RestaurantChoiceDomain(@NonNull Timestamp timestamp,@NonNull String idUser,@NonNull String userName,@NonNull String idRestaurant,@NonNull String restaurantName) {
+    public RestaurantChoiceDomain(@NonNull Timestamp timestamp, @NonNull String idUser, @NonNull String userName, @Nullable String urlUserPicture, @NonNull String idRestaurant, @NonNull String restaurantName) {
         this.timestamp=timestamp;
         this.idUser = idUser;
         this.userName = userName;
+        this.urlUserPicture =urlUserPicture;
         this.idRestaurant = idRestaurant;
         this.restaurantName = restaurantName;
     }
@@ -40,6 +53,10 @@ public class RestaurantChoiceDomain {
     @NonNull
     public String getUserName() {
         return userName;
+    }
+    @Nullable
+    public String getUrlUserPicture() {
+        return urlUserPicture;
     }
 
     @NonNull

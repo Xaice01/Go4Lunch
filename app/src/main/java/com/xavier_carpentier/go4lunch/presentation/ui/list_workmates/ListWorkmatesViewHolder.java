@@ -34,9 +34,9 @@ public class ListWorkmatesViewHolder extends RecyclerView.ViewHolder{
         //TODo if dans le viewmodel
         if(user.getRestaurantName()!=null){
 
-            textToWrite =itemView.getContext().getString(R.string.eating,user.getUsername(),user.getTypeRestaurant(),user.getRestaurantName());
+            textToWrite =itemView.getContext().getString(R.string.eating,user.getUsername(),user.getRestaurantName());
         }else{
-            textToWrite =user.getUsername()+R.string.notDecided;
+            textToWrite =user.getUsername()+ R.string.notDecided;
         }
         usernameAndRestaurant.setText(textToWrite);
 

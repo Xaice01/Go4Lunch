@@ -7,10 +7,10 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
 import com.xavier_carpentier.go4lunch.data.RetrofitService;
-import com.xavier_carpentier.go4lunch.data.repository.AuthRepositoryFirebase;
 import com.xavier_carpentier.go4lunch.data.repository.LocationRepository;
 import com.xavier_carpentier.go4lunch.data.repository.PlaceRepositoryRetrofit;
 import com.xavier_carpentier.go4lunch.data.repository.UserRepositoryFirestore;
+import com.xavier_carpentier.go4lunch.domain.model.RestaurantChoiceDomain;
 import com.xavier_carpentier.go4lunch.domain.usecase.GetListRestaurantsUseCase;
 import com.xavier_carpentier.go4lunch.domain.usecase.GetLocationUseCase;
 import com.xavier_carpentier.go4lunch.presentation.model.LocationUi;
@@ -48,5 +48,11 @@ public class MapViewModel extends AndroidViewModel {
 
     public void stopLocationUpdates() {
         getLocationUseCase.stopLocationUpdates();
+    }
+
+    public LiveData<List<RestaurantChoiceDomain>> getListrestaurantschoicelivedata(String id){
+
+
+        return userRepositoryFirestore.getListWorkmateToChoiceARestaurant(id);
     }
 }

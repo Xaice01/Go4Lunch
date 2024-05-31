@@ -2,11 +2,9 @@ package com.xavier_carpentier.go4lunch.data.repository;
 
 import android.util.Log;
 
-import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
-import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.CollectionReference;
@@ -150,11 +148,11 @@ public class UserRepositoryFirestore implements UsersRepository {
     }
 
 
-    public void addRestaurantChoiceToDay(String idUser, String nameUser, String idRestaurant, String nameRestaurant){
+    public void addRestaurantChoiceToDay(String idUser, String nameUser, String urlUserPicture, String idRestaurant, String nameRestaurant){
         if(idUser!= null && idRestaurant!=null){
             Timestamp timestamp = Timestamp.now();
 
-            RestaurantChoiceDomain restaurantChoiceToCreate = new RestaurantChoiceDomain(timestamp,idUser,nameUser,idRestaurant,nameRestaurant);
+            RestaurantChoiceDomain restaurantChoiceToCreate = new RestaurantChoiceDomain(timestamp,idUser,nameUser,urlUserPicture,idRestaurant,nameRestaurant);
 
             //replaces restaurantChoice existing to restaurantChoiceToCreate
             getRestaurantChoiceCollection().document(idUser).set(restaurantChoiceToCreate);

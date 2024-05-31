@@ -1,33 +1,61 @@
 package com.xavier_carpentier.go4lunch.domain.usecase;
 
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MediatorLiveData;
 import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.Transformations;
 
+import com.xavier_carpentier.go4lunch.domain.model.RestaurantChoiceDomain;
+import com.xavier_carpentier.go4lunch.domain.model.UserDomain;
 import com.xavier_carpentier.go4lunch.domain.repository.AuthUserRepository;
+import com.xavier_carpentier.go4lunch.domain.repository.UsersRepository;
+import com.xavier_carpentier.go4lunch.presentation.mapper.MapperDomainUi;
 import com.xavier_carpentier.go4lunch.presentation.model.Workmate;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class GetListWorkmatesUseCase {
-    private final AuthUserRepository userRepository;
+    private final UsersRepository userRepository;
 
-    public GetListWorkmatesUseCase(AuthUserRepository userRepository) {
+    public GetListWorkmatesUseCase(UsersRepository userRepository) {
         this.userRepository = userRepository;
     }
 
-    public LiveData<List<Workmate>> invoke(){
-        //TODO create a list with user and restaurant to choose today
+    public LiveData<List<Workmate>> invoke() {
+        MediatorLiveData<List<Workmate>> result = new MediatorLiveData<>();
 
-        Workmate fakeWorkmate1 = new Workmate("1", "Fake1", null, "2", "FakeRestaurant2", "French");
-        Workmate fakeWorkmate2 = new Workmate("2", "Fake2", null, "2", "FakeRestaurant2", "French");
-        MutableLiveData<List<Workmate>> workmateLivedata = new MutableLiveData<>();
+        LiveData<List<Workmate>> usersLiveData = Transformations.map(userRepository.getAllUsers(), MapperDomainUi::listUserDomainToListWorkmate);
+        LiveData<List<Workmate>> restaurantChoicesLiveData = Transformations.map(userRepository.getAllRestaurantChoiceToDay(), MapperDomainUi::listRestaurantChoiceDomainToListWorkmate);
 
-        List<Workmate> fakeData =new ArrayList<>();
-        fakeData.add(fakeWorkmate1);
-        fakeData.add(fakeWorkmate2);
-        workmateLivedata.setValue(fakeData);
+        result.addSource(usersLiveData, users -> {
+            combine(users, restaurantChoicesLiveData.getValue(), result);
+        });
 
-        return workmateLivedata;
+        result.addSource(restaurantChoicesLiveData, restaurantChoices -> {
+            combine(usersLiveData.getValue(), restaurantChoices, result);
+        });
+
+        return result;
+    }
+
+    private void combine(List<Workmate> users, List<Workmate> restaurantChoices, MediatorLiveData<List<Workmate>> result) {
+        if (users == null || restaurantChoices == null) {
+            return;
+        }
+
+        List<Workmate> combinedList = new ArrayList<>(users);
+
+        for (Workmate user : combinedList) {
+            for (Workmate choice : restaurantChoices) {
+                if (choice.getUid().equals(user.getUid())) {
+                    user.setUidRestaurant(choice.getUidRestaurant());
+                    user.setRestaurantName(choice.getRestaurantName());
+                    break;
+                }
+            }
+        }
+
+        result.setValue(combinedList);
     }
 }

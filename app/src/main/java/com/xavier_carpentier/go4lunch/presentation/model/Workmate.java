@@ -8,16 +8,14 @@ public class Workmate {
     private final String uid;
     private final String username;
     private final Uri urlPicture;
-    private final String uidRestaurant;
-    private final String restaurantName;
-    private final String typeRestaurant;
-    public Workmate(String uid, String username, Uri urlPicture, String uidRestaurant, String restaurantName, String typeRestaurant){
+    private String uidRestaurant;
+    private String restaurantName;
+    public Workmate(String uid, String username, Uri urlPicture, String uidRestaurant, String restaurantName){
         this.uid=uid;
         this.username=username;
         this.urlPicture=urlPicture;
         this.uidRestaurant=uidRestaurant;
         this.restaurantName=restaurantName;
-        this.typeRestaurant=typeRestaurant;
     }
 
     // --- GETTERS ---
@@ -29,6 +27,10 @@ public class Workmate {
     public String getUidRestaurant(){return uidRestaurant;}
     @Nullable
     public String getRestaurantName(){return restaurantName;}
-    @Nullable
-    public String getTypeRestaurant(){return typeRestaurant;}
+    public void setUidRestaurant(String uidRestaurant){
+        this.uidRestaurant=uidRestaurant;
+    }
+    public void setRestaurantName(String restaurantName){
+        this.restaurantName=restaurantName;
+    }
 }

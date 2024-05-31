@@ -8,9 +8,11 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.xavier_carpentier.go4lunch.domain.model.UserDomain;
 import com.xavier_carpentier.go4lunch.domain.repository.FavorisRestaurantRepository;
 
 import java.util.ArrayList;
@@ -21,6 +23,22 @@ public class FavorisRestaurantRepositoryFirestore implements FavorisRestaurantRe
     private static final String UID_RESTAURANT_FAVORIS_FIELD = "uidRestaurantFavoris";
     MutableLiveData<List<String>> listFavorisMutableLiveData = new MutableLiveData<>();
 
+    private static volatile FavorisRestaurantRepositoryFirestore instance;
+
+    //AuthRepositoryFirebase is a Singleton
+    public static FavorisRestaurantRepositoryFirestore getInstance() {
+        FavorisRestaurantRepositoryFirestore result = instance;
+        if (result != null) {
+            return result;
+        }
+        synchronized(AuthRepositoryFirebase.class) {
+            if (instance == null) {
+                instance = new FavorisRestaurantRepositoryFirestore();
+            }
+            return instance;
+        }
+    }
+
     // Get the Collection Reference
     private CollectionReference getUsersCollection(){
         return FirebaseFirestore.getInstance().collection(COLLECTION_NAME);
@@ -28,12 +46,11 @@ public class FavorisRestaurantRepositoryFirestore implements FavorisRestaurantRe
     @Override
     public LiveData<List<String>> getRestaurantFavorisByIdUser(String idUser){
         List<String> listRestaurantId = new ArrayList<>();
-        getUsersCollection().document(idUser).collection(UID_RESTAURANT_FAVORIS_FIELD).get().addOnCompleteListener(task -> {
+        getUsersCollection().document(idUser).get().addOnCompleteListener(task -> {
             if(task.isSuccessful()) {
-                for (QueryDocumentSnapshot document : task.getResult()) {
-                    listRestaurantId.add(document.toObject(String.class));
-                }
-                listFavorisMutableLiveData.setValue(listRestaurantId);
+                DocumentSnapshot document = task.getResult();
+                List<String> favoris =(List<String>) document.get(UID_RESTAURANT_FAVORIS_FIELD);
+                listFavorisMutableLiveData.setValue(favoris);
             }else {
                 Log.d("Error", "Error getting documents (RestaurantFavorisByIdUser) : ", task.getException());
             }

@@ -12,6 +12,12 @@ public class UserDomain {
     private String username;
     private String urlPicture;
     private List<String> uidRestaurantFavoris;
+
+    // No-argument constructor required for Firestore
+    public UserDomain() {
+        this.uidRestaurantFavoris = new ArrayList<>();
+    }
+
     public UserDomain(String uid,String username,@Nullable String urlPicture){
         this.uid=uid;
         this.username=username;

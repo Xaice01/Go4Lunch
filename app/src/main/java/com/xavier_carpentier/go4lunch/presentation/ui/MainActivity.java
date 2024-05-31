@@ -59,6 +59,12 @@ public class MainActivity extends AppCompatActivity {
         setContentView(view);
         replaceFragment(MapFragment.newInstance());
 
+        //Configure the authViewModel
+        authViewModel = new ViewModelProvider(this).get(AuthViewModel.class);
+        authViewModel.Logout();
+
+        authViewModel.startSignInActivity(signInLauncher);
+
         viewModel = new MainViewModel(getApplication());
 
 
@@ -95,9 +101,9 @@ public class MainActivity extends AppCompatActivity {
             binding.navigationView.setVisibility(View.VISIBLE);
         });
 
-        //Configure the authViewModel
-        authViewModel = new ViewModelProvider(this).get(AuthViewModel.class);
-        authViewModel.Logout();
+        ////Configure the authViewModel
+        //authViewModel = new ViewModelProvider(this).get(AuthViewModel.class);
+        //authViewModel.Logout();
 
         //authViewModel.startSignInActivity(signInLauncher);
 

@@ -54,9 +54,11 @@ public class ListWorkmatesFragment extends Fragment{
         ListWorkmatesAdapter adapter = new ListWorkmatesAdapter();
 
         adapter.setOnItemClickListener((position, restaurantUid) -> {
+            if (restaurantUid != null) {
                 Intent intent = new Intent(getActivity(), DetailRestaurantActivity.class);
                 intent.putExtra(KEY_RESTAURANT, restaurantUid);
                 startActivity(intent);
+            }
 
         });
         mRecyclerView.setAdapter(adapter);

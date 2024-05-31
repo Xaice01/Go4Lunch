@@ -8,7 +8,7 @@ public class RestaurantDetail {
     private final String address;
     private final Double note;
     private final String phone_number;
-    private final boolean isLike;
+    private boolean isLike;
     private final String webSite;
 
 
@@ -58,6 +58,10 @@ public class RestaurantDetail {
 
     public String getWebSite() {
         return webSite;
+    }
+
+    public void setLike(Boolean isLike) {
+        this.isLike=isLike;
     }
 
 }

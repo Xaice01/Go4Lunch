@@ -19,11 +19,13 @@
     <string name="workmates">Workmates</string>
 
     <!-- listWorkmatesViewHolder -->
-    <string name="eating">%1$s is eating %2$s (%3$s)</string>
+    <string name="eating">%1$s is eating (%2$s)</string>
     <string name="notDecided"> hasn\'t decided yet</string>
 
     <!-- restaurant Detail -->
     <string name="type_and_adress">%1$s restaurant - %2$s</string>
+    <string name="Like">LIKE</string>
+    <string name="Unlike">UNLIKE</string>
 
 
 

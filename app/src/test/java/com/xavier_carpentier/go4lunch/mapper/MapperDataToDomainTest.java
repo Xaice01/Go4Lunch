@@ -53,7 +53,6 @@ public class MapperDataToDomainTest {
         //Then
         assertEquals(user.getUid(), uidTest);
         assertEquals(user.getUsername(), userNameTest);
-        assertEquals(user.getEmail(), emailTest);
         assertEquals(user.getUrlPicture(), uriTest);
     }
 

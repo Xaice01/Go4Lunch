@@ -3,6 +3,7 @@ package com.xavier_carpentier.go4lunch.presentation.mapper;
 import com.xavier_carpentier.go4lunch.domain.model.AuthProviderTypeDomain;
 import com.xavier_carpentier.go4lunch.domain.model.AutocompletePredictionDomain;
 import com.xavier_carpentier.go4lunch.domain.model.LocationDomain;
+import com.xavier_carpentier.go4lunch.domain.model.RestaurantChoiceDomain;
 import com.xavier_carpentier.go4lunch.domain.model.RestaurantDomain;
 import com.xavier_carpentier.go4lunch.domain.model.RestaurantSearchDomain;
 import com.xavier_carpentier.go4lunch.domain.model.UserDomain;
@@ -12,6 +13,7 @@ import com.xavier_carpentier.go4lunch.presentation.model.LocationUi;
 import com.xavier_carpentier.go4lunch.presentation.model.RestaurantDetail;
 import com.xavier_carpentier.go4lunch.presentation.model.RestaurantItem;
 import com.xavier_carpentier.go4lunch.presentation.model.User;
+import com.xavier_carpentier.go4lunch.presentation.model.Workmate;
 
 import android.net.Uri;
 import java.util.ArrayList;
@@ -89,16 +91,39 @@ public class MapperDomainUi {
 
     }
 
-    public static List<RestaurantItem> listRestaurantSearchDomainTolistRestaurantItem (List<RestaurantSearchDomain> RestaurantSearchDomainList){
+    public static List<RestaurantItem> listRestaurantSearchDomainTolistRestaurantItem (List<RestaurantSearchDomain> restaurantSearchDomainList){
         List<RestaurantItem> restaurantItemList = new ArrayList<>();
 
-        for(RestaurantSearchDomain restaurantSearchDomain : RestaurantSearchDomainList){
+        for(RestaurantSearchDomain restaurantSearchDomain : restaurantSearchDomainList){
             if(restaurantSearchDomain.getPlaceId() != null){
                 Uri uriPhoto = Uri.parse(restaurantSearchDomain.getPhotoReferenceUrl());
                 restaurantItemList.add(new RestaurantItem(restaurantSearchDomain.getPlaceId(),restaurantSearchDomain.getRestaurantName(),restaurantSearchDomain.getVicinity(),restaurantSearchDomain.getDistance(),restaurantSearchDomain.getRating().intValue(),restaurantSearchDomain.getLatitude(),restaurantSearchDomain.getLongitude(),0,restaurantSearchDomain.getOpen(),uriPhoto));
             }
         }
         return restaurantItemList;
+    }
+
+    public static List<Workmate> listRestaurantChoiceDomainToListWorkmate(List<RestaurantChoiceDomain> restaurantChoiceDomains){
+        List<Workmate> workmateList = new ArrayList<>();
+        for(RestaurantChoiceDomain restaurantChoiceDomain : restaurantChoiceDomains){
+            Uri uriPicture = Uri.parse(restaurantChoiceDomain.getUrlUserPicture());
+            workmateList.add(new Workmate(restaurantChoiceDomain.getIdUser(),restaurantChoiceDomain.getUserName(),uriPicture,restaurantChoiceDomain.getIdRestaurant(),restaurantChoiceDomain.getRestaurantName()));
+        }
+        return workmateList;
+    }
+
+    public static List<Workmate> listUserDomainToListWorkmate(List<UserDomain> userDomains){
+        List<Workmate> workmateList = new ArrayList<>();
+        for(UserDomain userDomain : userDomains){
+            Uri uriPicture;
+            if(userDomain.getUrlPicture()!=null){
+                uriPicture = Uri.parse(userDomain.getUrlPicture());
+            }else{
+                uriPicture = null;
+            }
+            workmateList.add(new Workmate(userDomain.getUid(),userDomain.getUsername(),uriPicture,null,null));
+        }
+        return workmateList;
     }
 
     public static LocationUi locationDomainToLocationUi(LocationDomain location) {
