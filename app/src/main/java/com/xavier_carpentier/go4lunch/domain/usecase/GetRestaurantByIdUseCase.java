@@ -21,16 +21,14 @@ public class GetRestaurantByIdUseCase {
 
     public LiveData<RestaurantDetail> invoke(String restaurantUid){
 
-        LiveData<List<String>> favorisLiveData = likeRestaurantUseCase.getListRestaurant();
+        LiveData<List<String>> likedRestaurantLiveData = likeRestaurantUseCase.getListRestaurant();
         LiveData<RestaurantDetail> restaurantDetailLiveData = Transformations.map(placeRepository.getRestaurant(restaurantUid), MapperDomainUi::restaurantDomainToRestaurantDetail);
 
-        restaurantDetailWithLikeStatus.addSource(favorisLiveData, favoris -> {
-            updateRestaurantLikeStatus(restaurantDetailLiveData.getValue(), favoris);
-        });
+        restaurantDetailWithLikeStatus.addSource(likedRestaurantLiveData,
+                favoris -> updateRestaurantLikeStatus(restaurantDetailLiveData.getValue(), favoris));
 
-        restaurantDetailWithLikeStatus.addSource(restaurantDetailLiveData, restaurantDetail -> {
-            updateRestaurantLikeStatus(restaurantDetail, favorisLiveData.getValue());
-        });
+        restaurantDetailWithLikeStatus.addSource(restaurantDetailLiveData,
+                restaurantDetail -> updateRestaurantLikeStatus(restaurantDetail, likedRestaurantLiveData.getValue()));
 
         return restaurantDetailWithLikeStatus;
     }

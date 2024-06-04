@@ -2,17 +2,13 @@ package com.xavier_carpentier.go4lunch.data.repository;
 
 import android.util.Log;
 
-import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
-import com.google.android.gms.tasks.OnFailureListener;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.xavier_carpentier.go4lunch.domain.model.UserDomain;
 import com.xavier_carpentier.go4lunch.domain.repository.FavorisRestaurantRepository;
 
 import java.util.ArrayList;
@@ -59,17 +55,33 @@ public class FavorisRestaurantRepositoryFirestore implements FavorisRestaurantRe
         return listFavorisMutableLiveData;
     }
 
+   @Override
+   public LiveData<Boolean> addRestaurantFavoris(String idUser, String idRestaurant){
+       MutableLiveData<Boolean> result = new MutableLiveData<>();
+       getUsersCollection().document(idUser)
+               .update(UID_RESTAURANT_FAVORIS_FIELD, FieldValue.arrayUnion(idRestaurant))
+               .addOnCompleteListener(task ->{
+                   if(task.isSuccessful()){
+                       result.setValue(true);
+                   }else {
+                       result.setValue(false);
+                   }
+               });
+       return result;
+   }
+
     @Override
-    public void addRestaurantFavoris(String idUser, String idRestaurant){
+    public LiveData<Boolean> deleteRestaurantFavoris(String idUser, String idRestaurant){
+        MutableLiveData<Boolean> result = new MutableLiveData<>();
         getUsersCollection().document(idUser)
-                .update(UID_RESTAURANT_FAVORIS_FIELD, FieldValue.arrayUnion(idRestaurant));
-
-
-    }
-
-    @Override
-    public void deleteRestaurantFavoris(String idUser, String idRestaurant){
-        getUsersCollection().document(idUser)
-                .update(UID_RESTAURANT_FAVORIS_FIELD, FieldValue.arrayRemove(idRestaurant));
+                .update(UID_RESTAURANT_FAVORIS_FIELD, FieldValue.arrayRemove(idRestaurant))
+                .addOnCompleteListener(task ->{
+                    if(task.isSuccessful()){
+                        result.setValue(true);
+                    }else {
+                        result.setValue(false);
+                    }
+                });
+        return result;
     }
 }

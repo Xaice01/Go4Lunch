@@ -1,6 +1,7 @@
 package com.xavier_carpentier.go4lunch.presentation.viewmodel;
 
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.xavier_carpentier.go4lunch.data.RetrofitService;
@@ -31,6 +32,7 @@ public class DetailRestaurantViewModel extends ViewModel {
     private LiveData<Boolean> eatHere;
     private LiveData<RestaurantDetail> restaurantDetail;
     private LiveData<List<Workmate>> listWorkmates;
+    private LiveData<Boolean> isLike = new MutableLiveData<>();
     private String idrestaurant;
     //----------------------------------------------------
     //UseCase
@@ -41,6 +43,8 @@ public class DetailRestaurantViewModel extends ViewModel {
     private final GetListWorkmateToEatByIdRestaurantUseCase getListWorkmateByIdRestaurantUseCase = new GetListWorkmateToEatByIdRestaurantUseCase(userRepositoryFirestore);
     private final LikeRestaurantUseCase likeRestaurantUseCase = new LikeRestaurantUseCase(favorisRestaurantRepositoryFirestore,authRepositoryFirebase);
     private final GetRestaurantByIdUseCase getRestaurantByIdUseCase = new GetRestaurantByIdUseCase(placeRepositoryRetrofit,likeRestaurantUseCase);
+
+
 
     private void initLiveDataWorkmatesToEat(){
         listWorkmates=getListWorkmateByIdRestaurantUseCase.invoke(idrestaurant);
@@ -89,8 +93,11 @@ public class DetailRestaurantViewModel extends ViewModel {
     public void OnLikeCLick(){
         if(Objects.requireNonNull(restaurantDetail.getValue()).isLike()){
             likeRestaurantUseCase.remove(idrestaurant);
+            //boolean isremove = likeRestaurantUseCase.remove(idrestaurant).getValue();
+            //isLike.setValue(!isremove);
         }else{
             likeRestaurantUseCase.add(idrestaurant);
+            //isLike.setValue(likeRestaurantUseCase.add(idrestaurant).getValue());
         }
     }
 
@@ -103,7 +110,7 @@ public class DetailRestaurantViewModel extends ViewModel {
         if(Boolean.TRUE.equals(eatHere.getValue())){
             deleteRestaurantChoiceToDayUseCase.invoke();
         }else{
-            addRestaurantChoiceToDayUseCase.invoke(idrestaurant,restaurantDetail.getValue().getName());
+            addRestaurantChoiceToDayUseCase.invoke(idrestaurant, Objects.requireNonNull(restaurantDetail.getValue()).getName(),restaurantDetail.getValue().getAddress());
         }
 
     }

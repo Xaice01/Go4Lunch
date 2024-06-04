@@ -3,6 +3,12 @@
     <!-- TODO: translet in french -->
     <string name="app_name">Go4Lunch</string>
 
+    <!-- NOTIFICATION SERVICE -->
+    <string name="notification">Bonjour %1$s, Vous mangez aujourd\'hui au %2$s (%3$s )</string>
+    <string name="with">avec </string>
+    <string name="and">et </string>
+    <string name="notification_title">Go4Lunch</string>
+
     <!-- Facebook application ID and custom URL scheme (app ID prefixed by 'fb'). -->
     <string name="facebook_application_id" translatable="false">858921496252107</string>
     <string name="facebook_login_protocol_scheme" translatable="false">fb858921496252107</string>

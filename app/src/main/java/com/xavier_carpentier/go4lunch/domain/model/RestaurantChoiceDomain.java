@@ -21,7 +21,10 @@ public class RestaurantChoiceDomain {
     private final String idRestaurant;
     @NonNull
     private final String restaurantName;
+    @NonNull
+    private final String vicinity;
 
+    //constructor empty for firebase
     public RestaurantChoiceDomain() {
         // Needed for Firestore
         this.timestamp = null;
@@ -30,15 +33,17 @@ public class RestaurantChoiceDomain {
         this.urlUserPicture = null;
         this.idRestaurant = "";
         this.restaurantName = "";
+        this.vicinity="";
     }
 
-    public RestaurantChoiceDomain(@NonNull Timestamp timestamp, @NonNull String idUser, @NonNull String userName, @Nullable String urlUserPicture, @NonNull String idRestaurant, @NonNull String restaurantName) {
+    public RestaurantChoiceDomain(@NonNull Timestamp timestamp, @NonNull String idUser, @NonNull String userName, @Nullable String urlUserPicture, @NonNull String idRestaurant, @NonNull String restaurantName,@NonNull String vicinity) {
         this.timestamp=timestamp;
         this.idUser = idUser;
         this.userName = userName;
         this.urlUserPicture =urlUserPicture;
         this.idRestaurant = idRestaurant;
         this.restaurantName = restaurantName;
+        this.vicinity=vicinity;
     }
 
     @NonNull
@@ -69,17 +74,9 @@ public class RestaurantChoiceDomain {
         return restaurantName;
     }
 
-
-
-    @Override
-    public String toString() {
-        return "RestaurantChoiceDomain{" +
-                "timestamp=" + timestamp +
-                ", idUser='" + idUser + '\'' +
-                ", userName='" + userName + '\'' +
-                ", idRestaurant='" + idRestaurant + '\'' +
-                ", restaurantName='" + restaurantName + '\'' +
-                '}';
+    @NonNull
+    public String getVicinity() {
+        return vicinity;
     }
 
     @Override
@@ -87,11 +84,25 @@ public class RestaurantChoiceDomain {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         RestaurantChoiceDomain that = (RestaurantChoiceDomain) o;
-        return Objects.equals(timestamp, that.timestamp) && Objects.equals(idUser, that.idUser) && Objects.equals(userName, that.userName) && Objects.equals(idRestaurant, that.idRestaurant) && Objects.equals(restaurantName, that.restaurantName);
+        return Objects.equals(timestamp, that.timestamp) && Objects.equals(idUser, that.idUser) && Objects.equals(userName, that.userName) && Objects.equals(urlUserPicture, that.urlUserPicture) && Objects.equals(idRestaurant, that.idRestaurant) && Objects.equals(restaurantName, that.restaurantName) && Objects.equals(vicinity, that.vicinity);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(timestamp, idUser, userName, idRestaurant, restaurantName);
+        return Objects.hash(timestamp, idUser, userName, urlUserPicture, idRestaurant, restaurantName, vicinity);
+    }
+
+    @NonNull
+    @Override
+    public String toString() {
+        return "RestaurantChoiceDomain{" +
+                "timestamp=" + timestamp +
+                ", idUser='" + idUser + '\'' +
+                ", userName='" + userName + '\'' +
+                ", urlUserPicture='" + urlUserPicture + '\'' +
+                ", idRestaurant='" + idRestaurant + '\'' +
+                ", restaurantName='" + restaurantName + '\'' +
+                ", vicinity='" + vicinity + '\'' +
+                '}';
     }
 }

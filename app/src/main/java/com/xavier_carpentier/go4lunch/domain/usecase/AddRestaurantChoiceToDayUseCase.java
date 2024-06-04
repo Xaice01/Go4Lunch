@@ -12,10 +12,10 @@ public class AddRestaurantChoiceToDayUseCase {
         this.authUserRepository = authUserRepository;
     }
 
-    public void invoke(String idRestaurant, String nameRestaurant) {
+    public void invoke(String idRestaurant, String nameRestaurant, String vicinity) {
         String idUser =authUserRepository.getUser().getUid();
         String nameUser =authUserRepository.getUser().getUsername();
         String urlUserPicture =authUserRepository.getUser().getUrlPicture();
-        usersRepository.addRestaurantChoiceToDay(idUser, nameUser, urlUserPicture, idRestaurant, nameRestaurant);
+        usersRepository.addRestaurantChoiceToDay(idUser, nameUser, urlUserPicture, idRestaurant, nameRestaurant,vicinity);
     }
 }

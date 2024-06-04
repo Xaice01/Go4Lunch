@@ -6,6 +6,8 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.google.android.gms.tasks.Task;
+import com.google.android.gms.tasks.TaskCompletionSource;
+import com.google.android.gms.tasks.Tasks;
 import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -20,6 +22,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 public class UserRepositoryFirestore implements UsersRepository {
 
@@ -148,11 +151,11 @@ public class UserRepositoryFirestore implements UsersRepository {
     }
 
 
-    public void addRestaurantChoiceToDay(String idUser, String nameUser, String urlUserPicture, String idRestaurant, String nameRestaurant){
+    public void addRestaurantChoiceToDay(String idUser, String nameUser, String urlUserPicture, String idRestaurant, String nameRestaurant, String vicinity){
         if(idUser!= null && idRestaurant!=null){
             Timestamp timestamp = Timestamp.now();
 
-            RestaurantChoiceDomain restaurantChoiceToCreate = new RestaurantChoiceDomain(timestamp,idUser,nameUser,urlUserPicture,idRestaurant,nameRestaurant);
+            RestaurantChoiceDomain restaurantChoiceToCreate = new RestaurantChoiceDomain(timestamp,idUser,nameUser,urlUserPicture,idRestaurant,nameRestaurant,vicinity);
 
             //replaces restaurantChoice existing to restaurantChoiceToCreate
             getRestaurantChoiceCollection().document(idUser).set(restaurantChoiceToCreate);
@@ -213,6 +216,67 @@ public class UserRepositoryFirestore implements UsersRepository {
                 });
 
         return liveData;
+
+    }
+
+
+
+    public List<RestaurantChoiceDomain> getAllRestaurantChoiceToDayAsync(){
+        TaskCompletionSource<List<RestaurantChoiceDomain>> taskCompletionSource = new TaskCompletionSource<>();
+
+        // Get current time
+        Timestamp currentTimestamp = Timestamp.now();
+        Date currentDate = currentTimestamp.toDate();
+
+        // Calculate start and end time
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(currentDate);
+
+
+        // Set start time to 14h yesterday if current time is before 14h today
+        calendar.set(Calendar.HOUR_OF_DAY, 14);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
+        if (currentDate.before(calendar.getTime())) {
+            calendar.add(Calendar.DAY_OF_YEAR, -1);
+        }
+
+
+        Date startTimeDate = calendar.getTime();
+        Timestamp startTime = new Timestamp(startTimeDate);
+
+        getRestaurantChoiceCollection()
+                .whereGreaterThanOrEqualTo("timestamp", startTime)
+                .whereLessThanOrEqualTo("timestamp", currentTimestamp)
+                .get()
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        List<RestaurantChoiceDomain> choices = new ArrayList<>();
+                        QuerySnapshot querySnapshot = task.getResult();
+                        if (querySnapshot != null) {
+                            for (QueryDocumentSnapshot document : querySnapshot) {
+                                RestaurantChoiceDomain choice = document.toObject(RestaurantChoiceDomain.class);
+                                choices.add(choice);
+                            }
+                        }
+                        if (choices.isEmpty()) {
+                            taskCompletionSource.setResult(null);
+                        } else {
+                            taskCompletionSource.setResult(choices);
+                        }
+
+                    } else {
+                        if (task.getException() != null)
+                            taskCompletionSource.setException(task.getException());
+                    }
+                });
+
+        try {
+            return Tasks.await(taskCompletionSource.getTask());
+        } catch (ExecutionException | InterruptedException e) {
+            Log.e("UserRepositoryFirestore", "error in getAllRestaurantChoiceToDayAsync : "+ e);
+            return null;
+        }
 
     }
 

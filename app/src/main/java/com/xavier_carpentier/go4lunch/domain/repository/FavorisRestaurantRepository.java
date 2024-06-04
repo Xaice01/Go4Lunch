@@ -7,8 +7,8 @@ import java.util.List;
 public interface FavorisRestaurantRepository {
     LiveData<List<String>> getRestaurantFavorisByIdUser(String idUser);
 
-    void addRestaurantFavoris(String idUser, String idRestaurant);
+    LiveData<Boolean> addRestaurantFavoris(String idUser, String idRestaurant);
 
-    void deleteRestaurantFavoris(String IdUser, String idRestaurant);
+    LiveData<Boolean> deleteRestaurantFavoris(String IdUser, String idRestaurant);
 
 }

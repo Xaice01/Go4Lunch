@@ -5,6 +5,7 @@ converterGson = "2.9.0"
 facebookAndroidSdk = "17.0.0"
 firebaseBom = "32.8.0"
 firebaseFirestore = "24.11.0"
+firebaseMessaging = "24.0.0"
 firebaseUiAuth = "8.0.2"
 firebaseUiFirestore = "7.1.1"
 glide = "4.16.0"
@@ -35,6 +36,7 @@ converter-gson = { module = "com.squareup.retrofit2:converter-gson", version.ref
 facebook-android-sdk = { module = "com.facebook.android:facebook-android-sdk", version.ref = "facebookAndroidSdk" }
 firebase-bom = { module = "com.google.firebase:firebase-bom", version.ref = "firebaseBom" }
 firebase-firestore = { module = "com.google.firebase:firebase-firestore", version.ref = "firebaseFirestore" }
+firebase-messaging = { module = "com.google.firebase:firebase-messaging", version.ref = "firebaseMessaging" }
 firebase-ui-auth = { module = "com.firebaseui:firebase-ui-auth", version.ref = "firebaseUiAuth" }
 firebase-ui-firestore = { module = "com.firebaseui:firebase-ui-firestore", version.ref = "firebaseUiFirestore" }
 firebase-ui-storage = { module = "com.firebaseui:firebase-ui-storage", version.ref = "firebaseUiFirestore" }

@@ -16,13 +16,14 @@ public class LikeRestaurantUseCase {
         this.userRepository = userRepository;
     }
 
-    public void add(String idRestaurant){
+    public LiveData<Boolean> add(String idRestaurant){
         String idUser=userRepository.getUser().getUid();
-        favorisRestaurantRepository.addRestaurantFavoris(idUser, idRestaurant);
+        return favorisRestaurantRepository.addRestaurantFavoris(idUser, idRestaurant);
     }
-    public void remove(String idRestaurant){
+    public LiveData<Boolean> remove(String idRestaurant){
         String idUser=userRepository.getUser().getUid();
-        favorisRestaurantRepository.deleteRestaurantFavoris(idUser, idRestaurant);
+        return favorisRestaurantRepository.deleteRestaurantFavoris(idUser, idRestaurant);
+
     }
 
     public LiveData<List<String>> getListRestaurant(){

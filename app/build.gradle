@@ -69,7 +69,11 @@ dependencies {
     // When using the BoM, you don't specify versions in Firebase library dependencies
     //noinspection UseTomlInstead
     implementation("com.google.firebase:firebase-auth")
+    // When using the BoM, you don't specify versions in Firebase library dependencies
+    //noinspection UseTomlInstead
+    implementation 'com.google.firebase:firebase-messaging'
     implementation libs.firebase.firestore
+
 
     //FIREBASE UI
     implementation libs.firebase.ui.auth
