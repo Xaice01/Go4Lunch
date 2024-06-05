@@ -1,17 +1,15 @@
 package com.xavier_carpentier.go4lunch.presentation.viewmodel;
 
 import android.app.Application;
-import android.content.Context;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MediatorLiveData;
 import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.Transformations;
 import androidx.lifecycle.ViewModel;
+import androidx.work.WorkManager;
 
-import com.xavier_carpentier.go4lunch.data.RetrofitService;
+import com.xavier_carpentier.go4lunch.datasource.api.RetrofitService;
 import com.xavier_carpentier.go4lunch.data.repository.LocationRepository;
 import com.xavier_carpentier.go4lunch.data.repository.PermissionLocationRepository;
 import com.xavier_carpentier.go4lunch.data.repository.PlaceRepositoryRetrofit;
@@ -20,6 +18,7 @@ import com.xavier_carpentier.go4lunch.domain.usecase.GetAutocompleteLiveDataUseC
 import com.xavier_carpentier.go4lunch.domain.usecase.GetLocationUseCase;
 import com.xavier_carpentier.go4lunch.presentation.model.AutocompletePrediction;
 import com.xavier_carpentier.go4lunch.presentation.model.LocationUi;
+import com.xavier_carpentier.go4lunch.utils.NotificationScheduler;
 
 import java.io.Closeable;
 import java.util.ArrayList;
@@ -54,6 +53,12 @@ public class MainViewModel extends ViewModel {
 
 
     public MainViewModel(Application application){
+
+        //for notification
+        WorkManager workManager = WorkManager.getInstance(application);
+        NotificationScheduler notificationScheduler = new NotificationScheduler(workManager);
+        NotificationScheduler.scheduleDailyNotification();
+
         userQueryMutableLiveData = new MutableLiveData<>();
 
         permissionLocationRepository = new PermissionLocationRepository(application.getApplicationContext());

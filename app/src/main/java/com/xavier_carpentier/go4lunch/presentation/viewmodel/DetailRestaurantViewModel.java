@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.xavier_carpentier.go4lunch.data.RetrofitService;
+import com.xavier_carpentier.go4lunch.datasource.api.RetrofitService;
 import com.xavier_carpentier.go4lunch.data.repository.AuthRepositoryFirebase;
 import com.xavier_carpentier.go4lunch.data.repository.FavorisRestaurantRepositoryFirestore;
 import com.xavier_carpentier.go4lunch.data.repository.PlaceRepositoryRetrofit;
@@ -29,10 +29,10 @@ public class DetailRestaurantViewModel extends ViewModel {
     private final PlaceRepositoryRetrofit placeRepositoryRetrofit = new PlaceRepositoryRetrofit(RetrofitService.getPlaceApi());
     private final UserRepositoryFirestore userRepositoryFirestore = UserRepositoryFirestore.getInstance();
     private final FavorisRestaurantRepositoryFirestore favorisRestaurantRepositoryFirestore = FavorisRestaurantRepositoryFirestore.getInstance();
-    private LiveData<Boolean> eatHere;
+    private MutableLiveData<Boolean> eatHere = new MutableLiveData<>();
     private LiveData<RestaurantDetail> restaurantDetail;
     private LiveData<List<Workmate>> listWorkmates;
-    private LiveData<Boolean> isLike = new MutableLiveData<>();
+    private final MutableLiveData<Boolean> isLike = new MutableLiveData<>();
     private String idrestaurant;
     //----------------------------------------------------
     //UseCase
@@ -53,6 +53,11 @@ public class DetailRestaurantViewModel extends ViewModel {
     private void initRestaurantDetail(String uidRestaurant){
         idrestaurant = uidRestaurant;
         restaurantDetail= getRestaurantByIdUseCase.invoke(uidRestaurant);
+        restaurantDetail.observeForever(detail -> {
+            if (detail != null) {
+                isLike.setValue(detail.isLike());
+            }
+        });
     }
 
     public LiveData<List<Workmate>> getWorkmateToEat(){
@@ -78,7 +83,6 @@ public class DetailRestaurantViewModel extends ViewModel {
     }
 
     public String getTypeAndAddress(){
-        //String typeAndAddress = String.format(String.valueOf(R.string.type_and_adress),restaurantDetail.getTypeRestaurant(),restaurantDetail.getAddress());
         return " restaurant - "+ Objects.requireNonNull(restaurantDetail.getValue()).getAddress();
     }
 
@@ -91,27 +95,43 @@ public class DetailRestaurantViewModel extends ViewModel {
     }
 
     public void OnLikeCLick(){
-        if(Objects.requireNonNull(restaurantDetail.getValue()).isLike()){
-            likeRestaurantUseCase.remove(idrestaurant);
-            //boolean isremove = likeRestaurantUseCase.remove(idrestaurant).getValue();
-            //isLike.setValue(!isremove);
-        }else{
-            likeRestaurantUseCase.add(idrestaurant);
-            //isLike.setValue(likeRestaurantUseCase.add(idrestaurant).getValue());
+        if (Boolean.TRUE.equals(isLike.getValue())) {
+            likeRestaurantUseCase.remove(idrestaurant).observeForever(isRemove -> {
+                if (isRemove != null && isRemove) {
+                    isLike.setValue(false);
+                }
+            });
+        } else {
+            likeRestaurantUseCase.add(idrestaurant).observeForever(isAdd -> {
+                if (isAdd != null && isAdd) {
+                    isLike.setValue(true);
+                }
+            });
         }
     }
 
+    public LiveData<Boolean> getIsLike() {
+        return isLike;
+    }
+
     public LiveData<Boolean> choiceToEatHere(String restaurantID) {
-        eatHere = getIfWorkmateEatInThisRestaurantUseCase.invoke(restaurantID);
+        eatHere = (MutableLiveData<Boolean>) getIfWorkmateEatInThisRestaurantUseCase.invoke(restaurantID);
         return eatHere;
     }
 
     public void onFavorisClick() {
         if(Boolean.TRUE.equals(eatHere.getValue())){
-            deleteRestaurantChoiceToDayUseCase.invoke();
+            deleteRestaurantChoiceToDayUseCase.invoke().observeForever(isDelete ->{
+                if (isDelete != null && isDelete) {
+                    eatHere.setValue(false);
+                }
+            });
         }else{
-            addRestaurantChoiceToDayUseCase.invoke(idrestaurant, Objects.requireNonNull(restaurantDetail.getValue()).getName(),restaurantDetail.getValue().getAddress());
+            addRestaurantChoiceToDayUseCase.invoke(idrestaurant, Objects.requireNonNull(restaurantDetail.getValue()).getName(),restaurantDetail.getValue().getAddress()).observeForever(isAdd ->{
+                if (isAdd != null && isAdd) {
+                    eatHere.setValue(true);
+                }
+            });
         }
-
     }
 }

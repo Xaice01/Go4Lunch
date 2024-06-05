@@ -1,5 +1,7 @@
 package com.xavier_carpentier.go4lunch.domain.usecase;
 
+import androidx.lifecycle.LiveData;
+
 import com.xavier_carpentier.go4lunch.domain.repository.AuthUserRepository;
 import com.xavier_carpentier.go4lunch.domain.repository.UsersRepository;
 
@@ -12,10 +14,10 @@ public class AddRestaurantChoiceToDayUseCase {
         this.authUserRepository = authUserRepository;
     }
 
-    public void invoke(String idRestaurant, String nameRestaurant, String vicinity) {
+    public LiveData<Boolean> invoke(String idRestaurant, String nameRestaurant, String vicinity) {
         String idUser =authUserRepository.getUser().getUid();
         String nameUser =authUserRepository.getUser().getUsername();
         String urlUserPicture =authUserRepository.getUser().getUrlPicture();
-        usersRepository.addRestaurantChoiceToDay(idUser, nameUser, urlUserPicture, idRestaurant, nameRestaurant,vicinity);
+        return usersRepository.addRestaurantChoiceToDay(idUser, nameUser, urlUserPicture, idRestaurant, nameRestaurant,vicinity);
     }
 }

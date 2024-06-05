@@ -9,17 +9,14 @@ import android.util.Log;
 import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.xavier_carpentier.go4lunch.R;
 import com.xavier_carpentier.go4lunch.databinding.ActivityDetailRestaurantBinding;
-import com.xavier_carpentier.go4lunch.presentation.model.Workmate;
 import com.xavier_carpentier.go4lunch.presentation.ui.list_workmates.ListWorkmatesAdapter;
 import com.xavier_carpentier.go4lunch.presentation.viewmodel.DetailRestaurantViewModel;
 
@@ -58,19 +55,14 @@ public class DetailRestaurantActivity extends AppCompatActivity {
     }
 
     private void setListener(){
-        //todo created listener for floatingActionButton_favoris, button_call_detailRestaurant, button_like_detailRestaurant, button_website_detailRestaurant
-        binding.floatingActionButtonFavoris.setOnClickListener(v ->{
-            detailRestaurantViewModel.onFavorisClick();
-        });
+        binding.floatingActionButtonFavoris.setOnClickListener(v -> detailRestaurantViewModel.onFavorisClick());
 
         binding.buttonCallDetailRestaurant.setOnClickListener(v ->{
             Intent intent = new Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", detailRestaurantViewModel.getPhoneNumber(), null));
             startActivity(intent);
         });
 
-        binding.buttonLikeDetailRestaurant.setOnClickListener(v ->{
-            detailRestaurantViewModel.OnLikeCLick();
-        });
+        binding.buttonLikeDetailRestaurant.setOnClickListener(v -> detailRestaurantViewModel.OnLikeCLick());
 
         binding.buttonWebsiteDetailRestaurant.setOnClickListener(v ->{
             Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(detailRestaurantViewModel.getWebsiteUrl()));
@@ -94,7 +86,10 @@ public class DetailRestaurantActivity extends AppCompatActivity {
             binding.TextViewNote.setText(detailRestaurantViewModel.getRatingRestaurantInStingBuilder());
             binding.TextViewTypeRestaurantAndAddress.setText(detailRestaurantViewModel.getTypeAndAddress());
 
-            if(restaurantDetail.isLike()){
+        });
+
+        detailRestaurantViewModel.getIsLike().observe(this, isLike -> {
+            if(isLike){
                 binding.buttonLikeDetailRestaurant.setText(R.string.Like);
                 binding.buttonLikeDetailRestaurant.setIconResource(R.drawable.baseline_star_rate_24);
             }else{
@@ -102,6 +97,7 @@ public class DetailRestaurantActivity extends AppCompatActivity {
                 binding.buttonLikeDetailRestaurant.setIconResource(R.drawable.baseline_star_border_24);
             }
         });
+
         detailRestaurantViewModel.choiceToEatHere(restaurantID).observe(this, isEat ->{
             if(isEat){
                 binding.floatingActionButtonFavoris.setImageResource(R.drawable.baseline_check_circle_24);

@@ -30,6 +30,7 @@ playServicesMaps = "18.1.0"
 navigationFragment = "2.7.7"
 navigationUi = "2.7.7"
 retrofit = "2.9.0"
+workRuntime = "2.9.0"
 
 [libraries]
 converter-gson = { module = "com.squareup.retrofit2:converter-gson", version.ref = "converterGson" }
@@ -64,6 +65,7 @@ play-services-maps = { group = "com.google.android.gms", name = "play-services-m
 navigation-fragment = { group = "androidx.navigation", name = "navigation-fragment", version.ref = "navigationFragment" }
 navigation-ui = { group = "androidx.navigation", name = "navigation-ui", version.ref = "navigationUi" }
 retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
+work-runtime = { module = "androidx.work:work-runtime", version.ref = "workRuntime" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }

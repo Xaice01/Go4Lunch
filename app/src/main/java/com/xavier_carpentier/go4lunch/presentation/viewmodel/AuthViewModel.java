@@ -11,6 +11,7 @@ import androidx.lifecycle.ViewModel;
 import com.firebase.ui.auth.AuthUI;
 import com.firebase.ui.auth.IdpResponse;
 import com.firebase.ui.auth.data.model.FirebaseAuthUIAuthenticationResult;
+import com.xavier_carpentier.go4lunch.R;
 import com.xavier_carpentier.go4lunch.data.repository.AuthRepositoryFirebase;
 import com.xavier_carpentier.go4lunch.data.repository.UserRepositoryFirestore;
 import com.xavier_carpentier.go4lunch.domain.usecase.CreateUserInDataBaseUseCase;
@@ -55,8 +56,10 @@ public class AuthViewModel extends ViewModel {
         // Create and launch sign-in intent
         Intent signInIntent = AuthUI.getInstance()
                 .createSignInIntentBuilder()
+                //.setTheme(R.style.LoginTheme)
                 .setIsSmartLockEnabled(false,true)
                 .setAvailableProviders(getBuilderListAuthenticationProviders())
+                .setLogo(R.mipmap.ic_go4lunch)
                 .build();
         signInLauncher.launch(signInIntent);
     }
@@ -90,7 +93,7 @@ public class AuthViewModel extends ViewModel {
         IdpResponse response = result.getIdpResponse();
         if (result.getResultCode() == RESULT_OK) {
             // Successfully signed in
-            Log.d("Xaice",getCurrentUserUseCase.invoke().getUid());
+            Log.d("uidUser",getCurrentUserUseCase.invoke().getUid());
 
             createUserInDataBaseUseCase.invoke(getCurrentUserUseCase.invoke());
 

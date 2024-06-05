@@ -1,4 +1,4 @@
-package com.xavier_carpentier.go4lunch.data;
+package com.xavier_carpentier.go4lunch.datasource.api;
 
 import com.xavier_carpentier.go4lunch.data.response.autocomplete_response.AutocompleteResponse;
 import com.xavier_carpentier.go4lunch.data.response.detail_restaurant_response.RestaurantDetailResponse;

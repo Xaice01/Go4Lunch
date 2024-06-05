@@ -151,15 +151,24 @@ public class UserRepositoryFirestore implements UsersRepository {
     }
 
 
-    public void addRestaurantChoiceToDay(String idUser, String nameUser, String urlUserPicture, String idRestaurant, String nameRestaurant, String vicinity){
+    public LiveData<Boolean> addRestaurantChoiceToDay(String idUser, String nameUser, String urlUserPicture, String idRestaurant, String nameRestaurant, String vicinity){
+        MutableLiveData<Boolean> isSuccess= new MutableLiveData<>();
         if(idUser!= null && idRestaurant!=null){
             Timestamp timestamp = Timestamp.now();
 
             RestaurantChoiceDomain restaurantChoiceToCreate = new RestaurantChoiceDomain(timestamp,idUser,nameUser,urlUserPicture,idRestaurant,nameRestaurant,vicinity);
 
             //replaces restaurantChoice existing to restaurantChoiceToCreate
-            getRestaurantChoiceCollection().document(idUser).set(restaurantChoiceToCreate);
+            getRestaurantChoiceCollection().document(idUser).set(restaurantChoiceToCreate).addOnCompleteListener(task->{
+                if(task.isSuccessful()){
+                    isSuccess.setValue(true);
+                }else{
+                    isSuccess.setValue(false);
+                }
+            });
         }
+        return isSuccess;
+
     }
 
     public LiveData<Boolean> deleteRestaurantChoiceToDay(String idUser){

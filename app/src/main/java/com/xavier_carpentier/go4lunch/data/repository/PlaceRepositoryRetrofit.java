@@ -6,7 +6,7 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
-import com.xavier_carpentier.go4lunch.data.GooglePlaceApi;
+import com.xavier_carpentier.go4lunch.datasource.api.GooglePlaceApi;
 import com.xavier_carpentier.go4lunch.data.response.autocomplete_response.AutocompleteResponse;
 import com.xavier_carpentier.go4lunch.data.response.autocomplete_response.Prediction;
 import com.xavier_carpentier.go4lunch.data.response.detail_restaurant_response.RestaurantDetailResponse;

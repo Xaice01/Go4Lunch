@@ -103,4 +103,7 @@ dependencies {
 
     //MAP GOOGLE
     implementation libs.play.services.maps
+
+    //WorkManager
+    implementation libs.work.runtime
 }

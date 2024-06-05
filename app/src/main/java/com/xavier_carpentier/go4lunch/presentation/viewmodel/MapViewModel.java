@@ -6,7 +6,7 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
-import com.xavier_carpentier.go4lunch.data.RetrofitService;
+import com.xavier_carpentier.go4lunch.datasource.api.RetrofitService;
 import com.xavier_carpentier.go4lunch.data.repository.LocationRepository;
 import com.xavier_carpentier.go4lunch.data.repository.PlaceRepositoryRetrofit;
 import com.xavier_carpentier.go4lunch.data.repository.UserRepositoryFirestore;

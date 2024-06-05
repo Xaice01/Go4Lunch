@@ -1,4 +1,4 @@
-package com.xavier_carpentier.go4lunch.data;
+package com.xavier_carpentier.go4lunch.datasource.api;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;

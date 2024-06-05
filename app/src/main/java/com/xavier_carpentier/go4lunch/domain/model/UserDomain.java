@@ -1,7 +1,5 @@
 package com.xavier_carpentier.go4lunch.domain.model;
 
-import android.net.Uri;
-
 import androidx.annotation.Nullable;
 
 import java.util.ArrayList;

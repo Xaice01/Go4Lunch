@@ -29,9 +29,10 @@
         android:maxLines="1"
         android:textSize="16sp"
         android:textStyle="bold"
+        app:layout_constraintEnd_toStartOf="@+id/item_distance_restaurant"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text="Le Zinc"/>
+        tools:text="Le Zinc" />
 
     <TextView
         android:id="@+id/item_distance_restaurant"

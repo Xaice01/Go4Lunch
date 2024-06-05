@@ -31,12 +31,11 @@ public class ListWorkmatesViewHolder extends RecyclerView.ViewHolder{
                 .into(avatar);
 
         String textToWrite;
-        //TODo if dans le viewmodel
-        if(user.getRestaurantName()!=null){
 
+        if(user.getRestaurantName()!=null){
             textToWrite =itemView.getContext().getString(R.string.eating,user.getUsername(),user.getRestaurantName());
         }else{
-            textToWrite =user.getUsername()+ R.string.notDecided;
+            textToWrite =user.getUsername() +" "+ itemView.getContext().getString(R.string.notDecided);
         }
         usernameAndRestaurant.setText(textToWrite);
 

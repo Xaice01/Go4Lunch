@@ -4,8 +4,6 @@ import com.xavier_carpentier.go4lunch.domain.model.RestaurantChoiceDomain;
 import com.xavier_carpentier.go4lunch.domain.model.UserDomain;
 import com.xavier_carpentier.go4lunch.domain.repository.AuthUserRepository;
 import com.xavier_carpentier.go4lunch.domain.repository.UsersRepository;
-import com.xavier_carpentier.go4lunch.presentation.notification.MapperNotificationDomainNotificationUi;
-import com.xavier_carpentier.go4lunch.presentation.notification.NotificationUi;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,7 +17,7 @@ public class GetNotificationUseCase {
         this.userRepository = userRepository;
     }
 
-    public NotificationUi invoke(){
+    public NotificationDomain invoke(){
 
         List<RestaurantChoiceDomain> listRestaurantChoiceDomain = userRepository.getAllRestaurantChoiceToDayAsync();
         UserDomain userDomain = authUserRepository.getUser();
@@ -47,7 +45,7 @@ public class GetNotificationUseCase {
                 }
             }
         }
-        return MapperNotificationDomainNotificationUi.notificationDomainToNotificationUi(new NotificationDomain(userName,workmateToEatInThisRestaurant,idRestaurant,restaurantName,vicinity));
+        return new NotificationDomain(userName,workmateToEatInThisRestaurant,idRestaurant,restaurantName,vicinity);
     }
 }
 
