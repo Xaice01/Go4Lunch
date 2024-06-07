@@ -8,10 +8,15 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.SearchView;
@@ -22,11 +27,12 @@ import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.firebase.ui.auth.FirebaseAuthUIActivityResultContract;
 import com.xavier_carpentier.go4lunch.R;
 import com.xavier_carpentier.go4lunch.databinding.ActivityMainBinding;
@@ -45,9 +51,11 @@ public class MainActivity extends AppCompatActivity {
     private MainViewModel viewModel;
     private AuthViewModel authViewModel;
 
-    private static final int PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 1;
+    private TextView textViewEmail;
+    private TextView textViewName;
+    private ImageView imageViewUser;
 
-    private boolean mLocationPermissionGranted;
+    private static final int PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 1;
 
 
     @SuppressLint("NonConstantResourceId")
@@ -59,25 +67,25 @@ public class MainActivity extends AppCompatActivity {
         setContentView(view);
         replaceFragment(MapFragment.newInstance());
 
+        View headerView = binding.navigationView.getHeaderView(0);
+        textViewEmail = headerView.findViewById(R.id.nav_header_email);
+        textViewName = headerView.findViewById(R.id.nav_header_name);
+        imageViewUser = headerView.findViewById(R.id.imageView_user);
+
         //Configure the authViewModel
         authViewModel = new ViewModelProvider(this).get(AuthViewModel.class);
         authViewModel.Logout();
-
         authViewModel.startSignInActivity(signInLauncher);
 
         viewModel = new MainViewModel(getApplication());
 
+        viewModel.checkPermissionLocation().observe(this, shouldRequest -> {
+            if (shouldRequest) {
+                ActivityCompat.requestPermissions(MainActivity.this,
+                        new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION},
+                        PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION);
 
-        viewModel.checkPermissionLocation().observe(this, new Observer<Boolean>() {
-            @Override
-            public void onChanged(Boolean shouldRequest) {
-                if (shouldRequest) {
-                    ActivityCompat.requestPermissions(MainActivity.this,
-                            new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION},
-                            PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION);
-
-                    viewModel.permissionHandled();
-                }
+                viewModel.permissionHandled();
             }
         });
 
@@ -93,7 +101,6 @@ public class MainActivity extends AppCompatActivity {
                     replaceFragment(ListWorkmatesFragment.newInstance());
                     return true;
             }
-
             return true;
         });
 
@@ -101,28 +108,48 @@ public class MainActivity extends AppCompatActivity {
             binding.navigationView.setVisibility(View.VISIBLE);
         });
 
-        ////Configure the authViewModel
-        //authViewModel = new ViewModelProvider(this).get(AuthViewModel.class);
-        //authViewModel.Logout();
 
-        //authViewModel.startSignInActivity(signInLauncher);
+        binding.navigationView.setNavigationItemSelectedListener(menuItem -> {
+            switch (menuItem.getItemId()) {
+                case R.id.nav_your_lunch:
+                    viewModel.checkWorkmateRestaurant();
+                    break;
+                case R.id.nav_settings:
+                    Intent intentSetting = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+                    Uri uri = Uri.fromParts("package", getPackageName(), null);
+                    intentSetting.setData(uri);
+                    startActivity(intentSetting);
+                    break;
+                case R.id.nav_logout:
+                    authViewModel.Logout();
+                    authViewModel.startSignInActivity(signInLauncher);
+                    break;
+            }
+            binding.navigationView.setVisibility(View.GONE);
+            return true;
+        });
 
+        // Observer for navigation
+        viewModel.getNavigateToDetailEvent().observe(this, event -> {
+            String uidRestaurant = event.getContentIfNotHandled();
+            if (uidRestaurant != null) {
+                Intent intent = new Intent(this, DetailRestaurantActivity.class);
+                intent.putExtra(KEY_RESTAURANT, uidRestaurant);
+                startActivity(intent);
+            }
+        });
+
+        // Observer for showing toast
+        viewModel.getShowToastEvent().observe(this, event -> {
+            if (event.getContentIfNotHandled() == null) {
+                Toast.makeText(this, R.string.toast_no_restaurant, Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        onBindNavigationView();
         initAutocompleteSearchView();
         getSearchViewQuery();
 
-
-
-       // binding.buttonLogin.setOnClickListener(v->{
-       //     authViewModel.startSignInActivity(signInLauncher);
-//
-       //     //TODO with Livedata (asynchrone)
-       //     //Snackbar.make(binding.main, authViewModel.getCurrentUser().getUsername(), Snackbar.LENGTH_SHORT).show();
-       // });
-//
-       // binding.buttonLogout.setOnClickListener(v->{
-       //     authViewModel.Logout();
-       //     authViewModel.startSignInActivity(signInLauncher);
-       // });
     }
 
     @Override
@@ -137,15 +164,6 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        //if(authViewModel.getCurrentUser()==null) {
-        //    authViewModel.startSignInActivity(signInLauncher);
-        //}
-    }
-
     private final ActivityResultLauncher<Intent> signInLauncher = registerForActivityResult(
             new FirebaseAuthUIActivityResultContract(),
             result -> authViewModel.onSignInResult(result)
@@ -158,11 +176,8 @@ public class MainActivity extends AppCompatActivity {
         fragmentTransaction.commit();
     }
 
-
-
     private void initAutocompleteSearchView() {
         AutocompleteListAdapter adapter = new AutocompleteListAdapter();
-
 
         adapter.setOnItemClickListener((position, restaurant) ->{
             Intent intent = new Intent(this, DetailRestaurantActivity.class);
@@ -176,12 +191,11 @@ public class MainActivity extends AppCompatActivity {
         binding.mainAutocompleteRecyclerview.addItemDecoration(dividerItemDecoration);
         binding.mainAutocompleteRecyclerview.setAdapter(adapter);
 
-        viewModel.getLiveDataPrediction().observe(this, predictionViewStateList -> {
-                    adapter.submitList(predictionViewStateList);
-                }
+        viewModel.getLiveDataPrediction().observe(this, adapter::submitList
         );
     }
 
+    //for AutoComplete
     private void getSearchViewQuery() {
         binding.searchBar.setOnQueryTextListener(
                 new SearchView.OnQueryTextListener() {
@@ -226,4 +240,37 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    private void onBindNavigationView(){
+
+        authViewModel.isLogging().observe(this, isLogging->{
+            if(isLogging) {
+                if (isLogging != null && isLogging) {
+                    authViewModel.getCurrentUser().observe(this, user -> {
+                        if (user != null) {
+                            if (user.getUsername() != null) {
+                                textViewName.setText(user.getUsername());
+                            }
+                            if(user.getUid()!=null){
+                                viewModel.setUserUid(user.getUid());
+                            }
+                            if (user.getUrlPicture() != null) {
+                                Glide.with(this)
+                                        .load(user.getUrlPicture())
+                                        .apply(RequestOptions.circleCropTransform())
+                                        .into(imageViewUser);
+                            }
+                        }
+                    });
+
+                    authViewModel.getEmail().observe(this, email -> {
+                        if (email != null) {
+                            textViewEmail.setText(email);
+                        }
+                    });
+                }
+            }
+        });
+
+
+    }
 }

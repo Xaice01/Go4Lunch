@@ -168,7 +168,46 @@ public class UserRepositoryFirestore implements UsersRepository {
             });
         }
         return isSuccess;
+    }
+    public LiveData<RestaurantChoiceDomain> getRestaurantChoiceToDay(String idUser){
+        MutableLiveData<RestaurantChoiceDomain> liveDataRestaurantChoiceDomain = new MutableLiveData<>();
 
+
+        // Get the current time
+        Timestamp now = Timestamp.now();
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(now.toDate());
+
+        // Set start time to 14h today
+        calendar.set(Calendar.HOUR_OF_DAY, 14);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
+
+        // Determine the start time based on the current time
+        Date startTimeDate;
+        if (now.toDate().before(calendar.getTime())) {
+            // If now is before 14h today, set start time to 14h yesterday
+            calendar.add(Calendar.DAY_OF_YEAR, -1);
+        }
+
+        startTimeDate = calendar.getTime();
+        Timestamp startTime = new Timestamp(startTimeDate);
+
+
+        getRestaurantChoiceCollection().document(idUser).get().addOnSuccessListener(documentSnapshot -> {
+                Timestamp timestamp = documentSnapshot.getTimestamp("timestamp");
+                    if (timestamp != null && startTime.compareTo(timestamp) <= 0 && timestamp.compareTo(now) <= 0) {
+                         liveDataRestaurantChoiceDomain.setValue(documentSnapshot.toObject(RestaurantChoiceDomain.class));
+                    }else{
+                        liveDataRestaurantChoiceDomain.setValue(null);
+                    }
+                })
+                .addOnFailureListener(e -> {
+                    // Handle the error
+                    liveDataRestaurantChoiceDomain.setValue(null);
+                });
+
+        return liveDataRestaurantChoiceDomain;
     }
 
     public LiveData<Boolean> deleteRestaurantChoiceToDay(String idUser){

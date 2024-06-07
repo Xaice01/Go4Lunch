@@ -18,11 +18,9 @@ import com.xavier_carpentier.go4lunch.domain.model.RestaurantDomain;
 import com.xavier_carpentier.go4lunch.domain.model.RestaurantSearchDomain;
 import com.xavier_carpentier.go4lunch.domain.repository.PlaceRepository;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -95,8 +93,6 @@ public class PlaceRepositoryRetrofit implements PlaceRepository {
                     }
                     if(response.isSuccessful() && response.body() != null && response.body().getResults() != null && response.body().getNextPageToken()!=null ){
                         List<RestaurantSearchDomain> listRestaurantSearchDomain = listRestaurantSearchDomainMutableLiveData.getValue();
-                        List<RestaurantSearchDomain> listRestauranttoadd = getNextRestaurant(response.body().getNextPageToken(),keyCache,latitude,longitude);
-                        Objects.requireNonNull(listRestaurantSearchDomain).addAll(listRestauranttoadd);
                         listRestaurantSearchDomainMutableLiveData.setValue(listRestaurantSearchDomain);
                     }
                 }
@@ -110,26 +106,6 @@ public class PlaceRepositoryRetrofit implements PlaceRepository {
         return listRestaurantSearchDomainMutableLiveData;
     }
 
-    private List<RestaurantSearchDomain> getNextRestaurant(String token ,String keyCache, String latitude, String longitude){
-        List<RestaurantSearchDomain> listRestaurantSearchDomain = new ArrayList<>();
-
-        googlePlaceApi.getNearby(token, GOOGLE_API_KEY).enqueue(new Callback<ListRestaurantResponse>() {
-            @Override
-            public void onResponse(@NonNull Call<ListRestaurantResponse> call, @NonNull Response<ListRestaurantResponse> response) {
-                if (response.isSuccessful() && response.body() != null && response.body().getResults() != null) {
-                    List<Result> resultList = response.body().getResults();
-                    alreadyFetchedResponsesListRestaurantResponse.put(keyCache, resultList);
-                    listRestaurantSearchDomain.addAll(MapperDataToDomain.listResultRestaurantResponseToListRestaurantSearchDomain(resultList, latitude, longitude));
-                }
-            }
-
-            @Override
-            public void onFailure(@NonNull Call<ListRestaurantResponse> call, @NonNull Throwable t) {
-
-            }
-        });
-        return listRestaurantSearchDomain;
-    }
 
     public LiveData<RestaurantDomain> getRestaurant(String uidRestaurant){
 

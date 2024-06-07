@@ -33,6 +33,10 @@
     <string name="Like">LIKE</string>
     <string name="Unlike">UNLIKE</string>
 
+    <!-- MainActivity -->
+    <string name="toast_no_restaurant"> There is no restaurant choice</string>
+
+
 
 
     <string name="lorem_ipsum" translatable="false">

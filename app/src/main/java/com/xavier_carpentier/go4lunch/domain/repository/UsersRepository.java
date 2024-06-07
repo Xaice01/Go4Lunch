@@ -19,6 +19,8 @@ public interface UsersRepository {
 
     LiveData<Boolean> deleteRestaurantChoiceToDay(String idUser);
 
+    LiveData<RestaurantChoiceDomain> getRestaurantChoiceToDay(String idUser);
+
     LiveData<List<RestaurantChoiceDomain>> getListWorkmateToChoiceARestaurant(String idRestaurant);
 
     List<RestaurantChoiceDomain> getAllRestaurantChoiceToDayAsync();

@@ -106,11 +106,31 @@ public class MapperDomainUi {
     public static List<Workmate> listRestaurantChoiceDomainToListWorkmate(List<RestaurantChoiceDomain> restaurantChoiceDomains){
         List<Workmate> workmateList = new ArrayList<>();
         for(RestaurantChoiceDomain restaurantChoiceDomain : restaurantChoiceDomains){
-            Uri uriPicture = Uri.parse(restaurantChoiceDomain.getUrlUserPicture());
+            Uri uriPicture;
+            if(restaurantChoiceDomain.getUrlUserPicture()!=null) {
+                uriPicture = Uri.parse(restaurantChoiceDomain.getUrlUserPicture());
+            } else {
+                uriPicture = null;
+            }
             workmateList.add(new Workmate(restaurantChoiceDomain.getIdUser(),restaurantChoiceDomain.getUserName(),uriPicture,restaurantChoiceDomain.getIdRestaurant(),restaurantChoiceDomain.getRestaurantName()));
         }
         return workmateList;
     }
+
+    public static Workmate RestaurantChoiceDomainToWorkmate(RestaurantChoiceDomain restaurantChoiceDomain){
+        Uri uriPicture;
+        if(restaurantChoiceDomain!=null) {
+            if (restaurantChoiceDomain.getUrlUserPicture() != null) {
+                uriPicture = Uri.parse(restaurantChoiceDomain.getUrlUserPicture());
+            } else {
+                uriPicture = null;
+            }
+            return new Workmate(restaurantChoiceDomain.getIdUser(), restaurantChoiceDomain.getUserName(), uriPicture, restaurantChoiceDomain.getIdRestaurant(), restaurantChoiceDomain.getRestaurantName());
+        }else{
+            return null;
+        }
+    }
+
 
     public static List<Workmate> listUserDomainToListWorkmate(List<UserDomain> userDomains){
         List<Workmate> workmateList = new ArrayList<>();

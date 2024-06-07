@@ -14,7 +14,6 @@ public class ListWorkmatesViewModel extends ViewModel {
     //------------------------------------
     // DATA
     //------------------------------------
-    private final AuthRepositoryFirebase authRepositoryFirebase = AuthRepositoryFirebase.getInstance();
     private final UserRepositoryFirestore userRepositoryFirestore = UserRepositoryFirestore.getInstance();
     private LiveData<List<Workmate>> listWorkmates;
     //----------------------------------------------------

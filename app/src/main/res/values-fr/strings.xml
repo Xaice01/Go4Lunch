@@ -34,4 +34,7 @@
     <string name="type_and_adress">%1$s restaurant - %2$s</string>
     <string name="Like">LIKE</string>
     <string name="Unlike">NON LIKE</string>
+
+    <!-- MainActivity -->
+    <string name="toast_no_restaurant"> il n\'y a pas de restaurant choisi </string>
 </resources>

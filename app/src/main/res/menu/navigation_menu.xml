@@ -4,18 +4,16 @@
     tools:showIn="navigation_view">
     <item
         android:id="@+id/nav_your_lunch"
+        android:icon="@drawable/baseline_restaurant_menu_24"
+        android:title="Your Lunch" />
 
-        android:orderInCategory="1"
-        android:title="lunch" />
     <item
         android:id="@+id/nav_settings"
-
-        android:orderInCategory="2"
-        android:title="stteing" />
+        android:icon="@drawable/baseline_settings_24"
+        android:title="Settings" />
 
     <item
         android:id="@+id/nav_logout"
-
-        android:orderInCategory="4"
-        android:title="logout" />
+        android:icon="@drawable/baseline_power_settings_new_24"
+        android:title="Logout" />
 </menu>
