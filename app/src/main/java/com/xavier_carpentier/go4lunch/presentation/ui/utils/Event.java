@@ -1,4 +1,4 @@
-package com.xavier_carpentier.go4lunch.utils;
+package com.xavier_carpentier.go4lunch.presentation.ui.utils;
 
 public class Event<T> {
     private T content;

@@ -37,4 +37,9 @@
 
     <!-- MainActivity -->
     <string name="toast_no_restaurant"> il n\'y a pas de restaurant choisi </string>
+
+    <!-- navigation -->
+    <string name="your_Lunch">Votre restaurant</string>
+    <string name="settings">Paramètre</string>
+    <string name="logout">déconnection</string>
 </resources>

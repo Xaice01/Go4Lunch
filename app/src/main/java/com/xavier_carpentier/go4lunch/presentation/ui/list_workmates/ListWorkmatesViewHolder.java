@@ -1,10 +1,12 @@
 package com.xavier_carpentier.go4lunch.presentation.ui.list_workmates;
 
+import android.graphics.Typeface;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -34,8 +36,12 @@ public class ListWorkmatesViewHolder extends RecyclerView.ViewHolder{
 
         if(user.getRestaurantName()!=null){
             textToWrite =itemView.getContext().getString(R.string.eating,user.getUsername(),user.getRestaurantName());
+            usernameAndRestaurant.setTextColor(ContextCompat.getColor(itemView.getContext(), R.color.black));
+            usernameAndRestaurant.setTypeface(null, Typeface.BOLD);
         }else{
             textToWrite =user.getUsername() +" "+ itemView.getContext().getString(R.string.notDecided);
+            usernameAndRestaurant.setTextColor(ContextCompat.getColor(itemView.getContext(), R.color.light_gray));
+            usernameAndRestaurant.setTypeface(null, Typeface.ITALIC);
         }
         usernameAndRestaurant.setText(textToWrite);
 

@@ -21,7 +21,7 @@ import com.xavier_carpentier.go4lunch.domain.usecase.GetWorkmateUseCase;
 import com.xavier_carpentier.go4lunch.presentation.model.AutocompletePrediction;
 import com.xavier_carpentier.go4lunch.presentation.model.LocationUi;
 import com.xavier_carpentier.go4lunch.presentation.model.Workmate;
-import com.xavier_carpentier.go4lunch.utils.Event;
+import com.xavier_carpentier.go4lunch.presentation.ui.utils.Event;
 import com.xavier_carpentier.go4lunch.utils.NotificationScheduler;
 
 import java.io.Closeable;

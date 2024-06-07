@@ -38,7 +38,6 @@
             android:clickable="true"
             android:focusable="true"
             android:src="@drawable/baseline_check_circle_outline_24"
-
             app:backgroundTint="@android:color/white"
             app:elevation="16dp"
             app:layout_constraintBottom_toBottomOf="@+id/imageView_picture_restaurant"

@@ -101,8 +101,11 @@ public class DetailRestaurantActivity extends AppCompatActivity {
         detailRestaurantViewModel.choiceToEatHere(restaurantID).observe(this, isEat ->{
             if(isEat){
                 binding.floatingActionButtonFavoris.setImageResource(R.drawable.baseline_check_circle_24);
+                binding.floatingActionButtonFavoris.setColorFilter(getResources().getColor(R.color.check_button_green));
+                binding.floatingActionButtonFavoris.setRippleColor(getResources().getColor(R.color.red_choice));
             }else{
                 binding.floatingActionButtonFavoris.setImageResource(R.drawable.baseline_check_circle_outline_24);
+                binding.floatingActionButtonFavoris.setRippleColor(getResources().getColor(R.color.green_choice));
             }
         });
 

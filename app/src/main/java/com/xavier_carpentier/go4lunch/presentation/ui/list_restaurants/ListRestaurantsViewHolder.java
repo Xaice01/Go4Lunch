@@ -1,5 +1,6 @@
 package com.xavier_carpentier.go4lunch.presentation.ui.list_restaurants;
 
+import android.graphics.Typeface;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -44,15 +45,14 @@ public class ListRestaurantsViewHolder extends RecyclerView.ViewHolder {
         name.setText(restaurant.getName());
         typeAndAddress.setText(restaurant.getAddress());
 
-        //todo to change
         if(restaurant.getIsOpen()!=null) {
             schedule.setVisibility(View.VISIBLE);
             if (restaurant.getIsOpen()) {
                 schedule.setText("Open");
-                //schedule.setTextColor(green);
+                schedule.setTypeface(null, Typeface.BOLD);
             } else {
                 schedule.setText("close");
-                //schedule.setTextColor(R.color.white); red
+                schedule.setTypeface(null, Typeface.ITALIC);
             }
         }else{
             schedule.setVisibility(View.INVISIBLE);

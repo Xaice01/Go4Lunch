@@ -20,6 +20,7 @@
             android:id="@+id/top_App_Bar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            style="@style/MyCustomToolbar"
             app:navigationIcon="@drawable/baseline_menu_24"
             app:title="@string/page_title">
 
@@ -43,7 +44,7 @@
         android:id="@+id/bottom_navigation_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        style="@style/Widget.MaterialComponents.BottomNavigationView.Colored"
+        style="@style/Theme.Go4Lunch.NavButtonMainActivity"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -74,7 +75,8 @@
         android:id="@+id/navigation_view"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:visibility="invisible"
+        android:visibility="gone"
+        android:background="@color/ripe_peach"
         app:elevation="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
