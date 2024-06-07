@@ -1,9 +1,7 @@
 package com.xavier_carpentier.go4lunch.data.repository;
 
-import androidx.annotation.Nullable;
 
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.xavier_carpentier.go4lunch.data.mappers.MapperDataToDomain;
 import com.xavier_carpentier.go4lunch.datasource.utils.AuthenticationProvider;
 import com.xavier_carpentier.go4lunch.domain.model.AuthProviderTypeDomain;
@@ -46,10 +44,6 @@ public class AuthRepositoryFirebase implements AuthUserRepository {
         return MapperDataToDomain.firebaseUserToUserDomain(Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()));
     }
 
-    @Nullable
-    public FirebaseUser getCurrentUser(){
-        return FirebaseAuth.getInstance().getCurrentUser();
-    }
 
     public String getEmail(){
         return Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getEmail();

@@ -15,18 +15,22 @@ public class Open__1 {
     @Expose
     private String time;
 
+    @SuppressWarnings("unused")
     public Integer getDay() {
         return day;
     }
 
+    @SuppressWarnings("unused")
     public void setDay(Integer day) {
         this.day = day;
     }
 
+    @SuppressWarnings("unused")
     public String getTime() {
         return time;
     }
 
+    @SuppressWarnings("unused")
     public void setTime(String time) {
         this.time = time;
     }

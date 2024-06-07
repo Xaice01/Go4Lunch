@@ -14,18 +14,22 @@ public class Viewport {
     @Expose
     private Southwest southwest;
 
+    @SuppressWarnings("unused")
     public Northeast getNortheast() {
         return northeast;
     }
 
+    @SuppressWarnings("unused")
     public void setNortheast(Northeast northeast) {
         this.northeast = northeast;
     }
 
+    @SuppressWarnings("unused")
     public Southwest getSouthwest() {
         return southwest;
     }
 
+    @SuppressWarnings("unused")
     public void setSouthwest(Southwest southwest) {
         this.southwest = southwest;
     }

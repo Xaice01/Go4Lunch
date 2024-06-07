@@ -32,20 +32,24 @@ public class Photo {
         this.height = height;
     }
 
+    @SuppressWarnings("unused")
     public List<String> getHtmlAttributions() {
         return htmlAttributions;
     }
 
+    @SuppressWarnings("unused")
     public void setHtmlAttributions(List<String> htmlAttributions) {
         this.htmlAttributions = htmlAttributions;
     }
 
+    @SuppressWarnings("unused")
     public String getPhotoReference() {
         return photoReference;
     }
 
     public String getPhotoURL(){return "https://maps.googleapis.com/maps/api/place/photo?maxwidth=1080&photo_reference="+photoReference+"&key="+GOOGLE_API_KEY;}
 
+    @SuppressWarnings("unused")
     public void setPhotoReference(String photoReference) {
         this.photoReference = photoReference;
     }

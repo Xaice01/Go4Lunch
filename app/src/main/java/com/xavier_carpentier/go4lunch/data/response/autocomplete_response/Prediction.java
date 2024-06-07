@@ -37,19 +37,11 @@ public class Prediction implements Serializable
      * No args constructor for use in serialization
      *
      */
+    @SuppressWarnings("unused")
     public Prediction() {
     }
 
-    /**
-     *
-     * @param reference
-     * @param types
-     * @param structuredFormatting
-     * @param terms
-     * @param matchedSubstrings
-     * @param placeId
-     * @param description
-     */
+    @SuppressWarnings("unused")
     public Prediction(String description, List<MatchedSubstring> matchedSubstrings, String placeId, String reference, StructuredFormatting structuredFormatting, List<Term> terms, List<String> types) {
         super();
         this.description = description;
@@ -61,18 +53,22 @@ public class Prediction implements Serializable
         this.types = types;
     }
 
+    @SuppressWarnings("unused")
     public String getDescription() {
         return description;
     }
 
+    @SuppressWarnings("unused")
     public void setDescription(String description) {
         this.description = description;
     }
 
+    @SuppressWarnings("unused")
     public List<MatchedSubstring> getMatchedSubstrings() {
         return matchedSubstrings;
     }
 
+    @SuppressWarnings("unused")
     public void setMatchedSubstrings(List<MatchedSubstring> matchedSubstrings) {
         this.matchedSubstrings = matchedSubstrings;
     }
@@ -81,14 +77,17 @@ public class Prediction implements Serializable
         return placeId;
     }
 
+    @SuppressWarnings("unused")
     public void setPlaceId(String placeId) {
         this.placeId = placeId;
     }
 
+    @SuppressWarnings("unused")
     public String getReference() {
         return reference;
     }
 
+    @SuppressWarnings("unused")
     public void setReference(String reference) {
         this.reference = reference;
     }
@@ -97,22 +96,26 @@ public class Prediction implements Serializable
         return structuredFormatting;
     }
 
+    @SuppressWarnings("unused")
     public void setStructuredFormatting(StructuredFormatting structuredFormatting) {
         this.structuredFormatting = structuredFormatting;
     }
-
+    @SuppressWarnings("unused")
     public List<Term> getTerms() {
         return terms;
     }
 
+    @SuppressWarnings("unused")
     public void setTerms(List<Term> terms) {
         this.terms = terms;
     }
 
+    @SuppressWarnings("unused")
     public List<String> getTypes() {
         return types;
     }
 
+    @SuppressWarnings("unused")
     public void setTypes(List<String> types) {
         this.types = types;
     }

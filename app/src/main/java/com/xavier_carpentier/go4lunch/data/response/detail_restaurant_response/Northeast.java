@@ -14,18 +14,22 @@ public class Northeast {
     @Expose
     private Double lng;
 
+    @SuppressWarnings("unused")
     public Double getLat() {
         return lat;
     }
 
+    @SuppressWarnings("unused")
     public void setLat(Double lat) {
         this.lat = lat;
     }
 
+    @SuppressWarnings("unused")
     public Double getLng() {
         return lng;
     }
 
+    @SuppressWarnings("unused")
     public void setLng(Double lng) {
         this.lng = lng;
     }

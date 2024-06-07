@@ -25,10 +25,12 @@ public class RestaurantDetailResponse {
         this.status = status;
     }
 
+    @SuppressWarnings("unused")
     public List<Object> getHtmlAttributions() {
         return htmlAttributions;
     }
 
+    @SuppressWarnings("unused")
     public void setHtmlAttributions(List<Object> htmlAttributions) {
         this.htmlAttributions = htmlAttributions;
     }
@@ -41,10 +43,13 @@ public class RestaurantDetailResponse {
         this.result = result;
     }
 
+    @SuppressWarnings("unused")
     public String getStatus() {
         return status;
     }
 
+
+    @SuppressWarnings("unused")
     public void setStatus(String status) {
         this.status = status;
     }

@@ -71,8 +71,7 @@ public class MapperDomainUi {
         rating = restaurantDomain.getRating();
         phoneNumber = restaurantDomain.getPhoneNumber();
         websiteUrl = restaurantDomain.getWebsiteUrl();
-        //TODO type or address to change
-        return new RestaurantDetail(uidRestaurant,photoReferenceUrl,restaurantName,vicinity,vicinity,rating,phoneNumber,false,websiteUrl);
+        return new RestaurantDetail(uidRestaurant,photoReferenceUrl,restaurantName,vicinity,rating,phoneNumber,false,websiteUrl);
     }
 
     public static List<AutocompletePrediction> listAutocompletePredictionDomainToListAutocompletePrediction(List<AutocompletePredictionDomain> predictionDomainList){

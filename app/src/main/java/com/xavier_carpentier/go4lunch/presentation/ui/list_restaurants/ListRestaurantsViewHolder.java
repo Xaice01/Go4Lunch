@@ -48,10 +48,10 @@ public class ListRestaurantsViewHolder extends RecyclerView.ViewHolder {
         if(restaurant.getIsOpen()!=null) {
             schedule.setVisibility(View.VISIBLE);
             if (restaurant.getIsOpen()) {
-                schedule.setText("Open");
+                schedule.setText(R.string.open);
                 schedule.setTypeface(null, Typeface.BOLD);
             } else {
-                schedule.setText("close");
+                schedule.setText(R.string.close);
                 schedule.setTypeface(null, Typeface.ITALIC);
             }
         }else{
@@ -60,7 +60,6 @@ public class ListRestaurantsViewHolder extends RecyclerView.ViewHolder {
 
         distance.setText(String.format("%sm",restaurant.getDistance()));
 
-        //todo if a mettre dans le viewmodel
         if(restaurant.getWorkmatesToEat()==0){
             workmatesToEat.setVisibility(View.INVISIBLE);
         }else {

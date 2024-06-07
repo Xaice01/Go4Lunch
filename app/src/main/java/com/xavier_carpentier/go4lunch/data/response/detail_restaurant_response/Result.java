@@ -91,50 +91,62 @@ public class Result {
     @Expose
     private Boolean wheelchairAccessibleEntrance;
 
+    @SuppressWarnings("unused")
     public List<AddressComponent> getAddressComponents() {
         return addressComponents;
     }
 
+    @SuppressWarnings("unused")
     public void setAddressComponents(List<AddressComponent> addressComponents) {
         this.addressComponents = addressComponents;
     }
 
+    @SuppressWarnings("unused")
     public String getAdrAddress() {
         return adrAddress;
     }
 
+    @SuppressWarnings("unused")
     public void setAdrAddress(String adrAddress) {
         this.adrAddress = adrAddress;
     }
 
+    @SuppressWarnings("unused")
     public String getBusinessStatus() {
         return businessStatus;
     }
 
+    @SuppressWarnings("unused")
     public void setBusinessStatus(String businessStatus) {
         this.businessStatus = businessStatus;
     }
 
+    @SuppressWarnings("unused")
     public CurrentOpeningHours getCurrentOpeningHours() {
         return currentOpeningHours;
     }
 
+    @SuppressWarnings("unused")
     public void setCurrentOpeningHours(CurrentOpeningHours currentOpeningHours) {
         this.currentOpeningHours = currentOpeningHours;
     }
 
+    @SuppressWarnings("unused")
     public EditorialSummary getEditorialSummary() {
         return editorialSummary;
     }
 
+    @SuppressWarnings("unused")
     public void setEditorialSummary(EditorialSummary editorialSummary) {
         this.editorialSummary = editorialSummary;
     }
 
+    @SuppressWarnings("unused")
     public String getFormattedAddress() {
         return formattedAddress;
     }
 
+    @SuppressWarnings("unused")
     public void setFormattedAddress(String formattedAddress) {
         this.formattedAddress = formattedAddress;
     }
@@ -143,14 +155,17 @@ public class Result {
         return formattedPhoneNumber;
     }
 
+    @SuppressWarnings("unused")
     public void setFormattedPhoneNumber(String formattedPhoneNumber) {
         this.formattedPhoneNumber = formattedPhoneNumber;
     }
 
+    @SuppressWarnings("unused")
     public Geometry getGeometry() {
         return geometry;
     }
 
+    @SuppressWarnings("unused")
     public void setGeometry(Geometry geometry) {
         this.geometry = geometry;
     }
@@ -163,26 +178,32 @@ public class Result {
         this.icon = icon;
     }
 
+    @SuppressWarnings("unused")
     public String getIconBackgroundColor() {
         return iconBackgroundColor;
     }
 
+    @SuppressWarnings("unused")
     public void setIconBackgroundColor(String iconBackgroundColor) {
         this.iconBackgroundColor = iconBackgroundColor;
     }
 
+    @SuppressWarnings("unused")
     public String getIconMaskBaseUri() {
         return iconMaskBaseUri;
     }
 
+    @SuppressWarnings("unused")
     public void setIconMaskBaseUri(String iconMaskBaseUri) {
         this.iconMaskBaseUri = iconMaskBaseUri;
     }
 
+    @SuppressWarnings("unused")
     public String getInternationalPhoneNumber() {
         return internationalPhoneNumber;
     }
 
+    @SuppressWarnings("unused")
     public void setInternationalPhoneNumber(String internationalPhoneNumber) {
         this.internationalPhoneNumber = internationalPhoneNumber;
     }
@@ -195,18 +216,22 @@ public class Result {
         this.name = name;
     }
 
+    @SuppressWarnings("unused")
     public OpeningHours getOpeningHours() {
         return openingHours;
     }
 
+    @SuppressWarnings("unused")
     public void setOpeningHours(OpeningHours openingHours) {
         this.openingHours = openingHours;
     }
 
+    @SuppressWarnings("unused")
     public List<Photo> getPhotos() {
         return photos;
     }
 
+    @SuppressWarnings("unused")
     public void setPhotos(List<Photo> photos) {
         this.photos = photos;
     }
@@ -215,14 +240,17 @@ public class Result {
         return placeId;
     }
 
+    @SuppressWarnings("unused")
     public void setPlaceId(String placeId) {
         this.placeId = placeId;
     }
 
+    @SuppressWarnings("unused")
     public PlusCode getPlusCode() {
         return plusCode;
     }
 
+    @SuppressWarnings("unused")
     public void setPlusCode(PlusCode plusCode) {
         this.plusCode = plusCode;
     }
@@ -231,54 +259,67 @@ public class Result {
         return rating;
     }
 
+    @SuppressWarnings("unused")
     public void setRating(Double rating) {
         this.rating = rating;
     }
 
+    @SuppressWarnings("unused")
     public String getReference() {
         return reference;
     }
 
+    @SuppressWarnings("unused")
     public void setReference(String reference) {
         this.reference = reference;
     }
 
+    @SuppressWarnings("unused")
     public List<Review> getReviews() {
         return reviews;
     }
 
+    @SuppressWarnings("unused")
     public void setReviews(List<Review> reviews) {
         this.reviews = reviews;
     }
 
+    @SuppressWarnings("unused")
     public List<String> getTypes() {
         return types;
     }
 
+    @SuppressWarnings("unused")
     public void setTypes(List<String> types) {
         this.types = types;
     }
 
+    @SuppressWarnings("unused")
     public String getUrl() {
         return url;
     }
 
+    @SuppressWarnings("unused")
     public void setUrl(String url) {
         this.url = url;
     }
 
+    @SuppressWarnings("unused")
     public Integer getUserRatingsTotal() {
         return userRatingsTotal;
     }
 
+    @SuppressWarnings("unused")
     public void setUserRatingsTotal(Integer userRatingsTotal) {
         this.userRatingsTotal = userRatingsTotal;
     }
 
+    @SuppressWarnings("unused")
     public Integer getUtcOffset() {
         return utcOffset;
     }
 
+    @SuppressWarnings("unused")
     public void setUtcOffset(Integer utcOffset) {
         this.utcOffset = utcOffset;
     }
@@ -295,14 +336,17 @@ public class Result {
         return website;
     }
 
+    @SuppressWarnings("unused")
     public void setWebsite(String website) {
         this.website = website;
     }
 
+    @SuppressWarnings("unused")
     public Boolean getWheelchairAccessibleEntrance() {
         return wheelchairAccessibleEntrance;
     }
 
+    @SuppressWarnings("unused")
     public void setWheelchairAccessibleEntrance(Boolean wheelchairAccessibleEntrance) {
         this.wheelchairAccessibleEntrance = wheelchairAccessibleEntrance;
     }

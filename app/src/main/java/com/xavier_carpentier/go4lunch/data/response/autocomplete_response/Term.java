@@ -21,28 +21,28 @@ public class Term implements Serializable
      * No args constructor for use in serialization
      *
      */
+    @SuppressWarnings("unused")
     public Term() {
     }
 
-    /**
-     *
-     * @param offset
-     * @param value
-     */
+    @SuppressWarnings("unused")
     public Term(Integer offset, String value) {
         super();
         this.offset = offset;
         this.value = value;
     }
 
+    @SuppressWarnings("unused")
     public Integer getOffset() {
         return offset;
     }
 
+    @SuppressWarnings("unused")
     public void setOffset(Integer offset) {
         this.offset = offset;
     }
 
+    @SuppressWarnings("unused")
     public String getValue() {
         return value;
     }

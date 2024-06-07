@@ -38,82 +38,102 @@ public class Review {
     @Expose
     private Boolean translated;
 
+    @SuppressWarnings("unused")
     public String getAuthorName() {
         return authorName;
     }
 
+    @SuppressWarnings("unused")
     public void setAuthorName(String authorName) {
         this.authorName = authorName;
     }
 
+    @SuppressWarnings("unused")
     public String getAuthorUrl() {
         return authorUrl;
     }
 
+    @SuppressWarnings("unused")
     public void setAuthorUrl(String authorUrl) {
         this.authorUrl = authorUrl;
     }
 
+    @SuppressWarnings("unused")
     public String getLanguage() {
         return language;
     }
 
+    @SuppressWarnings("unused")
     public void setLanguage(String language) {
         this.language = language;
     }
 
+    @SuppressWarnings("unused")
     public String getOriginalLanguage() {
         return originalLanguage;
     }
 
+    @SuppressWarnings("unused")
     public void setOriginalLanguage(String originalLanguage) {
         this.originalLanguage = originalLanguage;
     }
 
+    @SuppressWarnings("unused")
     public String getProfilePhotoUrl() {
         return profilePhotoUrl;
     }
 
+    @SuppressWarnings("unused")
     public void setProfilePhotoUrl(String profilePhotoUrl) {
         this.profilePhotoUrl = profilePhotoUrl;
     }
 
+    @SuppressWarnings("unused")
     public Integer getRating() {
         return rating;
     }
 
+    @SuppressWarnings("unused")
     public void setRating(Integer rating) {
         this.rating = rating;
     }
 
+    @SuppressWarnings("unused")
     public String getRelativeTimeDescription() {
         return relativeTimeDescription;
     }
 
+    @SuppressWarnings("unused")
     public void setRelativeTimeDescription(String relativeTimeDescription) {
         this.relativeTimeDescription = relativeTimeDescription;
     }
 
+    @SuppressWarnings("unused")
     public String getText() {
         return text;
     }
 
+    @SuppressWarnings("unused")
     public void setText(String text) {
         this.text = text;
     }
 
+    @SuppressWarnings("unused")
     public Integer getTime() {
         return time;
     }
 
+    @SuppressWarnings("unused")
     public void setTime(Integer time) {
         this.time = time;
     }
 
+    @SuppressWarnings("unused")
     public Boolean getTranslated() {
         return translated;
     }
 
+    @SuppressWarnings("unused")
     public void setTranslated(Boolean translated) {
         this.translated = translated;
     }

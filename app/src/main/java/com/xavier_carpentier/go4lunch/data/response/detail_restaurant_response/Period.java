@@ -15,18 +15,22 @@ public class Period {
     @Expose
     private Open open;
 
+    @SuppressWarnings("unused")
     public Close getClose() {
         return close;
     }
 
+    @SuppressWarnings("unused")
     public void setClose(Close close) {
         this.close = close;
     }
 
+    @SuppressWarnings("unused")
     public Open getOpen() {
         return open;
     }
 
+    @SuppressWarnings("unused")
     public void setOpen(Open open) {
         this.open = open;
     }

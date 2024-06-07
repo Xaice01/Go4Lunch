@@ -18,9 +18,11 @@ public class Geometry implements Serializable
      * No args constructor for use in serialization
      *
      */
+    @SuppressWarnings("unused")
     public Geometry() {
     }
 
+    @SuppressWarnings("unused")
     public Geometry(Location location) {
         super();
         this.location = location;
@@ -30,6 +32,7 @@ public class Geometry implements Serializable
         return location;
     }
 
+    @SuppressWarnings("unused")
     public void setLocation(Location location) {
         this.location = location;
     }

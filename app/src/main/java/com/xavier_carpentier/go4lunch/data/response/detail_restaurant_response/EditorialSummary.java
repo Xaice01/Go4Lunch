@@ -15,18 +15,22 @@ public class EditorialSummary {
     @Expose
     private String overview;
 
+    @SuppressWarnings("unused")
     public String getLanguage() {
         return language;
     }
 
+    @SuppressWarnings("unused")
     public void setLanguage(String language) {
         this.language = language;
     }
 
+    @SuppressWarnings("unused")
     public String getOverview() {
         return overview;
     }
 
+    @SuppressWarnings("unused")
     public void setOverview(String overview) {
         this.overview = overview;
     }

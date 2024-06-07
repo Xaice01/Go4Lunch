@@ -45,9 +45,8 @@
             app:layout_constraintTop_toBottomOf="@+id/imageView_picture_restaurant"
             app:maxImageSize="32dp"
             app:shapeAppearance="@style/ShapeFloatingActionButton"
+            android:contentDescription="@string/button_choice_restaurant" />
 
-            />
-        <!--TODO create contentdescription with a string in english and french -->
 
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/cardViewInfoDetailRestaurant"
@@ -88,7 +87,6 @@
                     android:textColor="@color/white"
                     android:textSize="16sp"
                     app:layout_constraintBottom_toBottomOf="@+id/TextView_Name_Restaurant_Detail_Restaurant"
-
                     app:layout_constraintStart_toEndOf="@+id/TextView_Name_Restaurant_Detail_Restaurant"
                     tools:text="⭐" />
 
@@ -129,7 +127,7 @@
                     style="@style/Theme.Go4Lunch.ButtonDetailRestaurant"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="CALL"
+                    android:text="@string/Call"
                     app:icon="@drawable/baseline_call_24"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/button_like_detailRestaurant"
@@ -153,7 +151,7 @@
                     style="@style/Theme.Go4Lunch.ButtonDetailRestaurant"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="WEBSITE"
+                    android:text="@string/WebSite"
                     app:icon="@drawable/baseline_public_24"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"

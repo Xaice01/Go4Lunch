@@ -9,7 +9,6 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -46,8 +45,7 @@ public class ListRestaurantFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState){
         super.onViewCreated(view, savedInstanceState);
-        listRestaurantsViewModel=new ListRestaurantsViewModel(getActivity().getApplication());
-        // listRestaurantsViewModel = new ViewModelProvider(this).get(ListRestaurantsViewModel.class);
+        listRestaurantsViewModel=new ListRestaurantsViewModel(requireActivity().getApplication());
         initList();
     }
 

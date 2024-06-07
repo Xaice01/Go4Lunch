@@ -18,7 +18,4 @@ public interface GooglePlaceApi {
 
     @GET("nearbysearch/json")
     Call<ListRestaurantResponse> getNearby(@Query("location") String location, @Query("types") String types, @Query("radius") String radius, @Query("key") String apiKey);
-
-    @GET("nearbysearch/json")
-    Call<ListRestaurantResponse> getNearby(@Query("pagetoken") String pagetoken, @Query("key") String apiKey);
 }

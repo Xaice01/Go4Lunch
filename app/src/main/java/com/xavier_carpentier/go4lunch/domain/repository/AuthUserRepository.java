@@ -9,6 +9,5 @@ public interface AuthUserRepository {
     List<AuthProviderTypeDomain> getBuilderListAuthenticationProvider();
     UserDomain getUser();
     void logout();
-
     String getEmail();
 }

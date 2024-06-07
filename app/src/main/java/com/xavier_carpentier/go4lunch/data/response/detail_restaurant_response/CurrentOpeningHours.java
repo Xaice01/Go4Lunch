@@ -20,26 +20,32 @@ public class CurrentOpeningHours {
     @Expose
     private List<String> weekdayText;
 
+    @SuppressWarnings("unused")
     public Boolean getOpenNow() {
         return openNow;
     }
 
+    @SuppressWarnings("unused")
     public void setOpenNow(Boolean openNow) {
         this.openNow = openNow;
     }
 
+    @SuppressWarnings("unused")
     public List<Period> getPeriods() {
         return periods;
     }
 
+    @SuppressWarnings("unused")
     public void setPeriods(List<Period> periods) {
         this.periods = periods;
     }
 
+    @SuppressWarnings("unused")
     public List<String> getWeekdayText() {
         return weekdayText;
     }
 
+    @SuppressWarnings("unused")
     public void setWeekdayText(List<String> weekdayText) {
         this.weekdayText = weekdayText;
     }

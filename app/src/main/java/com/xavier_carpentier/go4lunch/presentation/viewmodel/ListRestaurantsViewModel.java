@@ -8,7 +8,6 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Transformations;
 import androidx.lifecycle.ViewModel;
 
-import com.google.android.gms.location.FusedLocationProviderClient;
 import com.xavier_carpentier.go4lunch.datasource.api.RetrofitService;
 import com.xavier_carpentier.go4lunch.data.repository.LocationRepository;
 import com.xavier_carpentier.go4lunch.data.repository.PlaceRepositoryRetrofit;
@@ -31,7 +30,6 @@ public class ListRestaurantsViewModel extends ViewModel {
 
     private String userLatitude;
     private String userLongitude;
-    private FusedLocationProviderClient mFusedLocationProviderClient;
     //----------------------------------------------------
     //UseCase
     //----------------------------------------------------

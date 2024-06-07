@@ -11,8 +11,7 @@
     <string name="facebook_application_id" translatable="false">858921496252107</string>
     <string name="facebook_login_protocol_scheme" translatable="false">fb858921496252107</string>
     <string name="facebook_client_token">f502bdef65fa3bc350595386c65bf213</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+
     <string name="edit">edit</string>
     <string name="favorite">favorite</string>
     <string name="more">more\n</string>
@@ -31,6 +30,8 @@
     <!-- restaurant Detail -->
     <string name="type_and_adress">%1$s restaurant - %2$s</string>
     <string name="Like">LIKE</string>
+    <string name="Call">CALL</string>
+    <string name="WebSite">WEBSITE</string>
     <string name="Unlike">UNLIKE</string>
 
     <!-- MainActivity -->
@@ -40,6 +41,11 @@
     <string name="your_Lunch">Your Lunch</string>
     <string name="settings">Settings</string>
     <string name="logout">Logout</string>
+
+    <!-- listWorkmatesViewHolder -->
+    <string name="open">Open</string>
+    <string name="close">Close</string>
+
 
 
 
@@ -79,5 +85,9 @@
         libero vel nunc consequat, quis tincidunt nisl eleifend. Cras bibendum enim a justo luctus
         vestibulum. Fusce dictum libero quis erat maximus, vitae volutpat diam dignissim.
     </string>
+
+    <!--content Description -->
+    <string name="imageuser">picture\'s user</string>
+    <string name="button_choice_restaurant">button choice the restaurant</string>
 
 </resources>

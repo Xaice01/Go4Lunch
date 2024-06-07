@@ -31,9 +31,11 @@ public class Photo implements Serializable
      * No args constructor for use in serialization
      *
      */
+    @SuppressWarnings("unused")
     public Photo() {
     }
 
+    @SuppressWarnings("unused")
     public Photo(Integer height, List<String> htmlAttributions, String photoReference, Integer width) {
         super();
         this.height = height;
@@ -50,10 +52,12 @@ public class Photo implements Serializable
         this.height = height;
     }
 
+    @SuppressWarnings("unused")
     public List<String> getHtmlAttributions() {
         return htmlAttributions;
     }
 
+    @SuppressWarnings("unused")
     public void setHtmlAttributions(List<String> htmlAttributions) {
         this.htmlAttributions = htmlAttributions;
     }
@@ -62,6 +66,7 @@ public class Photo implements Serializable
         return photoReference;
     }
 
+    @SuppressWarnings("unused")
     public void setPhotoReference(String photoReference) {
         this.photoReference = photoReference;
     }

@@ -19,9 +19,11 @@ public class OpeningHours implements Serializable
      * No args constructor for use in serialization
      *
      */
+    @SuppressWarnings("unused")
     public OpeningHours() {
     }
 
+    @SuppressWarnings("unused")
     public OpeningHours(Boolean openNow) {
         super();
         this.openNow = openNow;
@@ -31,6 +33,7 @@ public class OpeningHours implements Serializable
         return openNow;
     }
 
+    @SuppressWarnings("unused")
     public void setOpenNow(Boolean openNow) {
         this.openNow = openNow;
     }

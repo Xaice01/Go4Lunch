@@ -2,7 +2,6 @@ package com.xavier_carpentier.go4lunch.presentation.viewmodel;
 
 import android.app.Application;
 
-import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Transformations;
@@ -24,7 +23,6 @@ import com.xavier_carpentier.go4lunch.presentation.model.Workmate;
 import com.xavier_carpentier.go4lunch.presentation.ui.utils.Event;
 import com.xavier_carpentier.go4lunch.utils.NotificationScheduler;
 
-import java.io.Closeable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -36,20 +34,14 @@ public class MainViewModel extends ViewModel {
     private final PlaceRepositoryRetrofit placeRepositoryRetrofit = new PlaceRepositoryRetrofit(RetrofitService.getPlaceApi());
     private final UserRepositoryFirestore userRepositoryFirestore = UserRepositoryFirestore.getInstance();
 
-    private PermissionLocationRepository permissionLocationRepository ;
-
-    private MutableLiveData<String> userQueryMutableLiveData;
-    private LiveData<List<AutocompletePrediction>> predictionsLiveData;
-    private LiveData<LocationUi> locationUiLiveData;
+    private final MutableLiveData<String> userQueryMutableLiveData;
+    private final LiveData<List<AutocompletePrediction>> predictionsLiveData;
     private final MutableLiveData<Boolean> requestLocationPermission = new MutableLiveData<>();
-    private LiveData<Boolean> isPermissionLocation;
-    private LiveData<String> uidRestaurantLiveData;
     private final MutableLiveData<String> userUidLiveData = new MutableLiveData<>();
     private final MutableLiveData<Event<String>> navigateToDetailEvent = new MutableLiveData<>();
     private final MutableLiveData<Event<String>> showToastEvent = new MutableLiveData<>();
     private String latitude;
     private String longitude;
-    private Application application;
 
     //----------------------------------------------------
     //UseCase
@@ -57,28 +49,27 @@ public class MainViewModel extends ViewModel {
 
     private final GetAutocompleteLiveDataUseCase getAutocompleteLiveDataUseCase = new GetAutocompleteLiveDataUseCase(placeRepositoryRetrofit);
     private final GetWorkmateUseCase getWorkmateUseCase = new GetWorkmateUseCase(userRepositoryFirestore);
-    private CheckLocationPermissionUseCase checkLocationPermissionUseCase;
-    private GetLocationUseCase getLocationUseCase;
+    private final CheckLocationPermissionUseCase checkLocationPermissionUseCase;
+    private final GetLocationUseCase getLocationUseCase;
+    private final NotificationScheduler notificationScheduler;
 
 
     public MainViewModel(Application application){
-        this.application=application;
 
         //for notification
         WorkManager workManager = WorkManager.getInstance(application);
-        NotificationScheduler notificationScheduler = new NotificationScheduler(workManager);
-        NotificationScheduler.scheduleDailyNotification();
-
+        //need to instantiation
+        notificationScheduler = new NotificationScheduler(workManager);
         userQueryMutableLiveData = new MutableLiveData<>();
 
-        permissionLocationRepository = new PermissionLocationRepository(application.getApplicationContext());
+        PermissionLocationRepository permissionLocationRepository = new PermissionLocationRepository(application.getApplicationContext());
         checkLocationPermissionUseCase = new CheckLocationPermissionUseCase(permissionLocationRepository);
         LocationRepository locationRepository = new LocationRepository(application);
         getLocationUseCase = new GetLocationUseCase(locationRepository);
         setLocation();
 
         //for Autocomplete
-        locationUiLiveData = Transformations.switchMap(
+        LiveData<LocationUi> locationUiLiveData = Transformations.switchMap(
                 userQueryMutableLiveData, userQuery -> {
                     if (userQuery == null || userQuery.isEmpty() || userQuery.length() < 3) {
                         return new MutableLiveData<>();
@@ -124,7 +115,7 @@ public class MainViewModel extends ViewModel {
     }
 
     public void setLocation(){
-        isPermissionLocation = checkLocationPermissionUseCase.invoke();
+        LiveData<Boolean> isPermissionLocation = checkLocationPermissionUseCase.invoke();
         if(Boolean.TRUE.equals(isPermissionLocation.getValue())) {
             initLiveDataPosition();
         }else{
@@ -188,13 +179,6 @@ public class MainViewModel extends ViewModel {
         userQueryMutableLiveData.setValue(null);
     }
 
-    public LiveData<Boolean> checkLocationPermission(){
-        return checkLocationPermissionUseCase.invoke();
-    }
-
-    public MainViewModel(@NonNull Closeable... closeables) {
-        super(closeables);
-    }
 
     @Override
     protected void onCleared() {
@@ -204,8 +188,10 @@ public class MainViewModel extends ViewModel {
     public void setUserUid(String uid) {
         userUidLiveData.setValue(uid);
     }
-
-    public LiveData<String> getUidRestaurantLiveData() {
-        return uidRestaurantLiveData;
+    /** @noinspection AccessStaticViaInstance*/
+    //need to instance
+    public void scheduleDailyNotification() {
+        notificationScheduler.scheduleDailyNotification();
     }
+
 }

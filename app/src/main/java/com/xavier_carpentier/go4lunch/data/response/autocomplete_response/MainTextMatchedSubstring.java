@@ -21,14 +21,11 @@ public class MainTextMatchedSubstring implements Serializable
      * No args constructor for use in serialization
      *
      */
+    @SuppressWarnings("unused")
     public MainTextMatchedSubstring() {
     }
 
-    /**
-     *
-     * @param offset
-     * @param length
-     */
+    @SuppressWarnings("unused")
     public MainTextMatchedSubstring(Integer length, Integer offset) {
         super();
         this.length = length;
@@ -43,10 +40,12 @@ public class MainTextMatchedSubstring implements Serializable
         this.length = length;
     }
 
+    @SuppressWarnings("unused")
     public Integer getOffset() {
         return offset;
     }
 
+    @SuppressWarnings("unused")
     public void setOffset(Integer offset) {
         this.offset = offset;
     }

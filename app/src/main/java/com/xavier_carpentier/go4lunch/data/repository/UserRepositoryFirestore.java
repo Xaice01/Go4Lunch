@@ -2,6 +2,7 @@ package com.xavier_carpentier.go4lunch.data.repository;
 
 import android.util.Log;
 
+import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
@@ -56,11 +57,15 @@ public class UserRepositoryFirestore implements UsersRepository {
 
             UserDomain userToCreate = new UserDomain(uid, username, urlPicture);
 
+
             Task<DocumentSnapshot> userData = getUsersCollection().document(uid).get();
             // If the user already exist in Firestore, we get his data (uidRestaurantFavoris)
             userData.addOnSuccessListener(documentSnapshot -> {
                 if (documentSnapshot.contains(UID_RESTAURANT_FAVORIS_FIELD)){
-                    userToCreate.setUidRestaurantFavoris((List<String>) documentSnapshot.get(UID_RESTAURANT_FAVORIS_FIELD));
+                    //documentSnapshot.get(UID_RESTAURANT_FAVORIS_FIELD) return a List<String>
+                    @SuppressWarnings("unchecked")
+                    List<String> ListUidRestaurant= (List<String>) documentSnapshot.get(UID_RESTAURANT_FAVORIS_FIELD);
+                    userToCreate.setUidRestaurantFavoris(ListUidRestaurant);
                 }
                 this.getUsersCollection().document(uid).set(userToCreate);
             });
@@ -106,30 +111,11 @@ public class UserRepositoryFirestore implements UsersRepository {
 
         // Get current time
         Timestamp currentTimestamp = Timestamp.now();
-        Date currentDate = currentTimestamp.toDate();
-
-        // Calculate start and end time
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(currentDate);
-
-        // Set end time to now
-        Timestamp endTime = currentTimestamp;
-
-        // Set start time to 14h yesterday if current time is before 14h today
-        calendar.set(Calendar.HOUR_OF_DAY, 14);
-        calendar.set(Calendar.MINUTE, 0);
-        calendar.set(Calendar.SECOND, 0);
-        if (currentDate.before(calendar.getTime())) {
-            calendar.add(Calendar.DAY_OF_YEAR, -1);
-        }
-
-
-        Date startTimeDate = calendar.getTime();
-        Timestamp startTime = new Timestamp(startTimeDate);
+        Timestamp startTime = getStartTimestamp(currentTimestamp);
 
         getRestaurantChoiceCollection()
                 .whereGreaterThanOrEqualTo("timestamp", startTime)
-                .whereLessThanOrEqualTo("timestamp", endTime)
+                .whereLessThanOrEqualTo("timestamp", currentTimestamp)
                 .get()
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
@@ -148,6 +134,28 @@ public class UserRepositoryFirestore implements UsersRepository {
                 });
 
         return liveData;
+    }
+
+    @NonNull
+    private static Timestamp getStartTimestamp(Timestamp currentTimestamp) {
+        Date currentDate = currentTimestamp.toDate();
+
+        // Calculate start and end time
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(currentDate);
+
+
+        // Set start time to 14h yesterday if current time is before 14h today
+        calendar.set(Calendar.HOUR_OF_DAY, 14);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
+        if (currentDate.before(calendar.getTime())) {
+            calendar.add(Calendar.DAY_OF_YEAR, -1);
+        }
+
+
+        Date startTimeDate = calendar.getTime();
+        return new Timestamp(startTimeDate);
     }
 
 
@@ -274,24 +282,7 @@ public class UserRepositoryFirestore implements UsersRepository {
 
         // Get current time
         Timestamp currentTimestamp = Timestamp.now();
-        Date currentDate = currentTimestamp.toDate();
-
-        // Calculate start and end time
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(currentDate);
-
-
-        // Set start time to 14h yesterday if current time is before 14h today
-        calendar.set(Calendar.HOUR_OF_DAY, 14);
-        calendar.set(Calendar.MINUTE, 0);
-        calendar.set(Calendar.SECOND, 0);
-        if (currentDate.before(calendar.getTime())) {
-            calendar.add(Calendar.DAY_OF_YEAR, -1);
-        }
-
-
-        Date startTimeDate = calendar.getTime();
-        Timestamp startTime = new Timestamp(startTimeDate);
+        Timestamp startTime = getStartTimestamp(currentTimestamp);
 
         getRestaurantChoiceCollection()
                 .whereGreaterThanOrEqualTo("timestamp", startTime)

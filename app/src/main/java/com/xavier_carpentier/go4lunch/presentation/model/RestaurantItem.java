@@ -4,7 +4,6 @@ import android.net.Uri;
 
 import androidx.annotation.NonNull;
 
-import javax.annotation.Nullable;
 
 public class RestaurantItem {
     @NonNull
@@ -33,6 +32,7 @@ public class RestaurantItem {
     }
 
     // --- GETTERS ---
+    @NonNull
     public String getUid() {
         return uid;
     }

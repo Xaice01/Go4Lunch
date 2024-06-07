@@ -65,9 +65,11 @@ public class Result implements Serializable
      * No args constructor for use in serialization
      *
      */
+    @SuppressWarnings("unused")
     public Result() {
     }
 
+    @SuppressWarnings("unused")
     public Result(String businessStatus, Geometry geometry, String icon, String iconBackgroundColor, String iconMaskBaseUri, String name, List<Photo> photos, String placeId, Double rating, String reference, String scope, List<String> types, Integer userRatingsTotal, String vicinity, OpeningHours openingHours, Integer priceLevel) {
         super();
         this.businessStatus = businessStatus;
@@ -88,10 +90,12 @@ public class Result implements Serializable
         this.priceLevel = priceLevel;
     }
 
+    @SuppressWarnings("unused")
     public String getBusinessStatus() {
         return businessStatus;
     }
 
+    @SuppressWarnings("unused")
     public void setBusinessStatus(String businessStatus) {
         this.businessStatus = businessStatus;
     }
@@ -100,6 +104,7 @@ public class Result implements Serializable
         return geometry;
     }
 
+    @SuppressWarnings("unused")
     public void setGeometry(Geometry geometry) {
         this.geometry = geometry;
     }
@@ -112,18 +117,22 @@ public class Result implements Serializable
         this.icon = icon;
     }
 
+    @SuppressWarnings("unused")
     public String getIconBackgroundColor() {
         return iconBackgroundColor;
     }
 
+    @SuppressWarnings("unused")
     public void setIconBackgroundColor(String iconBackgroundColor) {
         this.iconBackgroundColor = iconBackgroundColor;
     }
 
+    @SuppressWarnings("unused")
     public String getIconMaskBaseUri() {
         return iconMaskBaseUri;
     }
 
+    @SuppressWarnings("unused")
     public void setIconMaskBaseUri(String iconMaskBaseUri) {
         this.iconMaskBaseUri = iconMaskBaseUri;
     }
@@ -140,6 +149,7 @@ public class Result implements Serializable
         return photos;
     }
 
+    @SuppressWarnings("unused")
     public void setPhotos(List<Photo> photos) {
         this.photos = photos;
     }
@@ -148,6 +158,7 @@ public class Result implements Serializable
         return placeId;
     }
 
+    @SuppressWarnings("unused")
     public void setPlaceId(String placeId) {
         this.placeId = placeId;
     }
@@ -157,38 +168,47 @@ public class Result implements Serializable
         return rating;
     }
 
+    @SuppressWarnings("unused")
     public void setRating(Double rating) {
         this.rating = rating;
     }
 
+    @SuppressWarnings("unused")
     public String getReference() {
         return reference;
     }
 
+    @SuppressWarnings("unused")
     public void setReference(String reference) {
         this.reference = reference;
     }
 
+    @SuppressWarnings("unused")
     public String getScope() {
         return scope;
     }
 
+    @SuppressWarnings("unused")
     public void setScope(String scope) {
         this.scope = scope;
     }
 
+    @SuppressWarnings("unused")
     public List<String> getTypes() {
         return types;
     }
 
+    @SuppressWarnings("unused")
     public void setTypes(List<String> types) {
         this.types = types;
     }
 
+    @SuppressWarnings("unused")
     public Integer getUserRatingsTotal() {
         return userRatingsTotal;
     }
 
+    @SuppressWarnings("unused")
     public void setUserRatingsTotal(Integer userRatingsTotal) {
         this.userRatingsTotal = userRatingsTotal;
     }
@@ -205,14 +225,17 @@ public class Result implements Serializable
         return openingHours;
     }
 
+    @SuppressWarnings("unused")
     public void setOpeningHours(OpeningHours openingHours) {
         this.openingHours = openingHours;
     }
 
+    @SuppressWarnings("unused")
     public Integer getPriceLevel() {
         return priceLevel;
     }
 
+    @SuppressWarnings("unused")
     public void setPriceLevel(Integer priceLevel) {
         this.priceLevel = priceLevel;
     }

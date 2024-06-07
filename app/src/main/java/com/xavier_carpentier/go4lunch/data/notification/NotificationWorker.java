@@ -28,8 +28,12 @@ public class NotificationWorker extends Worker {
 
     public static final String WORK_TAG = "dailyNotificationWork";
 
+    //suppressWarning for more visibility
+    @SuppressWarnings("FieldCanBeLocal")
     private final int NOTIFICATION_ID = 7;
+    @SuppressWarnings("FieldCanBeLocal")
     private final String NOTIFICATION_TAG = "FIREBASEGO4LUNCH";
+    @SuppressWarnings("FieldCanBeLocal")
     private final String CHANNEL_ID = "to_eat_channel";
     private final AuthRepositoryFirebase authRepositoryFirebase = AuthRepositoryFirebase.getInstance();
     private final UserRepositoryFirestore userRepositoryFirestore = UserRepositoryFirestore.getInstance();

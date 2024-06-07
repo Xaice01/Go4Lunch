@@ -9,7 +9,7 @@ import java.util.Objects;
 
 public class RestaurantChoiceDomain {
 
-    @NonNull
+
     private final Timestamp timestamp;
     @NonNull
     private final String idUser;
@@ -25,6 +25,7 @@ public class RestaurantChoiceDomain {
     private final String vicinity;
 
     //constructor empty for firebase
+    @SuppressWarnings("unused")
     public RestaurantChoiceDomain() {
         // Needed for Firestore
         this.timestamp = null;
@@ -46,7 +47,7 @@ public class RestaurantChoiceDomain {
         this.vicinity=vicinity;
     }
 
-    @NonNull
+    @SuppressWarnings("unused")
     public Timestamp getTimestamp() {
         return timestamp;
     }

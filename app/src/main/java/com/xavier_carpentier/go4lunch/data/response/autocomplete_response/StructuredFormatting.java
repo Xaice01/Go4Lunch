@@ -25,15 +25,11 @@ public class StructuredFormatting implements Serializable
      * No args constructor for use in serialization
      *
      */
+    @SuppressWarnings("unused")
     public StructuredFormatting() {
     }
 
-    /**
-     *
-     * @param mainText
-     * @param mainTextMatchedSubstrings
-     * @param secondaryText
-     */
+    @SuppressWarnings("unused")
     public StructuredFormatting(String mainText, List<MainTextMatchedSubstring> mainTextMatchedSubstrings, String secondaryText) {
         super();
         this.mainText = mainText;
@@ -45,22 +41,27 @@ public class StructuredFormatting implements Serializable
         return mainText;
     }
 
+    @SuppressWarnings("unused")
     public void setMainText(String mainText) {
         this.mainText = mainText;
     }
 
+    @SuppressWarnings("unused")
     public List<MainTextMatchedSubstring> getMainTextMatchedSubstrings() {
         return mainTextMatchedSubstrings;
     }
 
+    @SuppressWarnings("unused")
     public void setMainTextMatchedSubstrings(List<MainTextMatchedSubstring> mainTextMatchedSubstrings) {
         this.mainTextMatchedSubstrings = mainTextMatchedSubstrings;
     }
 
+    @SuppressWarnings("unused")
     public String getSecondaryText() {
         return secondaryText;
     }
 
+    @SuppressWarnings("unused")
     public void setSecondaryText(String secondaryText) {
         this.secondaryText = secondaryText;
     }

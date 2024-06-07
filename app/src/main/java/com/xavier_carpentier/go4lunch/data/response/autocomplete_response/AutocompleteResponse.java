@@ -21,14 +21,11 @@ public class AutocompleteResponse implements Serializable
      * No args constructor for use in serialization
      *
      */
+    @SuppressWarnings("unused")
     public AutocompleteResponse() {
     }
 
-    /**
-     *
-     * @param predictions
-     * @param status
-     */
+    @SuppressWarnings("unused")
     public AutocompleteResponse(List<Prediction> predictions, String status) {
         super();
         this.predictions = predictions;
@@ -39,14 +36,17 @@ public class AutocompleteResponse implements Serializable
         return predictions;
     }
 
+    @SuppressWarnings("unused")
     public void setPredictions(List<Prediction> predictions) {
         this.predictions = predictions;
     }
 
+    @SuppressWarnings("unused")
     public String getStatus() {
         return status;
     }
 
+    @SuppressWarnings("unused")
     public void setStatus(String status) {
         this.status = status;
     }

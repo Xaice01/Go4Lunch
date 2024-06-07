@@ -3,7 +3,6 @@ package com.xavier_carpentier.go4lunch.presentation.viewmodel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.xavier_carpentier.go4lunch.data.repository.AuthRepositoryFirebase;
 import com.xavier_carpentier.go4lunch.data.repository.UserRepositoryFirestore;
 import com.xavier_carpentier.go4lunch.domain.usecase.GetListWorkmatesUseCase;
 import com.xavier_carpentier.go4lunch.presentation.model.Workmate;

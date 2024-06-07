@@ -22,7 +22,7 @@ public class ScheduleNotificationUseCase {
         int dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
 
         if (dayOfWeek == Calendar.SATURDAY || dayOfWeek == Calendar.SUNDAY) {
-            return; // Ne pas planifier le travail
+            return; // do not notified
         }
 
         long initialDelay = getInitialDelay();

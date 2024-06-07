@@ -41,10 +41,9 @@ public class DetailRestaurantActivity extends AppCompatActivity {
         mRecyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
 
 
-        //recupere le restaurant de la liste
+        //get the restaurant id
         restaurantID = getIntent().getStringExtra(KEY_RESTAURANT);
         detailRestaurantViewModel = new ViewModelProvider(this).get(DetailRestaurantViewModel.class);
-
 
         detailRestaurantViewModel.initRestaurant(restaurantID);
 

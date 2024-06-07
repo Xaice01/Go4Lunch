@@ -11,7 +11,6 @@ import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.xavier_carpentier.go4lunch.domain.repository.FavorisRestaurantRepository;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class FavorisRestaurantRepositoryFirestore implements FavorisRestaurantRepository {
@@ -41,10 +40,10 @@ public class FavorisRestaurantRepositoryFirestore implements FavorisRestaurantRe
     }
     @Override
     public LiveData<List<String>> getRestaurantFavorisByIdUser(String idUser){
-        List<String> listRestaurantId = new ArrayList<>();
         getUsersCollection().document(idUser).get().addOnCompleteListener(task -> {
             if(task.isSuccessful()) {
                 DocumentSnapshot document = task.getResult();
+                @SuppressWarnings("unchecked")
                 List<String> favoris =(List<String>) document.get(UID_RESTAURANT_FAVORIS_FIELD);
                 listFavorisMutableLiveData.setValue(favoris);
             }else {

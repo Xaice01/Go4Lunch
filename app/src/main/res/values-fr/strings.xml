@@ -13,27 +13,28 @@
     <string name="facebook_application_id" translatable="false">858921496252107</string>
     <string name="facebook_login_protocol_scheme" translatable="false">fb858921496252107</string>
     <string name="facebook_client_token">f502bdef65fa3bc350595386c65bf213</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="edit">edit</string>
-    <string name="favorite">favorite</string>
-    <string name="more">more\n</string>
+
+    <string name="edit">modifier</string>
+    <string name="favorite">favori</string>
+    <string name="more">plus\n</string>
     <string name="page_title">go4lunch</string>
-    <string name="searchbar_hint">search</string>
+    <string name="searchbar_hint">rechercher</string>
 
     <!-- bottom navigation menu -->
-    <string name="map_view">Map View</string>
-    <string name="list_View">List View</string>
-    <string name="workmates">Workmates</string>
+    <string name="map_view">Vue Carte</string>
+    <string name="list_View">Vue Liste</string>
+    <string name="workmates">Collègues</string>
 
     <!-- listWorkmatesViewHolder -->
-    <string name="eating">%1$s is eating (%2$s)</string>
-    <string name="notDecided"> n\'as pas encore décidé </string>
+    <string name="eating">%1$s mange (%2$s)</string>
+    <string name="notDecided"> n\'a pas encore décidé</string>
 
     <!-- restaurant Detail -->
     <string name="type_and_adress">%1$s restaurant - %2$s</string>
-    <string name="Like">LIKE</string>
-    <string name="Unlike">NON LIKE</string>
+    <string name="Like">AIMER</string>
+    <string name="Call">APPELER</string>
+    <string name="WebSite">SITEWEB</string>
+    <string name="Unlike">NE PLUS AIMER</string>
 
     <!-- MainActivity -->
     <string name="toast_no_restaurant"> il n\'y a pas de restaurant choisi </string>
@@ -42,4 +43,13 @@
     <string name="your_Lunch">Votre restaurant</string>
     <string name="settings">Paramètre</string>
     <string name="logout">déconnection</string>
+
+    <!-- listWorkmatesViewHolder -->
+    <string name="open">Ouvert</string>
+    <string name="close">Fermé</string>
+
+    <!--content Description -->
+    <string name="imageuser">Image de l\'utilisateur</string>
+    <string name="button_choice_restaurant">boutton choisir le restaurant</string>
+
 </resources>

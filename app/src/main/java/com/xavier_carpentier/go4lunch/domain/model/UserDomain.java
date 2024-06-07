@@ -28,12 +28,16 @@ public class UserDomain {
     public String getUsername() { return username; }
     @Nullable
     public String getUrlPicture() { return urlPicture; }
+    @SuppressWarnings("unused")
     public List<String> getUidRestaurantFavoris(){return uidRestaurantFavoris;}
 
 
     // --- SETTERS ---
+    @SuppressWarnings("unused")
     public void setUsername(String username) { this.username = username; }
+    @SuppressWarnings("unused")
     public void setUid(String uid) { this.uid = uid; }
+    @SuppressWarnings("unused")
     public void setUrlPicture(@Nullable String urlPicture) { this.urlPicture = urlPicture; }
     public void setUidRestaurantFavoris(List<String> uidRestaurantFavoris) {
         this.uidRestaurantFavoris = uidRestaurantFavoris;

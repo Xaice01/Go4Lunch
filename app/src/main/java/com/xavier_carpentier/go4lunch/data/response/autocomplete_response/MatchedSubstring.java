@@ -1,5 +1,7 @@
 package com.xavier_carpentier.go4lunch.data.response.autocomplete_response;
 
+import androidx.annotation.NonNull;
+
 import java.io.Serializable;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
@@ -19,14 +21,11 @@ public class MatchedSubstring implements Serializable
      * No args constructor for use in serialization
      *
      */
+    @SuppressWarnings("unused")
     public MatchedSubstring() {
     }
 
-    /**
-     *
-     * @param offset
-     * @param length
-     */
+    @SuppressWarnings("unused")
     public MatchedSubstring(Integer length, Integer offset) {
         super();
         this.length = length;
@@ -41,14 +40,17 @@ public class MatchedSubstring implements Serializable
         this.length = length;
     }
 
+    @SuppressWarnings("unused")
     public Integer getOffset() {
         return offset;
     }
 
+    @SuppressWarnings("unused")
     public void setOffset(Integer offset) {
         this.offset = offset;
     }
 
+    @NonNull
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();

@@ -19,26 +19,32 @@ public class AddressComponent {
     @Expose
     private List<String> types;
 
+    @SuppressWarnings("unused")
     public String getLongName() {
         return longName;
     }
 
+    @SuppressWarnings("unused")
     public void setLongName(String longName) {
         this.longName = longName;
     }
 
+    @SuppressWarnings("unused")
     public String getShortName() {
         return shortName;
     }
 
+    @SuppressWarnings("unused")
     public void setShortName(String shortName) {
         this.shortName = shortName;
     }
 
+    @SuppressWarnings("unused")
     public List<String> getTypes() {
         return types;
     }
 
+    @SuppressWarnings("unused")
     public void setTypes(List<String> types) {
         this.types = types;
     }

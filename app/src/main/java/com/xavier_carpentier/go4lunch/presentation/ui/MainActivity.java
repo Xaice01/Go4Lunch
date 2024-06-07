@@ -78,6 +78,7 @@ public class MainActivity extends AppCompatActivity {
         authViewModel.startSignInActivity(signInLauncher);
 
         viewModel = new MainViewModel(getApplication());
+        viewModel.scheduleDailyNotification();
 
         viewModel.checkPermissionLocation().observe(this, shouldRequest -> {
             if (shouldRequest) {
@@ -104,9 +105,7 @@ public class MainActivity extends AppCompatActivity {
             return true;
         });
 
-        binding.topAppBar.setNavigationOnClickListener(v->{
-            binding.navigationView.setVisibility(View.VISIBLE);
-        });
+        binding.topAppBar.setNavigationOnClickListener(v-> binding.navigationView.setVisibility(View.VISIBLE));
 
 
         binding.navigationView.setNavigationItemSelectedListener(menuItem -> {
@@ -243,34 +242,29 @@ public class MainActivity extends AppCompatActivity {
     private void onBindNavigationView(){
 
         authViewModel.isLogging().observe(this, isLogging->{
-            if(isLogging) {
-                if (isLogging != null && isLogging) {
-                    authViewModel.getCurrentUser().observe(this, user -> {
-                        if (user != null) {
-                            if (user.getUsername() != null) {
-                                textViewName.setText(user.getUsername());
-                            }
-                            if(user.getUid()!=null){
-                                viewModel.setUserUid(user.getUid());
-                            }
-                            if (user.getUrlPicture() != null) {
-                                Glide.with(this)
-                                        .load(user.getUrlPicture())
-                                        .apply(RequestOptions.circleCropTransform())
-                                        .into(imageViewUser);
-                            }
+            if (isLogging != null && isLogging) {
+                authViewModel.getCurrentUser().observe(this, user -> {
+                    if (user != null) {
+                        if (user.getUsername() != null) {
+                            textViewName.setText(user.getUsername());
                         }
-                    });
-
-                    authViewModel.getEmail().observe(this, email -> {
-                        if (email != null) {
-                            textViewEmail.setText(email);
+                        if(user.getUid()!=null){
+                            viewModel.setUserUid(user.getUid());
                         }
-                    });
-                }
+                        if (user.getUrlPicture() != null) {
+                            Glide.with(this)
+                                    .load(user.getUrlPicture())
+                                    .apply(RequestOptions.circleCropTransform())
+                                    .into(imageViewUser);
+                        }
+                    }
+                });
+                authViewModel.getEmail().observe(this, email -> {
+                    if (email != null) {
+                        textViewEmail.setText(email);
+                    }
+                });
             }
         });
-
-
     }
 }

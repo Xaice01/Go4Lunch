@@ -29,9 +29,11 @@ public class ListRestaurantResponse implements Serializable
      * No args constructor for use in serialization
      *
      */
+    @SuppressWarnings("unused")
     public ListRestaurantResponse() {
     }
 
+    @SuppressWarnings("unused")
     public ListRestaurantResponse(List<Object> htmlAttributions, String nextPageToken, List<Result> results, String status) {
         super();
         this.htmlAttributions = htmlAttributions;
@@ -40,10 +42,12 @@ public class ListRestaurantResponse implements Serializable
         this.status = status;
     }
 
+    @SuppressWarnings("unused")
     public List<Object> getHtmlAttributions() {
         return htmlAttributions;
     }
 
+    @SuppressWarnings("unused")
     public void setHtmlAttributions(List<Object> htmlAttributions) {
         this.htmlAttributions = htmlAttributions;
     }
@@ -52,6 +56,7 @@ public class ListRestaurantResponse implements Serializable
         return nextPageToken;
     }
 
+    @SuppressWarnings("unused")
     public void setNextPageToken(String nextPageToken) {
         this.nextPageToken = nextPageToken;
     }
@@ -60,14 +65,17 @@ public class ListRestaurantResponse implements Serializable
         return results;
     }
 
+    @SuppressWarnings("unused")
     public void setResults(List<Result> results) {
         this.results = results;
     }
 
+    @SuppressWarnings("unused")
     public String getStatus() {
         return status;
     }
 
+    @SuppressWarnings("unused")
     public void setStatus(String status) {
         this.status = status;
     }

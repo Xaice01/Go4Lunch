@@ -32,7 +32,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/nav_header_name_app" />
+        app:layout_constraintTop_toBottomOf="@+id/nav_header_name_app"
+        android:contentDescription="@string/imageuser" />
 
     <TextView
         android:id="@+id/nav_header_name"

@@ -14,18 +14,22 @@ public class Geometry {
     @Expose
     private Viewport viewport;
 
+    @SuppressWarnings("unused")
     public Location getLocation() {
         return location;
     }
 
+    @SuppressWarnings("unused")
     public void setLocation(Location location) {
         this.location = location;
     }
 
+    @SuppressWarnings("unused")
     public Viewport getViewport() {
         return viewport;
     }
 
+    @SuppressWarnings("unused")
     public void setViewport(Viewport viewport) {
         this.viewport = viewport;
     }

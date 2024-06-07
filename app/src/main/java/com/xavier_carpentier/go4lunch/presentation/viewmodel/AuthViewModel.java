@@ -11,7 +11,6 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.firebase.ui.auth.AuthUI;
-import com.firebase.ui.auth.IdpResponse;
 import com.firebase.ui.auth.data.model.FirebaseAuthUIAuthenticationResult;
 import com.xavier_carpentier.go4lunch.R;
 import com.xavier_carpentier.go4lunch.data.repository.AuthRepositoryFirebase;
@@ -107,7 +106,6 @@ public class AuthViewModel extends ViewModel {
     }
 
     public void onSignInResult(FirebaseAuthUIAuthenticationResult result) {
-        IdpResponse response = result.getIdpResponse();
         if (result.getResultCode() == RESULT_OK) {
             // Successfully signed in
             Log.d("uidUser",getCurrentUserUseCase.invoke().getUid());

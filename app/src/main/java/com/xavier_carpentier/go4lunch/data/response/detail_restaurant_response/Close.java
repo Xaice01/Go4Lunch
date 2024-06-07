@@ -18,26 +18,32 @@ public class Close {
     @Expose
     private String time;
 
+    @SuppressWarnings("unused")
     public String getDate() {
         return date;
     }
 
+    @SuppressWarnings("unused")
     public void setDate(String date) {
         this.date = date;
     }
 
+    @SuppressWarnings("unused")
     public Integer getDay() {
         return day;
     }
 
+    @SuppressWarnings("unused")
     public void setDay(Integer day) {
         this.day = day;
     }
 
+    @SuppressWarnings("unused")
     public String getTime() {
         return time;
     }
 
+    @SuppressWarnings("unused")
     public void setTime(String time) {
         this.time = time;
     }

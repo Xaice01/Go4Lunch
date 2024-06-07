@@ -1,13 +1,12 @@
 package com.xavier_carpentier.go4lunch.presentation.model;
 
-import android.net.Uri;
 
 import androidx.annotation.Nullable;
 
 public class User{
-    private String uid;
-    private String username;
-    private String urlPicture;
+    private final String uid;
+    private final String username;
+    private final String urlPicture;
     public User(String uid,String username,@Nullable String urlPicture){
         this.uid=uid;
         this.username=username;
@@ -19,11 +18,5 @@ public class User{
     public String getUsername() { return username; }
     @Nullable
     public String getUrlPicture() { return urlPicture; }
-
-
-    // --- SETTERS ---
-    public void setUsername(String username) { this.username = username; }
-    public void setUid(String uid) { this.uid = uid; }
-    public void setUrlPicture(@Nullable String urlPicture) { this.urlPicture = urlPicture; }
 
 }

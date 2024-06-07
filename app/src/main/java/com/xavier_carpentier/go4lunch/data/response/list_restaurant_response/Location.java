@@ -22,9 +22,11 @@ public class Location implements Serializable
      * No args constructor for use in serialization
      *
      */
+    @SuppressWarnings("unused")
     public Location() {
     }
 
+    @SuppressWarnings("unused")
     public Location(Double lat, Double lng) {
         super();
         this.lat = lat;
@@ -35,6 +37,7 @@ public class Location implements Serializable
         return lat;
     }
 
+    @SuppressWarnings("unused")
     public void setLat(Double lat) {
         this.lat = lat;
     }
@@ -43,6 +46,7 @@ public class Location implements Serializable
         return lng;
     }
 
+    @SuppressWarnings("unused")
     public void setLng(Double lng) {
         this.lng = lng;
     }

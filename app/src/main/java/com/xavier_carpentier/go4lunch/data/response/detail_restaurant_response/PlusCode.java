@@ -15,18 +15,22 @@ public class PlusCode {
     @Expose
     private String globalCode;
 
+    @SuppressWarnings("unused")
     public String getCompoundCode() {
         return compoundCode;
     }
 
+    @SuppressWarnings("unused")
     public void setCompoundCode(String compoundCode) {
         this.compoundCode = compoundCode;
     }
 
+    @SuppressWarnings("unused")
     public String getGlobalCode() {
         return globalCode;
     }
 
+    @SuppressWarnings("unused")
     public void setGlobalCode(String globalCode) {
         this.globalCode = globalCode;
     }

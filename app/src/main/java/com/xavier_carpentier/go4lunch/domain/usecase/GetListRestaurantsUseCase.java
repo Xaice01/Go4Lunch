@@ -1,6 +1,5 @@
 package com.xavier_carpentier.go4lunch.domain.usecase;
 
-import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MediatorLiveData;
 import androidx.lifecycle.Transformations;
