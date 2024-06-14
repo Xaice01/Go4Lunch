@@ -31,24 +31,24 @@ public class MainViewModel extends ViewModel {
     //------------------------------------
     // DATA
     //------------------------------------
-    private final PlaceRepositoryRetrofit placeRepositoryRetrofit = new PlaceRepositoryRetrofit(RetrofitService.getPlaceApi());
-    private final UserRepositoryFirestore userRepositoryFirestore = UserRepositoryFirestore.getInstance();
+    private PlaceRepositoryRetrofit placeRepositoryRetrofit = new PlaceRepositoryRetrofit(RetrofitService.getPlaceApi());
+    private UserRepositoryFirestore userRepositoryFirestore = UserRepositoryFirestore.getInstance();
 
-    private final MutableLiveData<String> userQueryMutableLiveData;
+    public MutableLiveData<String> userQueryMutableLiveData;
     private final LiveData<List<AutocompletePrediction>> predictionsLiveData;
     private final MutableLiveData<Boolean> requestLocationPermission = new MutableLiveData<>();
     private final MutableLiveData<String> userUidLiveData = new MutableLiveData<>();
     private final MutableLiveData<Event<String>> navigateToDetailEvent = new MutableLiveData<>();
     private final MutableLiveData<Event<String>> showToastEvent = new MutableLiveData<>();
-    private String latitude;
-    private String longitude;
+    public String latitude;
+    public String longitude;
 
     //----------------------------------------------------
     //UseCase
     //----------------------------------------------------
 
-    private final GetAutocompleteLiveDataUseCase getAutocompleteLiveDataUseCase = new GetAutocompleteLiveDataUseCase(placeRepositoryRetrofit);
-    private final GetWorkmateUseCase getWorkmateUseCase = new GetWorkmateUseCase(userRepositoryFirestore);
+    private GetAutocompleteLiveDataUseCase getAutocompleteLiveDataUseCase = new GetAutocompleteLiveDataUseCase(placeRepositoryRetrofit);
+    private GetWorkmateUseCase getWorkmateUseCase = new GetWorkmateUseCase(userRepositoryFirestore);
     private final CheckLocationPermissionUseCase checkLocationPermissionUseCase;
     private final GetLocationUseCase getLocationUseCase;
     private final NotificationScheduler notificationScheduler;
@@ -90,6 +90,49 @@ public class MainViewModel extends ViewModel {
                     }
                 });
 
+    }
+
+    // Constructor for testing
+    public MainViewModel(
+            Application application,
+            PlaceRepositoryRetrofit placeRepositoryRetrofit,
+            UserRepositoryFirestore userRepositoryFirestore,
+            GetAutocompleteLiveDataUseCase getAutocompleteLiveDataUseCase,
+            GetWorkmateUseCase getWorkmateUseCase,
+            CheckLocationPermissionUseCase checkLocationPermissionUseCase,
+            GetLocationUseCase getLocationUseCase,
+            NotificationScheduler notificationScheduler
+    ) {
+        this.placeRepositoryRetrofit = placeRepositoryRetrofit;
+        this.userRepositoryFirestore = userRepositoryFirestore;
+        this.getAutocompleteLiveDataUseCase = getAutocompleteLiveDataUseCase;
+        this.getWorkmateUseCase = getWorkmateUseCase;
+        this.checkLocationPermissionUseCase = checkLocationPermissionUseCase;
+        this.getLocationUseCase = getLocationUseCase;
+        this.notificationScheduler = notificationScheduler;
+
+        userQueryMutableLiveData = new MutableLiveData<>();
+
+        // for Autocomplete
+        LiveData<LocationUi> locationUiLiveData = Transformations.switchMap(
+                userQueryMutableLiveData, userQuery -> {
+                    if (userQuery == null || userQuery.isEmpty() || userQuery.length() < 3) {
+                        return new MutableLiveData<>();
+                    } else {
+                        return getLocationUseCase.invoke();
+                    }
+                });
+
+        predictionsLiveData = Transformations.switchMap(
+                locationUiLiveData, location -> {
+                    if(location == null){
+                        return new MutableLiveData<>(Collections.emptyList());
+                    }else{
+                        longitude = location.getLongitude();
+                        latitude = location.getLatitude();
+                        return getAutocompleteLiveDataUseCase.invoke(userQueryMutableLiveData.getValue(), latitude, longitude);
+                    }
+                });
     }
 
     public LiveData<Event<String>> getNavigateToDetailEvent() {

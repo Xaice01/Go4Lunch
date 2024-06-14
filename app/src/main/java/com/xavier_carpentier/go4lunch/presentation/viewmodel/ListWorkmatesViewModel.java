@@ -13,14 +13,19 @@ public class ListWorkmatesViewModel extends ViewModel {
     //------------------------------------
     // DATA
     //------------------------------------
-    private final UserRepositoryFirestore userRepositoryFirestore = UserRepositoryFirestore.getInstance();
+    private UserRepositoryFirestore userRepositoryFirestore;
     private LiveData<List<Workmate>> listWorkmates;
     //----------------------------------------------------
     //UseCase
     //----------------------------------------------------
 
-    private final GetListWorkmatesUseCase getListWorkmatesUseCase = new GetListWorkmatesUseCase(userRepositoryFirestore);
+    public GetListWorkmatesUseCase getListWorkmatesUseCase;
 
+    // Constructor for testing
+    public ListWorkmatesViewModel(GetListWorkmatesUseCase getListWorkmatesUseCase) {
+        this.userRepositoryFirestore = null;
+        this.getListWorkmatesUseCase = getListWorkmatesUseCase;
+    }
     private void initLiveDataWorkmates(){
         listWorkmates=getListWorkmatesUseCase.invoke();
     }

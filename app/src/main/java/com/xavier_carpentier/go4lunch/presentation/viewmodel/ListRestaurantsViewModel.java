@@ -33,11 +33,18 @@ public class ListRestaurantsViewModel extends ViewModel {
     //----------------------------------------------------
     //UseCase
     //----------------------------------------------------
-    private final GetListRestaurantsUseCase getListRestaurantsUseCase = new GetListRestaurantsUseCase(placeRepositoryRetrofit,userRepositoryFirestore);
+    private GetListRestaurantsUseCase getListRestaurantsUseCase = new GetListRestaurantsUseCase(placeRepositoryRetrofit,userRepositoryFirestore);
 
     private final GetLocationUseCase getLocationUseCase;
     private final LiveData<LocationUi> locationLiveData;
 
+    // Constructor for testing
+    public ListRestaurantsViewModel(GetLocationUseCase getLocationUseCase, GetListRestaurantsUseCase getListRestaurantsUseCase, LiveData<LocationUi> locationLiveData) {
+        this.getListRestaurantsUseCase=getListRestaurantsUseCase;
+
+        this.getLocationUseCase=getLocationUseCase;
+        this.locationLiveData = locationLiveData;
+    }
     public ListRestaurantsViewModel(@NonNull Application application) {
 
         LocationRepository locationRepository = new LocationRepository(application);

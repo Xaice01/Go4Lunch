@@ -66,7 +66,6 @@ public class ListRestaurantsViewHolder extends RecyclerView.ViewHolder {
             workmatesToEat.setText(String.format("(%s)", restaurant.getWorkmatesToEat()));
         }
 
-        //TODo for dans le viewmodel
         StringBuilder noteToWrite= new StringBuilder();
         for(int i=0;i<restaurant.getNote()&&i<4;i++){
             if(i!=1 && i!=3) {

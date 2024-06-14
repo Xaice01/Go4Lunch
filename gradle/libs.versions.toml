@@ -2,6 +2,8 @@
 agp = "8.3.2"
 compiler = "4.16.0"
 converterGson = "2.9.0"
+core = "1.5.0"
+coreTesting = "2.2.0"
 facebookAndroidSdk = "17.0.0"
 firebaseBom = "32.8.0"
 firebaseFirestore = "24.11.0"
@@ -10,8 +12,11 @@ firebaseUiAuth = "8.0.2"
 firebaseUiFirestore = "7.1.1"
 glide = "4.16.0"
 googleServices = "4.4.1"
-gradle = "7.1.3"
+gradle = "8.3.0"
+gradleVersion = "7.0.4"
 junit = "4.13.2"
+junitJupiterApi = "5.7.0"
+junitPlatformLauncher = "1.7.0"
 junitVersion = "1.1.5"
 espressoCore = "3.5.1"
 appcompat = "1.6.1"
@@ -24,16 +29,23 @@ constraintlayout = "2.1.4"
 mockitoAndroid = "3.12.4"
 mockitoCore = "4.6.1"
 googleAndroidLibrariesMapsplatformSecretsGradlePlugin = "2.0.1"
+mockitoInline = "3.11.2"
+mockitoJunitJupiter = "3.9.0"
+orgJacocoCore = "0.8.12"
 places = "3.4.0"
 playServicesLocation = "21.2.0"
 playServicesMaps = "18.1.0"
 navigationFragment = "2.7.7"
 navigationUi = "2.7.7"
 retrofit = "2.9.0"
+robolectric = "4.6.1"
+truth = "1.1.3"
 workRuntime = "2.9.0"
 
 [libraries]
 converter-gson = { module = "com.squareup.retrofit2:converter-gson", version.ref = "converterGson" }
+core = { module = "androidx.test:core", version.ref = "core" }
+core-testing = { module = "androidx.arch.core:core-testing", version.ref = "coreTesting" }
 facebook-android-sdk = { module = "com.facebook.android:facebook-android-sdk", version.ref = "facebookAndroidSdk" }
 firebase-bom = { module = "com.google.firebase:firebase-bom", version.ref = "firebaseBom" }
 firebase-firestore = { module = "com.google.firebase:firebase-firestore", version.ref = "firebaseFirestore" }
@@ -45,10 +57,15 @@ glide = { module = "com.github.bumptech.glide:glide", version.ref = "glide" }
 glide-compiler = { module = "com.github.bumptech.glide:compiler", version.ref = "compiler" }
 google-services = { module = "com.google.gms:google-services", version.ref = "googleServices" }
 gradle = { module = "com.android.tools.build:gradle", version.ref = "gradle" }
+gradle-v704 = { module = "com.android.tools.build:gradle", version.ref = "gradleVersion" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 ext-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
 espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
 appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
+junit-jupiter-api = { module = "org.junit.jupiter:junit-jupiter-api", version.ref = "junitJupiterApi" }
+junit-jupiter-params = { module = "org.junit.jupiter:junit-jupiter-params", version.ref = "junitJupiterApi" }
+junit-jupiter-engine = { module = "org.junit.jupiter:junit-jupiter-engine", version.ref = "junitJupiterApi" }
+junit-platform-launcher = { module = "org.junit.platform:junit-platform-launcher", version.ref = "junitPlatformLauncher" }
 kotlin-bom = { module = "org.jetbrains.kotlin:kotlin-bom", version.ref = "kotlinBom" }
 legacy-support-v4 = { module = "androidx.legacy:legacy-support-v4", version.ref = "legacySupportV4" }
 lifecycle-common-java8 = { module = "androidx.lifecycle:lifecycle-common-java8", version.ref = "lifecycleViewmodel" }
@@ -59,13 +76,20 @@ activity = { group = "androidx.activity", name = "activity", version.ref = "acti
 constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayout" }
 mockito-android = { module = "org.mockito:mockito-android", version.ref = "mockitoAndroid" }
 mockito-core = { module = "org.mockito:mockito-core", version.ref = "mockitoCore" }
+mockito-inline = { module = "org.mockito:mockito-inline", version.ref = "mockitoInline" }
+mockito-junit-jupiter = { module = "org.mockito:mockito-junit-jupiter", version.ref = "mockitoJunitJupiter" }
+org-jacoco-core = { module = "org.jacoco:org.jacoco.core", version.ref = "orgJacocoCore" }
 places = { module = "com.google.android.libraries.places:places", version.ref = "places" }
 play-services-location = { module = "com.google.android.gms:play-services-location", version.ref = "playServicesLocation" }
 play-services-maps = { group = "com.google.android.gms", name = "play-services-maps", version.ref = "playServicesMaps" }
 navigation-fragment = { group = "androidx.navigation", name = "navigation-fragment", version.ref = "navigationFragment" }
 navigation-ui = { group = "androidx.navigation", name = "navigation-ui", version.ref = "navigationUi" }
 retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
+robolectric = { module = "org.robolectric:robolectric", version.ref = "robolectric" }
+rules = { module = "androidx.test:rules", version.ref = "core" }
+truth = { module = "com.google.truth:truth", version.ref = "truth" }
 work-runtime = { module = "androidx.work:work-runtime", version.ref = "workRuntime" }
+work-testing = { module = "androidx.work:work-testing", version.ref = "workRuntime" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }

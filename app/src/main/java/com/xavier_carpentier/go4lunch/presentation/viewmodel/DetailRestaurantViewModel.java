@@ -25,10 +25,10 @@ public class DetailRestaurantViewModel extends ViewModel {
     //------------------------------------
     // DATA
     //------------------------------------
-    private final AuthRepositoryFirebase authRepositoryFirebase = AuthRepositoryFirebase.getInstance();
-    private final PlaceRepositoryRetrofit placeRepositoryRetrofit = new PlaceRepositoryRetrofit(RetrofitService.getPlaceApi());
-    private final UserRepositoryFirestore userRepositoryFirestore = UserRepositoryFirestore.getInstance();
-    private final FavorisRestaurantRepositoryFirestore favorisRestaurantRepositoryFirestore = FavorisRestaurantRepositoryFirestore.getInstance();
+    private AuthRepositoryFirebase authRepositoryFirebase = AuthRepositoryFirebase.getInstance();
+    private PlaceRepositoryRetrofit placeRepositoryRetrofit = new PlaceRepositoryRetrofit(RetrofitService.getPlaceApi());
+    private UserRepositoryFirestore userRepositoryFirestore = UserRepositoryFirestore.getInstance();
+    private FavorisRestaurantRepositoryFirestore favorisRestaurantRepositoryFirestore = FavorisRestaurantRepositoryFirestore.getInstance();
     private MutableLiveData<Boolean> eatHere = new MutableLiveData<>();
     private LiveData<RestaurantDetail> restaurantDetail;
     private LiveData<List<Workmate>> listWorkmates;
@@ -37,14 +37,35 @@ public class DetailRestaurantViewModel extends ViewModel {
     //----------------------------------------------------
     //UseCase
     //----------------------------------------------------
-    private final AddRestaurantChoiceToDayUseCase addRestaurantChoiceToDayUseCase = new AddRestaurantChoiceToDayUseCase(userRepositoryFirestore, authRepositoryFirebase);
-    private final DeleteRestaurantChoiceToDayUseCase deleteRestaurantChoiceToDayUseCase = new DeleteRestaurantChoiceToDayUseCase(userRepositoryFirestore, authRepositoryFirebase);
-    private final GetIfWorkmateEatInThisRestaurantUseCase getIfWorkmateEatInThisRestaurantUseCase = new GetIfWorkmateEatInThisRestaurantUseCase(userRepositoryFirestore,authRepositoryFirebase);
-    private final GetListWorkmateToEatByIdRestaurantUseCase getListWorkmateByIdRestaurantUseCase = new GetListWorkmateToEatByIdRestaurantUseCase(userRepositoryFirestore);
-    private final LikeRestaurantUseCase likeRestaurantUseCase = new LikeRestaurantUseCase(favorisRestaurantRepositoryFirestore,authRepositoryFirebase);
-    private final GetRestaurantByIdUseCase getRestaurantByIdUseCase = new GetRestaurantByIdUseCase(placeRepositoryRetrofit,likeRestaurantUseCase);
+    private AddRestaurantChoiceToDayUseCase addRestaurantChoiceToDayUseCase = new AddRestaurantChoiceToDayUseCase(userRepositoryFirestore, authRepositoryFirebase);
+    private DeleteRestaurantChoiceToDayUseCase deleteRestaurantChoiceToDayUseCase = new DeleteRestaurantChoiceToDayUseCase(userRepositoryFirestore, authRepositoryFirebase);
+    private GetIfWorkmateEatInThisRestaurantUseCase getIfWorkmateEatInThisRestaurantUseCase = new GetIfWorkmateEatInThisRestaurantUseCase(userRepositoryFirestore,authRepositoryFirebase);
+    private GetListWorkmateToEatByIdRestaurantUseCase getListWorkmateByIdRestaurantUseCase = new GetListWorkmateToEatByIdRestaurantUseCase(userRepositoryFirestore);
+    private LikeRestaurantUseCase likeRestaurantUseCase = new LikeRestaurantUseCase(favorisRestaurantRepositoryFirestore,authRepositoryFirebase);
+    private GetRestaurantByIdUseCase getRestaurantByIdUseCase = new GetRestaurantByIdUseCase(placeRepositoryRetrofit,likeRestaurantUseCase);
 
-
+    // Constructor for testing
+    public DetailRestaurantViewModel(AuthRepositoryFirebase authRepositoryFirebase,
+                                     PlaceRepositoryRetrofit placeRepositoryRetrofit,
+                                     UserRepositoryFirestore userRepositoryFirestore,
+                                     FavorisRestaurantRepositoryFirestore favorisRestaurantRepositoryFirestore,
+                                     AddRestaurantChoiceToDayUseCase addRestaurantChoiceToDayUseCase,
+                                     DeleteRestaurantChoiceToDayUseCase deleteRestaurantChoiceToDayUseCase,
+                                     GetIfWorkmateEatInThisRestaurantUseCase getIfWorkmateEatInThisRestaurantUseCase,
+                                     GetListWorkmateToEatByIdRestaurantUseCase getListWorkmateByIdRestaurantUseCase,
+                                     LikeRestaurantUseCase likeRestaurantUseCase,
+                                     GetRestaurantByIdUseCase getRestaurantByIdUseCase) {
+        this.authRepositoryFirebase = authRepositoryFirebase;
+        this.placeRepositoryRetrofit = placeRepositoryRetrofit;
+        this.userRepositoryFirestore = userRepositoryFirestore;
+        this.favorisRestaurantRepositoryFirestore = favorisRestaurantRepositoryFirestore;
+        this.addRestaurantChoiceToDayUseCase = addRestaurantChoiceToDayUseCase;
+        this.deleteRestaurantChoiceToDayUseCase = deleteRestaurantChoiceToDayUseCase;
+        this.getIfWorkmateEatInThisRestaurantUseCase = getIfWorkmateEatInThisRestaurantUseCase;
+        this.getListWorkmateByIdRestaurantUseCase = getListWorkmateByIdRestaurantUseCase;
+        this.likeRestaurantUseCase = likeRestaurantUseCase;
+        this.getRestaurantByIdUseCase = getRestaurantByIdUseCase;
+    }
 
     private void initLiveDataWorkmatesToEat(){
         listWorkmates=getListWorkmateByIdRestaurantUseCase.invoke(idrestaurant);

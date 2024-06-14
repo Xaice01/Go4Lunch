@@ -59,7 +59,7 @@ public class NotificationWorker extends Worker {
 
     }
 
-    private void sendVisualNotification(NotificationDomain notification) {
+    public void sendVisualNotification(NotificationDomain notification) {
 
         StringBuilder textBuilder = new StringBuilder();
 

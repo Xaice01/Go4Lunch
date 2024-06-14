@@ -3,7 +3,6 @@ plugins {
     // Add the Google services Gradle plugin
     id 'com.google.gms.google-services'
     alias(libs.plugins.googleAndroidLibrariesMapsplatformSecretsGradlePlugin)
-
 }
 
 android {
@@ -11,8 +10,7 @@ android {
     compileSdk 34
 
     defaultConfig {
-
-        // Lire la clé API à partir de gradle.properties
+        //read the API KEY form gradle.properties
         def googleApiKey = project.hasProperty("GOOGLE_API_KEY") ? project.GOOGLE_API_KEY : ""
         buildConfigField "String", "GOOGLE_API_KEY", "\"${googleApiKey}\""
         manifestPlaceholders = [GOOGLE_API_KEY: googleApiKey]
@@ -22,7 +20,6 @@ android {
         targetSdk 34
         versionCode 1
         versionName "1.0"
-
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -32,7 +29,7 @@ android {
 
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
@@ -56,10 +53,18 @@ dependencies {
     testImplementation libs.junit
     androidTestImplementation libs.ext.junit
     androidTestImplementation libs.espresso.core
+    testImplementation libs.rules
+    testImplementation libs.core
+    testImplementation libs.work.testing
+    testImplementation libs.core.testing
+    testImplementation libs.truth
+    testImplementation libs.robolectric
 
     //MOCKITO
     testImplementation libs.mockito.core
     androidTestImplementation libs.mockito.android
+    testImplementation libs.mockito.inline
+
 
     //FIREBASE
     implementation platform(libs.firebase.bom)

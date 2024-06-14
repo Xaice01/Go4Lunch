@@ -4,6 +4,8 @@ import android.net.Uri;
 
 import androidx.annotation.Nullable;
 
+import java.util.Objects;
+
 public class Workmate {
     private final String uid;
     private final String username;
@@ -32,5 +34,18 @@ public class Workmate {
     }
     public void setRestaurantName(String restaurantName){
         this.restaurantName=restaurantName;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Workmate workmate = (Workmate) o;
+        return Objects.equals(uid, workmate.uid) && Objects.equals(username, workmate.username) && Objects.equals(urlPicture, workmate.urlPicture) && Objects.equals(uidRestaurant, workmate.uidRestaurant) && Objects.equals(restaurantName, workmate.restaurantName);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(uid, username, urlPicture, uidRestaurant, restaurantName);
     }
 }

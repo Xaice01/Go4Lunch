@@ -38,17 +38,27 @@ public class AuthViewModel extends ViewModel {
     //----------------------------------------------------
     //UseCase
     //----------------------------------------------------
-    //TODO DI a faire (authRepositoryFirebase a mettre dans le DI)
-    private final LogoutUseCase logoutUseCase = new LogoutUseCase(authRepositoryFirebase);
-    private final GetBuilderListAuthenticationProvidersUseCase getBuilderListAuthenticationProvidersUseCase = new GetBuilderListAuthenticationProvidersUseCase(authRepositoryFirebase);
-    private final GetCurrentUserUseCase getCurrentUserUseCase = new GetCurrentUserUseCase(authRepositoryFirebase);
-    private final GetEmailUseCase getEmailUseCase = new GetEmailUseCase(authRepositoryFirebase);
-    private final CreateUserInDataBaseUseCase createUserInDataBaseUseCase = new CreateUserInDataBaseUseCase(userRepositoryFirestore);
+    private LogoutUseCase logoutUseCase = new LogoutUseCase(authRepositoryFirebase);
+    private GetBuilderListAuthenticationProvidersUseCase getBuilderListAuthenticationProvidersUseCase = new GetBuilderListAuthenticationProvidersUseCase(authRepositoryFirebase);
+    private GetCurrentUserUseCase getCurrentUserUseCase = new GetCurrentUserUseCase(authRepositoryFirebase);
+    private GetEmailUseCase getEmailUseCase = new GetEmailUseCase(authRepositoryFirebase);
+    private CreateUserInDataBaseUseCase createUserInDataBaseUseCase = new CreateUserInDataBaseUseCase(userRepositoryFirestore);
 
     MutableLiveData<Boolean> isLogging = new MutableLiveData<>(false);
     MutableLiveData<String> liveDataEmail = new MutableLiveData<>();
     MutableLiveData<User> liveDataUser = new MutableLiveData<>();
     private ActivityResultLauncher<Intent> signInLauncher;
+
+    // Constructor for testing
+    public AuthViewModel(LogoutUseCase logoutUseCase, GetBuilderListAuthenticationProvidersUseCase getBuilderListAuthenticationProvidersUseCase,
+                         GetCurrentUserUseCase getCurrentUserUseCase, GetEmailUseCase getEmailUseCase,
+                         CreateUserInDataBaseUseCase createUserInDataBaseUseCase) {
+        this.logoutUseCase = logoutUseCase;
+        this.getBuilderListAuthenticationProvidersUseCase = getBuilderListAuthenticationProvidersUseCase;
+        this.getCurrentUserUseCase = getCurrentUserUseCase;
+        this.getEmailUseCase = getEmailUseCase;
+        this.createUserInDataBaseUseCase = createUserInDataBaseUseCase;
+    }
 
     public LiveData<Boolean> isLogging(){
         return isLogging;
@@ -80,7 +90,7 @@ public class AuthViewModel extends ViewModel {
         signInLauncher.launch(signInIntent);
     }
 
-    private List<AuthUI.IdpConfig> getBuilderListAuthenticationProviders(){
+    public List<AuthUI.IdpConfig> getBuilderListAuthenticationProviders(){
         List<AuthUI.IdpConfig> providers =new ArrayList<>();
         List<AuthProviderTypeUi> listProvider = getBuilderListAuthenticationProvidersUseCase.invoke();
 

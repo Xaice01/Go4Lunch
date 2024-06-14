@@ -1,75 +1,195 @@
 package com.xavier_carpentier.go4lunch.mapper;
 
-import static com.xavier_carpentier.go4lunch.data.mappers.MapperDataToDomain.ListAuthProviderTypeToListAuthProviderTypeDomain;
 import static com.xavier_carpentier.go4lunch.data.mappers.MapperDataToDomain.firebaseUserToUserDomain;
 
-import static org.junit.Assert.assertEquals;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
-
+import android.location.Location;
 import android.net.Uri;
 
 import com.google.firebase.auth.FirebaseUser;
+import com.xavier_carpentier.go4lunch.data.mappers.MapperDataToDomain;
+import com.xavier_carpentier.go4lunch.data.response.autocomplete_response.Prediction;
+import com.xavier_carpentier.go4lunch.data.response.autocomplete_response.StructuredFormatting;
+import com.xavier_carpentier.go4lunch.data.response.detail_restaurant_response.Photo;
+import com.xavier_carpentier.go4lunch.data.response.detail_restaurant_response.RestaurantDetailResponse;
+import com.xavier_carpentier.go4lunch.data.response.detail_restaurant_response.Result;
+import com.xavier_carpentier.go4lunch.data.response.list_restaurant_response.Geometry;
+
+import com.xavier_carpentier.go4lunch.data.response.list_restaurant_response.OpeningHours;
 import com.xavier_carpentier.go4lunch.datasource.utils.AuthProviderType;
 import com.xavier_carpentier.go4lunch.domain.model.AuthProviderTypeDomain;
+import com.xavier_carpentier.go4lunch.domain.model.AutocompletePredictionDomain;
+import com.xavier_carpentier.go4lunch.domain.model.LocationDomain;
+import com.xavier_carpentier.go4lunch.domain.model.RestaurantDomain;
+import com.xavier_carpentier.go4lunch.domain.model.RestaurantSearchDomain;
 import com.xavier_carpentier.go4lunch.domain.model.UserDomain;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+
+import static org.junit.Assert.*;
+import static org.mockito.Mockito.*;
 
 @RunWith(MockitoJUnitRunner.class)
 public class MapperDataToDomainTest {
 
     @Mock
     private Uri uriTest;
-    FirebaseUser mockFirebaseUser;
-
+    private FirebaseUser mockFirebaseUser;
+    private RestaurantDetailResponse mockRestaurantDetailResponse;
+    private List<Prediction> mockPredictionList;
+    private List<com.xavier_carpentier.go4lunch.data.response.list_restaurant_response.Result> mockListRestaurantResponse;
+    private List<AuthProviderType> mockAuthProviderTypeList;
+    private MapperDataToDomain mapper;
 
     @Before
-    public void setUp(){
-        mockFirebaseUser = mock(FirebaseUser.class);
+    public void setUp() {
+        mapper = new MapperDataToDomain();
+        mockFirebaseUser = Mockito.mock(FirebaseUser.class);
+        mockRestaurantDetailResponse = Mockito.mock(RestaurantDetailResponse.class);
+        mockPredictionList = new ArrayList<>();
+        mockListRestaurantResponse = new ArrayList<>();
+        mockAuthProviderTypeList = new ArrayList<>();
         when(mockFirebaseUser.getUid()).thenReturn("123456789");
         when(mockFirebaseUser.getDisplayName()).thenReturn("testusername");
-        when(mockFirebaseUser.getEmail()).thenReturn("test@mail.com");
+
         when(mockFirebaseUser.getPhotoUrl()).thenReturn(uriTest);
     }
 
     @Test
-    public void firebaseUserToUserDomainTest(){
-        //Given
-        String uidTest = mockFirebaseUser.getUid();
-        String userNameTest = mockFirebaseUser.getDisplayName();
-        String emailTest = mockFirebaseUser.getEmail();
+    public void testFirebaseUserToUserDomain_withPhotoUrl() {
+        when(mockFirebaseUser.getUid()).thenReturn("123456789");
+        when(mockFirebaseUser.getDisplayName()).thenReturn("testusername");
+        when(mockFirebaseUser.getPhotoUrl()).thenReturn(uriTest);
+        when(uriTest.toString()).thenReturn("http://example.com/photo.jpg");
 
-        //When
         UserDomain user = firebaseUserToUserDomain(mockFirebaseUser);
 
-        //Then
-        assertEquals(user.getUid(), uidTest);
-        assertEquals(user.getUsername(), userNameTest);
-        assertEquals(user.getUrlPicture(), uriTest);
+        assertNotNull(user);
+        assertEquals("123456789", user.getUid());
+        assertEquals("testusername", user.getUsername());
+        assertEquals("http://example.com/photo.jpg", user.getUrlPicture());
     }
 
     @Test
-    public void ListAuthProviderTypeToListAuthProviderTypeDomainTest(){
-        //Given
-        List<AuthProviderType> providersToTest =new ArrayList<>();
-        providersToTest.add(AuthProviderType.TWITTER);
-        providersToTest.add(AuthProviderType.GOOGLE);
+    public void testFirebaseUserToUserDomain_withoutPhotoUrl() {
+        when(mockFirebaseUser.getUid()).thenReturn("12345");
+        when(mockFirebaseUser.getDisplayName()).thenReturn("Test User");
+        when(mockFirebaseUser.getPhotoUrl()).thenReturn(null);
 
-        //When
-        List<AuthProviderTypeDomain> listProviderDomain = new ArrayList<>(ListAuthProviderTypeToListAuthProviderTypeDomain(providersToTest));
+        UserDomain userDomain = MapperDataToDomain.firebaseUserToUserDomain(mockFirebaseUser);
 
-        //Then
-        assertEquals(listProviderDomain.get(0).name(),providersToTest.get(0).name());
-        assertEquals(listProviderDomain.get(1).name(),providersToTest.get(1).name());
-
+        assertNotNull(userDomain);
+        assertEquals("12345", userDomain.getUid());
+        assertEquals("Test User", userDomain.getUsername());
+        assertNull(userDomain.getUrlPicture());
     }
 
+    @Test
+    public void testListAuthProviderTypeToListAuthProviderTypeDomain() {
+        mockAuthProviderTypeList.add(AuthProviderType.EMAIL);
+        mockAuthProviderTypeList.add(AuthProviderType.GOOGLE);
+
+        List<AuthProviderTypeDomain> result = MapperDataToDomain.ListAuthProviderTypeToListAuthProviderTypeDomain(mockAuthProviderTypeList);
+
+        assertNotNull(result);
+        assertEquals(2, result.size());
+        assertTrue(result.contains(AuthProviderTypeDomain.EMAIL));
+        assertTrue(result.contains(AuthProviderTypeDomain.GOOGLE));
+    }
+
+    @Test
+    public void testRestaurantDetailResponseToRestaurantDomain_withValidData() {
+        Result mockResult = Mockito.mock(Result.class);
+        when(mockRestaurantDetailResponse.getResult()).thenReturn(mockResult);
+        when(mockResult.getPlaceId()).thenReturn("123");
+        when(mockResult.getName()).thenReturn("Test Restaurant");
+        when(mockResult.getVicinity()).thenReturn("Test Vicinity");
+        when(mockResult.getPhotos()).thenReturn(Arrays.asList(Mockito.mock(Photo.class)));
+        when(mockResult.getPhotos().get(0).getPhotoURL()).thenReturn("http://example.com/photo.jpg");
+        when(mockResult.getRating()).thenReturn(4.5);
+        when(mockResult.getFormattedPhoneNumber()).thenReturn("123-456-7890");
+        when(mockResult.getWebsite()).thenReturn("http://example.com");
+
+        RestaurantDomain restaurantDomain = MapperDataToDomain.restaurantDetailResponseToRestaurantDomain(mockRestaurantDetailResponse);
+
+        assertNotNull(restaurantDomain);
+        assertEquals("123", restaurantDomain.getUidRestaurant());
+        assertEquals("Test Restaurant", restaurantDomain.getRestaurantName());
+        assertEquals("Test Vicinity", restaurantDomain.getVicinity());
+        assertEquals("http://example.com/photo.jpg", restaurantDomain.getPhotoReferenceUrl());
+        assertEquals(4.5, restaurantDomain.getRating(), 0);
+        assertEquals("123-456-7890", restaurantDomain.getPhoneNumber());
+        assertEquals("http://example.com", restaurantDomain.getWebsiteUrl());
+    }
+
+    @Test
+    public void testRestaurantDetailResponseToRestaurantDomain_withNullResponse() {
+        RestaurantDomain restaurantDomain = MapperDataToDomain.restaurantDetailResponseToRestaurantDomain(null);
+
+        assertNull(restaurantDomain);
+    }
+
+    @Test
+    public void testListPredictionToAutocompletePredictionDomain_withValidData() {
+        Prediction mockPrediction = Mockito.mock(Prediction.class);
+        when(mockPrediction.getPlaceId()).thenReturn("123");
+        StructuredFormatting mockStructuredFormatting = Mockito.mock(StructuredFormatting.class);
+        when(mockStructuredFormatting.getMainText()).thenReturn("Test Place");
+        when(mockPrediction.getStructuredFormatting()).thenReturn(mockStructuredFormatting);
+
+        mockPredictionList.add(mockPrediction);
+
+        List<AutocompletePredictionDomain> result = MapperDataToDomain.listPredictionToAutocompletePredictionDomain(mockPredictionList);
+
+        assertNotNull(result);
+        assertEquals(1, result.size());
+        assertEquals("123", result.get(0).getRestaurantId());
+        assertEquals("Test Place", result.get(0).getRestaurantName());
+    }
+
+    @Test
+    public void testListPredictionToAutocompletePredictionDomain_withNullData() {
+        mockPredictionList.add(Mockito.mock(Prediction.class));
+        List<AutocompletePredictionDomain> result = MapperDataToDomain.listPredictionToAutocompletePredictionDomain(mockPredictionList);
+
+        assertNull(result);
+    }
+
+    @Test
+    public void testListResultRestaurantResponseToListRestaurantSearchDomain_withValidData() {
+        com.xavier_carpentier.go4lunch.data.response.list_restaurant_response.Result mockResult = Mockito.mock(com.xavier_carpentier.go4lunch.data.response.list_restaurant_response.Result.class);
+        Geometry mockGeometry = Mockito.mock(Geometry.class);
+        com.xavier_carpentier.go4lunch.data.response.list_restaurant_response.Location mockLocation = Mockito.mock(com.xavier_carpentier.go4lunch.data.response.list_restaurant_response.Location.class);
+
+        when(mockResult.getPlaceId()).thenReturn("123");
+        when(mockResult.getPhotos()).thenReturn(Arrays.asList(Mockito.mock(com.xavier_carpentier.go4lunch.data.response.list_restaurant_response.Photo.class)));
+        OpeningHours mockOpeningHours = Mockito.mock(OpeningHours.class);
+
+        mockListRestaurantResponse.add(mockResult);
+
+        List<RestaurantSearchDomain> result = MapperDataToDomain.listResultRestaurantResponseToListRestaurantSearchDomain(mockListRestaurantResponse, "40.748817", "-73.985428");
+
+        assertNotNull(result);
+    }
+
+    @Test
+    public void testLocationToLocationDomain() {
+        Location mockLocation = Mockito.mock(Location.class);
+        when(mockLocation.getLatitude()).thenReturn(40.748817);
+        when(mockLocation.getLongitude()).thenReturn(-73.985428);
+
+        LocationDomain locationDomain = MapperDataToDomain.locationToLocationDomain(mockLocation);
+
+        assertNotNull(locationDomain);
+        assertEquals("40.748817", locationDomain.getLatitude());
+        assertEquals("-73.985428", locationDomain.getLongitude());
+    }
 }

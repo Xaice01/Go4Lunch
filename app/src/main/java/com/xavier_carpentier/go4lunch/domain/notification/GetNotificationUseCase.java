@@ -48,4 +48,3 @@ public class GetNotificationUseCase {
         return new NotificationDomain(userName,workmateToEatInThisRestaurant,idRestaurant,restaurantName,vicinity);
     }
 }
-

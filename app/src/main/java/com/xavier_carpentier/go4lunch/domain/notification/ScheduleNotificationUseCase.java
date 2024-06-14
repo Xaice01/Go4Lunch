@@ -40,7 +40,7 @@ public class ScheduleNotificationUseCase {
         );
     }
 
-    private static long getInitialDelay() {
+    public static long getInitialDelay() {
         Calendar currentTime = Calendar.getInstance();
         Calendar nextRunTime = (Calendar) currentTime.clone();
         nextRunTime.set(Calendar.HOUR_OF_DAY, 12);

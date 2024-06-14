@@ -101,8 +101,12 @@ public class MapperDomainUi {
                 }else{
                     rate =0;
                 }
-
-                Uri uriPhoto = Uri.parse(restaurantSearchDomain.getPhotoReferenceUrl());
+                Uri uriPhoto;
+                if(restaurantSearchDomain.getPhotoReferenceUrl()!=null){
+                    uriPhoto = Uri.parse(restaurantSearchDomain.getPhotoReferenceUrl());
+                }else {
+                    uriPhoto=null;
+                }
                 restaurantItemList.add(new RestaurantItem(restaurantSearchDomain.getPlaceId(),restaurantSearchDomain.getRestaurantName(),restaurantSearchDomain.getVicinity(),restaurantSearchDomain.getDistance(),rate,restaurantSearchDomain.getLatitude(),restaurantSearchDomain.getLongitude(),0,restaurantSearchDomain.getOpen(),uriPhoto));
             }
         }

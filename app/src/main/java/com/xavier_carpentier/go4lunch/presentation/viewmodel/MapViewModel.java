@@ -18,12 +18,12 @@ import com.xavier_carpentier.go4lunch.presentation.model.RestaurantItem;
 import java.util.List;
 
 public class MapViewModel extends AndroidViewModel {
-    private final PlaceRepositoryRetrofit placeRepositoryRetrofit = new PlaceRepositoryRetrofit(RetrofitService.getPlaceApi());
-    private final UserRepositoryFirestore userRepositoryFirestore = UserRepositoryFirestore.getInstance();
+    private PlaceRepositoryRetrofit placeRepositoryRetrofit = new PlaceRepositoryRetrofit(RetrofitService.getPlaceApi());
+    private UserRepositoryFirestore userRepositoryFirestore = UserRepositoryFirestore.getInstance();
 
 
     private final GetLocationUseCase getLocationUseCase;
-    private final GetListRestaurantsUseCase getListRestaurantsUseCase = new GetListRestaurantsUseCase(placeRepositoryRetrofit,userRepositoryFirestore);
+    private GetListRestaurantsUseCase getListRestaurantsUseCase = new GetListRestaurantsUseCase(placeRepositoryRetrofit,userRepositoryFirestore);
 
     public MapViewModel(@NonNull Application application) {
         super(application);
@@ -32,6 +32,15 @@ public class MapViewModel extends AndroidViewModel {
         LocationRepository locationRepository = new LocationRepository(application);
         getLocationUseCase = new GetLocationUseCase(locationRepository);
     }
+    // Constructor for testing
+    public MapViewModel(@NonNull Application application, GetLocationUseCase getLocationUseCase, GetListRestaurantsUseCase getListRestaurantsUseCase) {
+        super(application);
+        this.placeRepositoryRetrofit = null;
+        this.userRepositoryFirestore = null;
+        this.getLocationUseCase = getLocationUseCase;
+        this.getListRestaurantsUseCase = getListRestaurantsUseCase;
+    }
+
 
     public LiveData<LocationUi> getLocationLiveData() {
         return getLocationUseCase.invoke();
