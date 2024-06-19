@@ -24,6 +24,7 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
 import java.util.List;
+import java.util.Objects;
 
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
@@ -113,6 +114,72 @@ public class DetailRestaurantViewModelTest {
     }
 
     @Test
+    public void testOnLikeClickRemove() {
+        // Given
+        RestaurantDetail mockDetail = new RestaurantDetail("2", "pic_url", "Test Restaurant", "Test Address", 4.0, "1234567890", false, "www.test.com");
+        restaurantDetailLiveData.setValue(mockDetail);
+        viewModel.initRestaurant("2");
+
+
+        MutableLiveData<Boolean> likeResultLiveData = new MutableLiveData<>();
+        likeResultLiveData.setValue(true);
+
+        when(likeRestaurantUseCase.add(anyString())).thenReturn(likeResultLiveData);
+        when(likeRestaurantUseCase.remove(anyString())).thenReturn(likeResultLiveData);
+
+        // When
+        viewModel.OnLikeCLick();
+        viewModel.OnLikeCLick();
+
+        // Then
+        verify(likeRestaurantUseCase).remove("2");
+    }
+
+
+    @Test
+    public void testOnFavorisClickAddFavoris() {
+        RestaurantDetail mockDetail = new RestaurantDetail("2", "pic_url", "Test Restaurant", "Test Address", 4.0, "1234567890", false, "www.test.com");
+        restaurantDetailLiveData.setValue(mockDetail);
+        viewModel.initRestaurant("2");
+
+
+        MutableLiveData<Boolean> likeResultLiveData = new MutableLiveData<>();
+        likeResultLiveData.setValue(true);
+
+
+        when(addRestaurantChoiceToDayUseCase.invoke(anyString(), anyString(),anyString())).thenReturn(likeResultLiveData);
+        when(deleteRestaurantChoiceToDayUseCase.invoke()).thenReturn(likeResultLiveData);
+
+        // When
+        viewModel.onFavorisClick();
+
+        // Then
+        verify(addRestaurantChoiceToDayUseCase).invoke("2", Objects.requireNonNull(restaurantDetailLiveData.getValue()).getName(),restaurantDetailLiveData.getValue().getAddress());
+    }
+
+    @Test
+    public void testOnFavorisClickDeleteFavoris() {
+        RestaurantDetail mockDetail = new RestaurantDetail("2", "pic_url", "Test Restaurant", "Test Address", 4.0, "1234567890", false, "www.test.com");
+        restaurantDetailLiveData.setValue(mockDetail);
+        viewModel.initRestaurant("2");
+
+
+        MutableLiveData<Boolean> likeResultLiveData = new MutableLiveData<>();
+        likeResultLiveData.setValue(true);
+
+
+        when(addRestaurantChoiceToDayUseCase.invoke(anyString(), anyString(),anyString())).thenReturn(likeResultLiveData);
+        when(deleteRestaurantChoiceToDayUseCase.invoke()).thenReturn(likeResultLiveData);
+
+        // When
+        viewModel.onFavorisClick();
+        viewModel.onFavorisClick();
+
+        // Then
+        verify(deleteRestaurantChoiceToDayUseCase).invoke();
+    }
+
+    @Test
     public void testGetWorkmateToEat() {
         // Given
         viewModel.initRestaurant("1");
@@ -136,5 +203,48 @@ public class DetailRestaurantViewModelTest {
         // Then
         assertNotNull(result);
         verify(getIfWorkmateEatInThisRestaurantUseCase).invoke("1");
+    }
+    @Test
+    public void testGetRatingRestaurantInStringBuilder() {
+        RestaurantDetail restaurantDetail = new RestaurantDetail("1", "pic_url", "Test Restaurant", "Test Address", 4.0, "1234567890", false, "www.test.com");
+        MutableLiveData<RestaurantDetail> restaurantDetailLiveData = new MutableLiveData<>(restaurantDetail);
+        when(getRestaurantByIdUseCase.invoke("1")).thenReturn(restaurantDetailLiveData);
+
+        viewModel.initRestaurant("1");
+        StringBuilder rating = viewModel.getRatingRestaurantInStingBuilder();
+        assertEquals("⭐⭐", rating.toString());
+    }
+
+    @Test
+    public void testGetTypeAndAddress() {
+        RestaurantDetail restaurantDetail = new RestaurantDetail("1", "pic_url", "Test Restaurant", "Test Address", 5.0, "1234567890", false, "www.test.com");
+        MutableLiveData<RestaurantDetail> restaurantDetailLiveData = new MutableLiveData<>(restaurantDetail);
+        when(getRestaurantByIdUseCase.invoke("1")).thenReturn(restaurantDetailLiveData);
+
+        viewModel.initRestaurant("1");
+        String typeAndAddress = viewModel.getTypeAndAddress();
+        assertEquals(" restaurant - Test Address", typeAndAddress);
+    }
+
+    @Test
+    public void testGetPhoneNumber() {
+        RestaurantDetail restaurantDetail = new RestaurantDetail("1", "pic_url", "Test Restaurant", "Test Address", 5.0, "1234567890", false, "www.test.com");
+        MutableLiveData<RestaurantDetail> restaurantDetailLiveData = new MutableLiveData<>(restaurantDetail);
+        when(getRestaurantByIdUseCase.invoke("1")).thenReturn(restaurantDetailLiveData);
+
+        viewModel.initRestaurant("1");
+        String phoneNumber = viewModel.getPhoneNumber();
+        assertEquals("1234567890", phoneNumber);
+    }
+
+    @Test
+    public void testGetWebsiteUrl() {
+        RestaurantDetail restaurantDetail = new RestaurantDetail("1", "pic_url", "Test Restaurant", "Test Address", 5.0, "1234567890", false, "www.test.com");
+        MutableLiveData<RestaurantDetail> restaurantDetailLiveData = new MutableLiveData<>(restaurantDetail);
+        when(getRestaurantByIdUseCase.invoke("1")).thenReturn(restaurantDetailLiveData);
+
+        viewModel.initRestaurant("1");
+        String websiteUrl = viewModel.getWebsiteUrl();
+        assertEquals("www.test.com", websiteUrl);
     }
 }

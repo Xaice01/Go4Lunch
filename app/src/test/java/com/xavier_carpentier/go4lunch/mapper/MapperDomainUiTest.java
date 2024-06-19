@@ -123,8 +123,8 @@ public class MapperDomainUiTest {
                 new RestaurantSearchDomain("id2", "name2", "address2", "url2", 0.0, "50", "50", 0, true)
         );
         List<RestaurantItem> expectedRestaurantItems = Arrays.asList(
-                new RestaurantItem("id1", "name1", "address1", 0, 0, "50", "50", 0, true, Uri.parse("url1")),
-                new RestaurantItem("id2", "name2", "address2", 0, 0, "50", "50", 0, null, Uri.parse("url2"))
+                new RestaurantItem("id1", "name1", "address1", 0, 0.0, "50", "50", 0, true, Uri.parse("url1")),
+                new RestaurantItem("id2", "name2", "address2", 0, 0.0, "50", "50", 0, null, Uri.parse("url2"))
         );
 
         List<RestaurantItem> actualRestaurantItems = MapperDomainUi.listRestaurantSearchDomainTolistRestaurantItem(restaurantDomains);

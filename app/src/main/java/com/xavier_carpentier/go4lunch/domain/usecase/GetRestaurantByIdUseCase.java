@@ -13,7 +13,7 @@ import java.util.List;
 public class GetRestaurantByIdUseCase {
     private final PlaceRepository placeRepository;
     private final LikeRestaurantUseCase likeRestaurantUseCase;
-    private final MediatorLiveData<RestaurantDetail> restaurantDetailWithLikeStatus = new MediatorLiveData<>();
+    public final MediatorLiveData<RestaurantDetail> restaurantDetailWithLikeStatus = new MediatorLiveData<>();
     public GetRestaurantByIdUseCase(PlaceRepository placeRepository,LikeRestaurantUseCase likeRestaurantUseCase) {
         this.placeRepository = placeRepository;
         this.likeRestaurantUseCase=likeRestaurantUseCase;
@@ -32,7 +32,7 @@ public class GetRestaurantByIdUseCase {
 
         return restaurantDetailWithLikeStatus;
     }
-    private void updateRestaurantLikeStatus(RestaurantDetail restaurant, List<String> favoris) {
+    public void updateRestaurantLikeStatus(RestaurantDetail restaurant, List<String> favoris) {
         if (restaurant != null && favoris != null) {
             boolean isLiked = favoris.contains(restaurant.getUid());
             restaurant.setLike(isLiked);

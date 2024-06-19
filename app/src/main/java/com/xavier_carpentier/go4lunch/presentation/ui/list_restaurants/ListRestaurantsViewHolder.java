@@ -33,7 +33,6 @@ public class ListRestaurantsViewHolder extends RecyclerView.ViewHolder {
     }
 
     public void bind(RestaurantItem restaurant, ListRestaurantsAdapter.OnItemClickListener mListener) {
-        //InputStream stream = getContentResolver().openInputStream(restaurant.getPicture());
 
         Glide.with(itemView.getRootView())
                 .load(restaurant.getPicture())

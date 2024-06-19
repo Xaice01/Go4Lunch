@@ -44,6 +44,9 @@ public class DetailRestaurantViewModel extends ViewModel {
     private LikeRestaurantUseCase likeRestaurantUseCase = new LikeRestaurantUseCase(favorisRestaurantRepositoryFirestore,authRepositoryFirebase);
     private GetRestaurantByIdUseCase getRestaurantByIdUseCase = new GetRestaurantByIdUseCase(placeRepositoryRetrofit,likeRestaurantUseCase);
 
+    // Default constructor for production
+    public DetailRestaurantViewModel() {}
+
     // Constructor for testing
     public DetailRestaurantViewModel(AuthRepositoryFirebase authRepositoryFirebase,
                                      PlaceRepositoryRetrofit placeRepositoryRetrofit,
@@ -95,7 +98,7 @@ public class DetailRestaurantViewModel extends ViewModel {
 
     public StringBuilder getRatingRestaurantInStingBuilder(){
         StringBuilder noteToWrite= new StringBuilder();
-        for(int i = 0; i< Objects.requireNonNull(restaurantDetail.getValue()).getNote()&&i<4; i++){
+        for(int i = 0; i< Objects.requireNonNull(restaurantDetail.getValue()).getNote() && i<4; i++){
             if(i!=1 && i!=3) {
                 noteToWrite.append("⭐");
             }

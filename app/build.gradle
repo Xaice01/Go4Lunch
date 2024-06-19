@@ -15,6 +15,15 @@ android {
         buildConfigField "String", "GOOGLE_API_KEY", "\"${googleApiKey}\""
         manifestPlaceholders = [GOOGLE_API_KEY: googleApiKey]
 
+        def facebookAppId = project.hasProperty('Key_facebook_application_id') ? project.property('Key_facebook_application_id') : ""
+        resValue "string", "Key_facebook_application_id", "\"${facebookAppId}\""
+
+        def facebookLoginProtocolScheme = project.hasProperty('Key_facebook.login.protocol.scheme') ? project.property('Key_facebook.login.protocol.scheme') : ""
+        resValue "string", "Key_facebook_login_protocol_scheme", "\"${facebookLoginProtocolScheme}\""
+
+        def facebookClientToken = project.hasProperty('Key_facebook.client.token') ? project.property('Key_facebook.client.token') : ""
+        resValue "string", "Key_facebook_client_token", "\"${facebookClientToken}\""
+
         applicationId "com.xavier_carpentier.go4lunch"
         minSdk 21
         targetSdk 34
@@ -22,6 +31,8 @@ android {
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
+
+    testOptions.unitTests.includeAndroidResources = true
 
     buildFeatures{
         viewBinding true
@@ -59,6 +70,8 @@ dependencies {
     testImplementation libs.core.testing
     testImplementation libs.truth
     testImplementation libs.robolectric
+    testImplementation libs.firebase.core
+    testImplementation libs.firebase.auth
 
     //MOCKITO
     testImplementation libs.mockito.core

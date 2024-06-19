@@ -26,9 +26,9 @@ public class LocationRepository implements com.xavier_carpentier.go4lunch.domain
     private static final long UPDATE_INTERVAL = 30000;  // 30 seconds
     private static final long FASTEST_INTERVAL = 10000; // 10 seconds
 
-    private final MutableLiveData<Location> locationLiveData = new MutableLiveData<>();
-    private final FusedLocationProviderClient fusedLocationClient;
-    private LocationCallback locationCallback;
+    public final MutableLiveData<Location> locationLiveData = new MutableLiveData<>();
+    public final FusedLocationProviderClient fusedLocationClient;
+    public LocationCallback locationCallback;
 
     public LocationRepository(Context context) {
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(context);

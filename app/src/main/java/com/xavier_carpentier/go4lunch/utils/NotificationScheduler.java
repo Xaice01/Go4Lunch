@@ -13,6 +13,10 @@ public class NotificationScheduler {
     public NotificationScheduler(WorkManager workManager) {
         scheduleNotificationUseCase = new ScheduleNotificationUseCase(workManager);
     }
+    //for test
+    public NotificationScheduler(ScheduleNotificationUseCase scheduleNotificationUseCase) {
+        this.scheduleNotificationUseCase = scheduleNotificationUseCase;
+    }
 
     public static void scheduleDailyNotification() {
         scheduleNotificationUseCase.execute();

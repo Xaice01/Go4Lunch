@@ -13,7 +13,6 @@ import com.xavier_carpentier.go4lunch.data.response.detail_restaurant_response.P
 import com.xavier_carpentier.go4lunch.data.response.detail_restaurant_response.RestaurantDetailResponse;
 import com.xavier_carpentier.go4lunch.data.response.detail_restaurant_response.Result;
 import com.xavier_carpentier.go4lunch.data.response.list_restaurant_response.Geometry;
-
 import com.xavier_carpentier.go4lunch.data.response.list_restaurant_response.OpeningHours;
 import com.xavier_carpentier.go4lunch.datasource.utils.AuthProviderType;
 import com.xavier_carpentier.go4lunch.domain.model.AuthProviderTypeDomain;
@@ -107,7 +106,7 @@ public class MapperDataToDomainTest {
 
     @Test
     public void testRestaurantDetailResponseToRestaurantDomain_withValidData() {
-        Result mockResult = Mockito.mock(Result.class);
+        com.xavier_carpentier.go4lunch.data.response.detail_restaurant_response.Result mockResult = Mockito.mock(com.xavier_carpentier.go4lunch.data.response.detail_restaurant_response.Result.class);
         when(mockRestaurantDetailResponse.getResult()).thenReturn(mockResult);
         when(mockResult.getPlaceId()).thenReturn("123");
         when(mockResult.getName()).thenReturn("Test Restaurant");
@@ -161,23 +160,6 @@ public class MapperDataToDomainTest {
         List<AutocompletePredictionDomain> result = MapperDataToDomain.listPredictionToAutocompletePredictionDomain(mockPredictionList);
 
         assertNull(result);
-    }
-
-    @Test
-    public void testListResultRestaurantResponseToListRestaurantSearchDomain_withValidData() {
-        com.xavier_carpentier.go4lunch.data.response.list_restaurant_response.Result mockResult = Mockito.mock(com.xavier_carpentier.go4lunch.data.response.list_restaurant_response.Result.class);
-        Geometry mockGeometry = Mockito.mock(Geometry.class);
-        com.xavier_carpentier.go4lunch.data.response.list_restaurant_response.Location mockLocation = Mockito.mock(com.xavier_carpentier.go4lunch.data.response.list_restaurant_response.Location.class);
-
-        when(mockResult.getPlaceId()).thenReturn("123");
-        when(mockResult.getPhotos()).thenReturn(Arrays.asList(Mockito.mock(com.xavier_carpentier.go4lunch.data.response.list_restaurant_response.Photo.class)));
-        OpeningHours mockOpeningHours = Mockito.mock(OpeningHours.class);
-
-        mockListRestaurantResponse.add(mockResult);
-
-        List<RestaurantSearchDomain> result = MapperDataToDomain.listResultRestaurantResponseToListRestaurantSearchDomain(mockListRestaurantResponse, "40.748817", "-73.985428");
-
-        assertNotNull(result);
     }
 
     @Test

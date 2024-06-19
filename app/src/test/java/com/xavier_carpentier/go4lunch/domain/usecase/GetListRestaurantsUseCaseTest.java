@@ -67,8 +67,8 @@ public class GetListRestaurantsUseCaseTest {
         restaurantSearchDomainsLiveData.setValue(Arrays.asList(restaurant1, restaurant2));
 
         List<RestaurantItem> restaurantItems = Arrays.asList(
-                new RestaurantItem("id1", "name1", "address1", 0, 0, "50", "50", 0, true, null),
-                new RestaurantItem("id2", "name2", "address2", 0, 0, "50", "50", 0, null, null)
+                new RestaurantItem("id1", "name1", "address1", 0, 0.0, "50", "50", 0, true, null),
+                new RestaurantItem("id2", "name2", "address2", 0, 0.0, "50", "50", 0, null, null)
         );
 
 

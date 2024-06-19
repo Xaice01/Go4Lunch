@@ -11,14 +11,14 @@ public class RestaurantItem {
     private final String name;
     private final String address;
     private final int distance;
-    private final int note;
+    private final Double note;
     private final String latitude;
     private final String longitude;
     private int workmatesToEat;
     private final Boolean isOpen;
     private final Uri picture;
 
-    public RestaurantItem(@NonNull String uid, String name, String address, int distance, int note, String latitude, String longitude, int workmatesToEat, Boolean isOpen, Uri picture) {
+    public RestaurantItem(@NonNull String uid, String name, String address, int distance, Double note, String latitude, String longitude, int workmatesToEat, Boolean isOpen, Uri picture) {
         this.uid = uid;
         this.name = name;
         this.address = address;
@@ -45,7 +45,7 @@ public class RestaurantItem {
     public int getDistance() {
         return distance;
     }
-    public int getNote() {
+    public Double getNote() {
         return note;
     }
     public int getWorkmatesToEat() {

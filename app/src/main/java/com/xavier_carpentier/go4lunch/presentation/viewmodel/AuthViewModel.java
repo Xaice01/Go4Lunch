@@ -23,6 +23,9 @@ import com.xavier_carpentier.go4lunch.domain.usecase.LogoutUseCase;
 import com.xavier_carpentier.go4lunch.presentation.model.AuthProviderTypeUi;
 import com.xavier_carpentier.go4lunch.presentation.model.User;
 
+import org.jetbrains.annotations.TestOnly;
+import org.jetbrains.annotations.VisibleForTesting;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -48,6 +51,9 @@ public class AuthViewModel extends ViewModel {
     MutableLiveData<String> liveDataEmail = new MutableLiveData<>();
     MutableLiveData<User> liveDataUser = new MutableLiveData<>();
     private ActivityResultLauncher<Intent> signInLauncher;
+
+    // Default constructor for production
+    public AuthViewModel() {}
 
     // Constructor for testing
     public AuthViewModel(LogoutUseCase logoutUseCase, GetBuilderListAuthenticationProvidersUseCase getBuilderListAuthenticationProvidersUseCase,

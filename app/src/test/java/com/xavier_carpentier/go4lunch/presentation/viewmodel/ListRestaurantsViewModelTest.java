@@ -56,7 +56,7 @@ public class ListRestaurantsViewModelTest {
         locationLiveData.setValue(locationUi);
 
         RestaurantItem mockRestaurant = new RestaurantItem(
-                "1", "Restaurant", "Address", 100, 5,
+                "1", "Restaurant", "Address", 100, 5.0,
                 "123", "456", 3, true, null);
         List<RestaurantItem> mockRestaurantList = Collections.singletonList(mockRestaurant);
         restaurantsLiveData.setValue(mockRestaurantList);

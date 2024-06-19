@@ -37,7 +37,7 @@ public class MainViewModel extends ViewModel {
     public MutableLiveData<String> userQueryMutableLiveData;
     private final LiveData<List<AutocompletePrediction>> predictionsLiveData;
     private final MutableLiveData<Boolean> requestLocationPermission = new MutableLiveData<>();
-    private final MutableLiveData<String> userUidLiveData = new MutableLiveData<>();
+    public final MutableLiveData<String> userUidLiveData = new MutableLiveData<>();
     private final MutableLiveData<Event<String>> navigateToDetailEvent = new MutableLiveData<>();
     private final MutableLiveData<Event<String>> showToastEvent = new MutableLiveData<>();
     public String latitude;
@@ -189,25 +189,7 @@ public class MainViewModel extends ViewModel {
 
 
     public LiveData<List<AutocompletePrediction>> getLiveDataPrediction(){
-        return Transformations.switchMap(predictionsLiveData, predictions -> {
-                    MutableLiveData<List<AutocompletePrediction>> predictionViewStateMutableLiveData = new MutableLiveData<>();
-                    List<AutocompletePrediction> predictionViewStateList = new ArrayList<>();
-                    if (predictions != null) {
-                        for (AutocompletePrediction prediction : predictions) {
-                            predictionViewStateList.add(
-                                    new AutocompletePrediction(
-                                            prediction.getRestaurantId(),
-                                            prediction.getRestaurantName()
-                                    )
-                            );
-                        }
-                    } else {
-                        predictionViewStateMutableLiveData.setValue(Collections.emptyList());
-                    }
-                    predictionViewStateMutableLiveData.setValue(predictionViewStateList);
-                    return predictionViewStateMutableLiveData;
-                }
-        );
+        return predictionsLiveData;
     }
 
     public void onQueryChanged(String query) {

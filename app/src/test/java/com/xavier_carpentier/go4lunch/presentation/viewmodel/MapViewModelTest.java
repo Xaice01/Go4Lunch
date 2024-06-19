@@ -68,7 +68,7 @@ public class MapViewModelTest {
         String latitude = "10.0";
         String longitude = "20.0";
         MutableLiveData<List<RestaurantItem>> restaurantsLiveData = new MutableLiveData<>();
-        RestaurantItem restaurantItem = new RestaurantItem("uid", "name", "address", 100, 4, "10.0", "20.0", 5, true, null);
+        RestaurantItem restaurantItem = new RestaurantItem("uid", "name", "address", 100, 4.0, "10.0", "20.0", 5, true, null);
         List<RestaurantItem> restaurantList = Arrays.asList(restaurantItem);
         restaurantsLiveData.setValue(restaurantList);
         when(getListRestaurantsUseCase.invoke(latitude, longitude)).thenReturn(restaurantsLiveData);

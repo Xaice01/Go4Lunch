@@ -22,7 +22,7 @@ public class RestaurantItemTest {
         ShadowLog.stream = System.out; // Enable logging
 
         Uri pictureUri = Uri.parse("http://example.com/picture");
-        restaurantItem = new RestaurantItem("id1", "RestaurantName", "123 Main St", 5, 100, "10.0", "20.0", 10, true, pictureUri);
+        restaurantItem = new RestaurantItem("id1", "RestaurantName", "123 Main St", 5, 4.5, "10.0", "20.0", 10, true, pictureUri);
     }
 
     @Test
@@ -31,7 +31,7 @@ public class RestaurantItemTest {
         assertEquals("RestaurantName", restaurantItem.getName());
         assertEquals("123 Main St", restaurantItem.getAddress());
         assertEquals(5, restaurantItem.getDistance());
-        assertEquals(100, restaurantItem.getNote());
+        assertEquals((Double)4.5,(Double) restaurantItem.getNote());
         assertEquals("10.0", restaurantItem.getLatitude());
         assertEquals("20.0", restaurantItem.getLongitude());
         assertEquals(10, restaurantItem.getWorkmatesToEat());

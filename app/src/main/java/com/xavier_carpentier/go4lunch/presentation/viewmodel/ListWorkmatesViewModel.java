@@ -21,6 +21,12 @@ public class ListWorkmatesViewModel extends ViewModel {
 
     public GetListWorkmatesUseCase getListWorkmatesUseCase;
 
+    // Default constructor for production
+    public ListWorkmatesViewModel() {
+        userRepositoryFirestore = UserRepositoryFirestore.getInstance();
+        getListWorkmatesUseCase = new GetListWorkmatesUseCase(userRepositoryFirestore);
+    }
+
     // Constructor for testing
     public ListWorkmatesViewModel(GetListWorkmatesUseCase getListWorkmatesUseCase) {
         this.userRepositoryFirestore = null;

@@ -94,12 +94,12 @@ public class MapperDomainUi {
         List<RestaurantItem> restaurantItemList = new ArrayList<>();
 
         for(RestaurantSearchDomain restaurantSearchDomain : restaurantSearchDomainList){
-            int rate;
+            double rate;
             if(restaurantSearchDomain.getPlaceId() != null){
                 if(restaurantSearchDomain.getRating()!=null){
-                    rate = restaurantSearchDomain.getRating().intValue();
+                    rate =  restaurantSearchDomain.getRating().intValue();
                 }else{
-                    rate =0;
+                    rate = 0;
                 }
                 Uri uriPhoto;
                 if(restaurantSearchDomain.getPhotoReferenceUrl()!=null){

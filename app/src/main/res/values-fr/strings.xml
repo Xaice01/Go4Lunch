@@ -8,10 +8,6 @@
     <string name="and">et </string>
     <string name="notification_title">Go4Lunch</string>
 
-    <!-- Facebook application ID and custom URL scheme (app ID prefixed by 'fb'). -->
-    <string name="facebook_application_id" translatable="false">858921496252107</string>
-    <string name="facebook_login_protocol_scheme" translatable="false">fb858921496252107</string>
-    <string name="facebook_client_token">f502bdef65fa3bc350595386c65bf213</string>
 
     <string name="edit">modifier</string>
     <string name="favorite">favori</string>
