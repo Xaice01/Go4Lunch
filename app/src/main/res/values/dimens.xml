@@ -1,6 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <!--activity detail restaurant -->
+    <dimen name="detail_restaurant_paddingBottom_nestedScrollView">16dp</dimen>
+    <dimen name="detail_restaurant_layout_height_ImageView">300dp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
+    <dimen name="elevation_fab">16dp</dimen>
+    <dimen name="fab_maxImageSize">32dp</dimen>
+    <dimen name="margin_contraintlayout_detail_restaurant">16dp</dimen>
+    <dimen name="text_size_title">20sp</dimen>
+    <dimen name="text_size">16sp</dimen>
+    <dimen name="text_note_margin_start">20dp</dimen>
+    <dimen name="margin_TextView_Type_restaurant_and_address">8dp</dimen>
+    <dimen name="height_divider">1dp</dimen>
 
+    <!--Main activity -->
+    <dimen name="elevation_NavigationView">16dp</dimen>
+    <dimen name="marginstart_RecyclerView_main">72dp</dimen>
+    <dimen name="marginend_RecyclerView_main">8dp</dimen>
 
-    <dimen name="fab_margin">16dp</dimen></resources>
+    <!--autocomplete prediction item -->
+    <dimen name="prediction_item_marginHorizontal">16dp</dimen>
+    <dimen name="prediction_item_marginVertical">8dp</dimen>
+    <dimen name="prediction_item_padding">8dp</dimen>
+    <dimen name="prediction_item_textSize">16sp</dimen>
+
+    <!--fragment list restaurant and fragment list workmate-->
+    <dimen name="recycler_view_padding">88dp</dimen>
+
+    <!--list restaurant item-->
+    <dimen name="item_picture_restaurant_width_and_height">80dp</dimen>
+    <dimen name="item_picture_restaurant_margin">8dp</dimen>
+    <dimen name="item_restaurant_TextView_margin">8dp</dimen>
+    <dimen name="item_restaurant_textSize_title">16sp</dimen>
+    <dimen name="item_restaurant_textSize">14sp</dimen>
+
+    <!--list workmates item-->
+    <dimen name="item_list_user_avatar_width_and_height">40dp</dimen>
+    <dimen name="item_list_user_avatar_margin">16dp</dimen>
+    <dimen name="item_list_workmates_username_and_restaurant_margin">24dp</dimen>
+
+    <!--nav header-->
+    <dimen name="nav_header_padding">50dp</dimen>
+    <dimen name="nav_header_margin_textView">8dp</dimen>
+    <dimen name="nav_header_name_app_size">48sp</dimen>
+    <dimen name="nav_header_name_size">18sp</dimen>
+    <dimen name="nav_header_imageView_user_width_and_height">64dp</dimen>
+    <dimen name="nav_header_imageView_user_marginTop">32dp</dimen>
+
+</resources>
