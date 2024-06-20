@@ -1,6 +1,9 @@
 package com.xavier_carpentier.go4lunch.data.response.AutocompleteResponse;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
 import com.xavier_carpentier.go4lunch.data.response.autocomplete_response.AutocompleteResponse;
 import com.xavier_carpentier.go4lunch.data.response.autocomplete_response.MatchedSubstring;
@@ -9,6 +12,7 @@ import com.xavier_carpentier.go4lunch.data.response.autocomplete_response.Struct
 import com.xavier_carpentier.go4lunch.data.response.autocomplete_response.Term;
 
 import org.junit.Test;
+
 import java.util.Collections;
 import java.util.List;
 

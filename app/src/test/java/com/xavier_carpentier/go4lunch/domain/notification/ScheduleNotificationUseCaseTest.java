@@ -21,7 +21,7 @@ import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
 import org.junit.runner.RunWith;
 
-import com.xavier_carpentier.go4lunch.data.notification.NotificationWorker;
+import com.xavier_carpentier.go4lunch.notification.NotificationWorker;
 
 @RunWith(RobolectricTestRunner.class)
 @Config(manifest=Config.NONE)

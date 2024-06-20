@@ -1,4 +1,4 @@
-package com.xavier_carpentier.go4lunch.data.notification;
+package com.xavier_carpentier.go4lunch.notification;
 
 import static com.xavier_carpentier.go4lunch.presentation.ui.detail_restaurant.DetailRestaurantActivity.KEY_RESTAURANT;
 

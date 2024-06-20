@@ -20,8 +20,6 @@ import org.junit.runner.RunWith;
 
 import com.xavier_carpentier.go4lunch.domain.repository.PermissionLocationRepository;
 
-@RunWith(RobolectricTestRunner.class)
-@Config(manifest=Config.NONE)
 public class CheckLocationPermissionUseCaseTest {
 
     private CheckLocationPermissionUseCase checkLocationPermissionUseCase;

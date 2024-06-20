@@ -18,8 +18,7 @@ import com.xavier_carpentier.go4lunch.domain.model.UserDomain;
 import java.util.Arrays;
 import java.util.List;
 
-@RunWith(RobolectricTestRunner.class)
-@Config(manifest=Config.NONE)
+
 public class AuthUserRepositoryTest {
 
     private AuthUserRepository authUserRepository;

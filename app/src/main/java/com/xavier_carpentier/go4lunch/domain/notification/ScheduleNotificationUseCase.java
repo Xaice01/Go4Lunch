@@ -7,7 +7,7 @@ import androidx.work.ExistingPeriodicWorkPolicy;
 import androidx.work.PeriodicWorkRequest;
 import androidx.work.WorkManager;
 
-import com.xavier_carpentier.go4lunch.data.notification.NotificationWorker;
+import com.xavier_carpentier.go4lunch.notification.NotificationWorker;
 
 public class ScheduleNotificationUseCase {
 

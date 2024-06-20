@@ -15,16 +15,12 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.robolectric.RobolectricTestRunner;
-import org.robolectric.annotation.Config;
-import org.junit.runner.RunWith;
 
 import com.xavier_carpentier.go4lunch.domain.repository.AuthUserRepository;
 import com.xavier_carpentier.go4lunch.domain.repository.UsersRepository;
 import com.xavier_carpentier.go4lunch.domain.model.UserDomain;
 
-@RunWith(RobolectricTestRunner.class)
-@Config(manifest=Config.NONE)
+
 public class AddRestaurantChoiceToDayUseCaseTest {
 
     private AddRestaurantChoiceToDayUseCase addRestaurantChoiceToDayUseCase;

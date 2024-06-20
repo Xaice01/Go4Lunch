@@ -30,6 +30,11 @@ public class LocationRepository implements com.xavier_carpentier.go4lunch.domain
     public final FusedLocationProviderClient fusedLocationClient;
     public LocationCallback locationCallback;
 
+    //for test
+    public LocationRepository(FusedLocationProviderClient fusedLocationClient) {
+        this.fusedLocationClient = fusedLocationClient;
+    }
+
     public LocationRepository(Context context) {
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(context);
         startLocationUpdates();

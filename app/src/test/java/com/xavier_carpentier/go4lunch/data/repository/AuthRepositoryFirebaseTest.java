@@ -1,5 +1,7 @@
 package com.xavier_carpentier.go4lunch.data.repository;
 
+import static org.junit.Assert.assertEquals;
+
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.xavier_carpentier.go4lunch.data.mappers.MapperDataToDomain;
@@ -15,8 +17,6 @@ import org.mockito.Mockito;
 
 import java.util.Arrays;
 import java.util.List;
-
-import static org.junit.Assert.*;
 
 
 public class AuthRepositoryFirebaseTest {
