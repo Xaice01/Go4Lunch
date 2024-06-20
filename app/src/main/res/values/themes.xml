@@ -1,9 +1,68 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
     <style name="Base.Theme.Go4Lunch" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
     </style>
 
     <style name="Theme.Go4Lunch" parent="Base.Theme.Go4Lunch" />
+
+    <!-- Style pour MaterialToolbar -->
+    <style name="MyCustomToolbar" parent="Widget.MaterialComponents.Toolbar.Primary">
+        <item name="backgroundTint">@color/colorPrimary</item>
+        <item name="titleTextColor">@color/white</item>
+        <item name="subtitleTextColor">@color/white</item>
+        <item name="navigationIconTint">@color/white</item>
+    </style>
+
+    <!-- Button navigation -->
+    <style name="Theme.Go4Lunch.NavButtonMainActivity" parent="Widget.MaterialComponents.BottomNavigationView.Colored">
+        <item name="itemIconTint">@color/nav_item_color_state_list</item>
+        <item name="itemTextColor">@color/nav_item_color_state_list</item>
+        <item name="android:background">@color/white</item>
+    </style>
+
+    <!-- detail restaurant -->
+    <style name="Theme.Go4Lunch.ButtonDetailRestaurant" parent="Widget.Material3.Button.TextButton">
+        <item name="android:textAllCaps">true</item>
+        <item name="android:textColor">@color/button_Call_Like_Website</item>
+        <item name="iconTint">@color/button_Call_Like_Website</item>
+        <item name="iconGravity">top</item>
+        <item name="iconSize">26dp</item>
+    </style>
+
+    <!-- floatingButton détail restaurant -->
+    <style name="ShapeFloatingActionButton" parent="Widget.Design.FloatingActionButton">
+        <item name="shapeAppearanceOverlay">@style/FabButton_detailRestaurant</item>
+    </style>
+
+    <style name="FabButton_detailRestaurant" parent="ShapeAppearance.Material3.SmallComponent">
+        <item name="cornerSize">50%</item>
+        <item name="cornerFamilyTopLeft">cut</item>
+        <item name="cornerFamilyTopRight">cut</item>
+        <item name="cornerFamilyBottomLeft">rounded</item>
+        <item name="cornerFamilyBottomRight">rounded</item>
+    </style>
+
+
+    <!-- STYLE SIGN-IN ACTIVITY -->
+    <style name="LoginTheme" parent="FirebaseUI">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorButtonNormal">@color/white</item>
+        <item name="colorControlNormal">@color/white</item>
+        <item name="colorControlActivated">@color/white</item>
+        <item name="colorControlHighlight">@color/white</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textColorPrimary">@color/white</item>
+
+        <item name="android:textColorSecondary">@android:color/white</item>
+
+        <item name="android:windowBackground">@drawable/background_picture</item>
+
+    </style>
+
+
 </resources>

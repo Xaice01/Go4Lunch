@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/prediction_item"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="?selectableItemBackground">
+
+    <TextView
+        android:id="@+id/prediction_restaurant_name_item"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/prediction_item_marginHorizontal"
+        android:layout_marginVertical="@dimen/prediction_item_marginVertical"
+        android:textColor="@color/licorice_gray"
+        android:background="@color/light_peach_translucent"
+        android:padding="@dimen/prediction_item_padding"
+        android:textSize="@dimen/prediction_item_textSize"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="La bonne bouffe" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

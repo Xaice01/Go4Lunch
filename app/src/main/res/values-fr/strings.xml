@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Go4Lunch</string>
+
+    <!-- NOTIFICATION SERVICE -->
+    <string name="notification">Bonjour %1$s, Vous mangez aujourd\'hui au %2$s (%3$s )</string>
+    <string name="with">avec </string>
+    <string name="and">et </string>
+    <string name="notification_title">Go4Lunch</string>
+
+
+    <string name="edit">modifier</string>
+    <string name="favorite">favori</string>
+    <string name="more">plus\n</string>
+    <string name="page_title">go4lunch</string>
+    <string name="searchbar_hint">rechercher</string>
+
+    <!-- bottom navigation menu -->
+    <string name="map_view">Vue Carte</string>
+    <string name="list_View">Vue Liste</string>
+    <string name="workmates">Collègues</string>
+
+    <!-- listWorkmatesViewHolder -->
+    <string name="eating">%1$s mange (%2$s)</string>
+    <string name="notDecided"> n\'a pas encore décidé</string>
+
+    <!-- restaurant Detail -->
+    <string name="type_and_adress">%1$s restaurant - %2$s</string>
+    <string name="Like">AIMER</string>
+    <string name="Call">APPELER</string>
+    <string name="WebSite">SITEWEB</string>
+    <string name="Unlike">NE PLUS AIMER</string>
+
+    <!-- MainActivity -->
+    <string name="toast_no_restaurant"> il n\'y a pas de restaurant choisi </string>
+
+    <!-- navigation -->
+    <string name="your_Lunch">Votre restaurant</string>
+    <string name="settings">Paramètre</string>
+    <string name="logout">déconnection</string>
+
+    <!-- listWorkmatesViewHolder -->
+    <string name="open">Ouvert</string>
+    <string name="close">Fermé</string>
+
+    <!--content Description -->
+    <string name="imageuser">Image de l\'utilisateur</string>
+    <string name="button_choice_restaurant">boutton choisir le restaurant</string>
+
+</resources>

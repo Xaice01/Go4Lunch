@@ -2,7 +2,7 @@ plugins {
     alias(libs.plugins.androidApplication)
     // Add the Google services Gradle plugin
     id 'com.google.gms.google-services'
-
+    alias(libs.plugins.googleAndroidLibrariesMapsplatformSecretsGradlePlugin)
 }
 
 android {
@@ -10,18 +10,33 @@ android {
     compileSdk 34
 
     defaultConfig {
+        //read the API KEY form gradle.properties
+        def googleApiKey = project.hasProperty("GOOGLE_API_KEY") ? project.GOOGLE_API_KEY : ""
+        buildConfigField "String", "GOOGLE_API_KEY", "\"${googleApiKey}\""
+        manifestPlaceholders = [GOOGLE_API_KEY: googleApiKey]
+
+
+        def facebookClientToken = project.hasProperty("Key_facebook_client_token") ? project.Key_facebook.client.token : ""
+        buildConfigField "String", "Key_facebook_client_token" , "\"${facebookClientToken}\""
+        resValue "string", "Key_facebook_client_token", facebookClientToken
+
+
         applicationId "com.xavier_carpentier.go4lunch"
         minSdk 21
         targetSdk 34
         versionCode 1
         versionName "1.0"
-
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+
+    buildFeatures{
+        viewBinding true
     }
 
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
@@ -38,23 +53,47 @@ dependencies {
     implementation libs.activity
     implementation libs.constraintlayout
     implementation libs.legacy.support.v4
+    implementation libs.navigation.fragment
+    implementation libs.navigation.ui
 
     //TEST
     testImplementation libs.junit
     androidTestImplementation libs.ext.junit
     androidTestImplementation libs.espresso.core
+    testImplementation libs.rules
+    testImplementation libs.core
+    testImplementation libs.work.testing
+    testImplementation libs.core.testing
+    testImplementation libs.truth
+    testImplementation libs.robolectric
+    testImplementation libs.firebase.core
+    testImplementation libs.firebase.auth
+
+    //MOCKITO
+    testImplementation libs.mockito.core
+    androidTestImplementation libs.mockito.android
+    testImplementation libs.mockito.inline
+
 
     //FIREBASE
     implementation platform(libs.firebase.bom)
     // When using the BoM, don't specify versions in Firebase dependencies
     //noinspection UseTomlInstead
     implementation 'com.google.firebase:firebase-analytics'
+    // When using the BoM, you don't specify versions in Firebase library dependencies
+    //noinspection UseTomlInstead
+    implementation("com.google.firebase:firebase-auth")
+    // When using the BoM, you don't specify versions in Firebase library dependencies
+    //noinspection UseTomlInstead
+    implementation 'com.google.firebase:firebase-messaging'
     implementation libs.firebase.firestore
+
 
     //FIREBASE UI
     implementation libs.firebase.ui.auth
     implementation libs.firebase.ui.firestore
     implementation libs.firebase.ui.storage
+    implementation libs.facebook.android.sdk
 
     //GLIDE
     implementation libs.glide
@@ -64,4 +103,21 @@ dependencies {
     implementation libs.lifecycle.viewmodel
     implementation libs.lifecycle.livedata
     implementation libs.lifecycle.common.java8
+
+    //Google Place
+    implementation(platform(libs.kotlin.bom))
+    implementation libs.places
+
+    //Retrofit
+    implementation libs.retrofit
+    implementation libs.converter.gson
+
+    //Location google
+    implementation libs.play.services.location
+
+    //MAP GOOGLE
+    implementation libs.play.services.maps
+
+    //WorkManager
+    implementation libs.work.runtime
 }

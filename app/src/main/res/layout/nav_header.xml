@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- res/layout/nav_header.xml -->
+<!-- res/layout/nav_header.xml -->
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/background_picture"
+    android:padding="@dimen/nav_header_padding">
+
+    <TextView
+        android:id="@+id/nav_header_name_app"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/nav_header_margin_textView"
+        android:text="@string/app_name"
+        android:textColor="@android:color/white"
+        android:textSize="@dimen/nav_header_name_app_size"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageView_user"
+        android:layout_width="@dimen/nav_header_imageView_user_width_and_height"
+        android:layout_height="@dimen/nav_header_imageView_user_width_and_height"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="@dimen/nav_header_imageView_user_marginTop"
+        android:layout_marginBottom="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/nav_header_name_app"
+        android:contentDescription="@string/imageuser" />
+
+    <TextView
+        android:id="@+id/nav_header_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/nav_header_margin_textView"
+        android:textColor="@android:color/white"
+        android:textSize="@dimen/nav_header_name_size"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView_user"
+        app:layout_constraintStart_toEndOf="@+id/imageView_user"
+        app:layout_constraintTop_toTopOf="@+id/imageView_user"
+        app:layout_constraintVertical_bias="0.25"
+        tools:text="John SMITH"/>
+
+    <TextView
+        android:id="@+id/nav_header_email"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/nav_header_margin_textView"
+        android:textColor="@android:color/white"
+        app:layout_constraintStart_toEndOf="@+id/imageView_user"
+        app:layout_constraintTop_toBottomOf="@+id/nav_header_name"
+        tools:text="jsmith.1337@gmail.com"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

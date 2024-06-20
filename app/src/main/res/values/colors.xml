@@ -2,4 +2,25 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="light_gray">#9e9e9e</color>
+    <color name="background_red">#FC401D</color>
+
+    <!-- Activity detail restaurant -->
+    <color name="check_button_green">#5DF19F</color>
+    <color name="button_Call_Like_Website">#FC401D</color>
+    <color name="green_choice">#3D9C41</color>
+    <color name="red_choice">#EA4335</color>
+
+    <!-- item autocomplete prediction -->
+    <color name="licorice_gray">#221A18</color>
+    <color name="light_peach_translucent">#37EBA98F</color>
+
+    <!-- Primary brand color. -->
+    <color name="colorPrimary">#F44336</color>
+    <color name="colorPrimaryDark">#D32F2F</color>
+    <color name="colorAccent">#FF4081</color>
+
+    <!-- main Activity-->
+    <color name="ripe_peach">#E66F3F</color>
+
 </resources>
