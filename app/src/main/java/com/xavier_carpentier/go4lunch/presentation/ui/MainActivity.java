@@ -74,7 +74,6 @@ public class MainActivity extends AppCompatActivity {
 
         //Configure the authViewModel
         authViewModel = new ViewModelProvider(this).get(AuthViewModel.class);
-        authViewModel.Logout();
         authViewModel.startSignInActivity(signInLauncher);
 
         viewModel = new MainViewModel(getApplication());
@@ -93,12 +92,15 @@ public class MainActivity extends AppCompatActivity {
         binding.bottomNavigationView.setOnItemSelectedListener(item ->{
             switch (item.getItemId()){
                 case R.id.map :
+                    binding.searchBar.setVisibility(View.VISIBLE);
                     replaceFragment(MapFragment.newInstance());
                     return true;
                 case R.id.page_list_view :
+                    binding.searchBar.setVisibility(View.VISIBLE);
                     replaceFragment(ListRestaurantFragment.newInstance());
                     return true;
                 case R.id.page_workmates :
+                    binding.searchBar.setVisibility(View.GONE);
                     replaceFragment(ListWorkmatesFragment.newInstance());
                     return true;
             }

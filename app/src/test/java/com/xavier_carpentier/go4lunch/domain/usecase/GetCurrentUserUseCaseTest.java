@@ -6,8 +6,6 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import android.net.Uri;
-
 import com.xavier_carpentier.go4lunch.data.repository.AuthRepositoryFirebase;
 import com.xavier_carpentier.go4lunch.domain.model.UserDomain;
 import com.xavier_carpentier.go4lunch.presentation.model.User;
@@ -40,7 +38,7 @@ public class GetCurrentUserUseCaseTest {
         User userToTest = getCurrentUserUseCase.invoke();
 
         //Then
-        verify(mockauthRepositoryFirebase,times(1)).getUser();
+        verify(mockauthRepositoryFirebase,times(2)).getUser();
         assertEquals(userToTest.getUid(), userDomainReturnByRepository.getUid());
         assertEquals(userToTest.getUsername(), userDomainReturnByRepository.getUsername());
         assertEquals(userToTest.getUrlPicture(), userDomainReturnByRepository.getUrlPicture());

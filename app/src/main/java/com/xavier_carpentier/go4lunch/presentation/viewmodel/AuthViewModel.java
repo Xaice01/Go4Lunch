@@ -23,8 +23,6 @@ import com.xavier_carpentier.go4lunch.domain.usecase.LogoutUseCase;
 import com.xavier_carpentier.go4lunch.presentation.model.AuthProviderTypeUi;
 import com.xavier_carpentier.go4lunch.presentation.model.User;
 
-import org.jetbrains.annotations.TestOnly;
-import org.jetbrains.annotations.VisibleForTesting;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -84,16 +82,23 @@ public class AuthViewModel extends ViewModel {
 
 
     public void startSignInActivity(ActivityResultLauncher<Intent> signInLauncher){
-        this.signInLauncher=signInLauncher;
-        // Create and launch sign-in intent
-        Intent signInIntent = AuthUI.getInstance()
-                .createSignInIntentBuilder()
-                .setTheme(R.style.LoginTheme)
-                .setIsSmartLockEnabled(false,true)
-                .setAvailableProviders(getBuilderListAuthenticationProviders())
-                .setLogo(R.mipmap.ic_go4lunch)
-                .build();
-        signInLauncher.launch(signInIntent);
+        User user =getCurrentUserUseCase.invoke();
+        if(user==null) {
+            this.signInLauncher = signInLauncher;
+            // Create and launch sign-in intent
+            Intent signInIntent = AuthUI.getInstance()
+                    .createSignInIntentBuilder()
+                    .setTheme(R.style.LoginTheme)
+                    .setIsSmartLockEnabled(false, true)
+                    .setAvailableProviders(getBuilderListAuthenticationProviders())
+                    .setLogo(R.mipmap.ic_go4lunch)
+                    .build();
+            signInLauncher.launch(signInIntent);
+        }else{
+            liveDataUser.setValue(getCurrentUserUseCase.invoke());
+            liveDataEmail.setValue(getEmailUseCase.invoke());
+            isLogging.setValue(true);
+        }
     }
 
     public List<AuthUI.IdpConfig> getBuilderListAuthenticationProviders(){

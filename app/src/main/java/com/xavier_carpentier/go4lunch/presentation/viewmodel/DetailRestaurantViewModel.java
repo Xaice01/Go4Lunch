@@ -98,10 +98,14 @@ public class DetailRestaurantViewModel extends ViewModel {
 
     public StringBuilder getRatingRestaurantInStingBuilder(){
         StringBuilder noteToWrite= new StringBuilder();
-        for(int i = 0; i< Objects.requireNonNull(restaurantDetail.getValue()).getNote() && i<4; i++){
-            if(i!=1 && i!=3) {
-                noteToWrite.append("⭐");
+        if(Objects.requireNonNull(restaurantDetail.getValue()).getNote()!=null) {
+            for (int i = 0; i < restaurantDetail.getValue().getNote() && i < 4; i++) {
+                if (i != 1 && i != 3) {
+                    noteToWrite.append("⭐");
+                }
             }
+        }else{
+            noteToWrite.append("");
         }
         return noteToWrite;
     }

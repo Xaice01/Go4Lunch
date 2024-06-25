@@ -35,7 +35,7 @@ public class ScheduleNotificationUseCase {
 
         workManager.enqueueUniquePeriodicWork(
                 NotificationWorker.WORK_TAG,
-                ExistingPeriodicWorkPolicy.KEEP,
+                ExistingPeriodicWorkPolicy.CANCEL_AND_REENQUEUE,
                 notificationWorkRequest
         );
     }
